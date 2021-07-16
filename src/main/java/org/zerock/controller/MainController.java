@@ -7,13 +7,13 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/gohome")
+@RequestMapping("/main")
 
-//질문 : view -> gohome 폴더? /main 루트 ,@RequestMapping 검색해보기 
+//질문 : view -> main 폴더? /home 루트 ,@RequestMapping 검색해보기 
 public class MainController {
 
-	@RequestMapping("/main")
+	@RequestMapping("/home")
 	public void main() {
-		log.info("main method");
+		log.info("home method");
 	}
 }

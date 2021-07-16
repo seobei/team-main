@@ -15,18 +15,22 @@
 		</ul>
 		</nav>
 </div>
-<div class="d-flex justify-content-center">
-<nav class="navbar navbar-expand-sm navbar-light">
-	  <a class="navbar-brand"> 로고 </a>
-	  <form class="form-inline">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-	  </form>
-	  </nav>
+<div class="navbar row justify-content-md-center">
+		<div class="justify-content-start">
+		  <a class="navbar-brand"> 
+		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo.png">
+		  </a>
+		</div>
+		<div class="">
+		  <form class="form-inline">
+		    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		  </form>
+		</div>
 </div>
   
 <div class="d-flex justify-content-center">
-<nav class="navbar navbar-expand-sm navbar-light">
+<nav class="navbar navbar-expand-sm navbar-light p-0">
     <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
