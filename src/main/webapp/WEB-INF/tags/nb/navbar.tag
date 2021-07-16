@@ -16,14 +16,14 @@
 		</nav>
 </div>
 <div class="navbar row justify-content-center p-0">
-		<div class="col-md-4 text-center">
+		<div class="col-md-3 text-center">
 		  <a class="navbar-brand"> 
 		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo.png">
 		  </a>
 		</div>
 		
-		<div class="form-group col-md-6 text-center">
-			<form class="form-inline">
+		<div class="form-group col-md-6 text-center m-1">
+			<form class="form-inline text-center">
 			<div class="input-group">
 		  	  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		  	  <div class="input-group-append">
@@ -33,7 +33,7 @@
 		  	  </div>
 			</div>
 		 	 </form>
-			</div>
+		</div>
 </div>
   
 <div class="navbar row justify-content-center p-0">
