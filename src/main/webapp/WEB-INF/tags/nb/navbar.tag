@@ -15,23 +15,30 @@
 		</ul>
 		</nav>
 </div>
-<div class="navbar row justify-content-md-center">
-		<div class="justify-content-start">
+<div class="navbar row justify-content-center p-0">
+		<div class="col-md-4 text-center">
 		  <a class="navbar-brand"> 
 		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo.png">
 		  </a>
 		</div>
-		<div class="">
-		  <form class="form-inline">
-		    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		  </form>
-		</div>
+		
+		<div class="form-group col-md-6 text-center">
+			<form class="form-inline">
+			<div class="input-group">
+		  	  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		  	  <div class="input-group-append">
+		  	  	<button class="btn btn-outline-secondary"type="button"id="toggle-password-btn">
+							      <i class="fas fa-search"></i>
+				</button> 
+		  	  </div>
+			</div>
+		 	 </form>
+			</div>
 </div>
   
-<div class="d-flex justify-content-center">
-<nav class="navbar navbar-expand-sm navbar-light p-0">
-    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+<div class="navbar row justify-content-center p-0">
+	<nav class="navbar navbar-expand-sm navbar-light">
+    <ul class="navbar-nav mr-auto text-center">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           스토어 
@@ -57,8 +64,8 @@
           업체  
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">서브1  </a></li>
-          <li><a class="dropdown-item" href="#">서브2   </a></li>
+          <li><a class="dropdown-item" href="#">인테리어 </a></li>
+          <li><a class="dropdown-item" href="#">이사  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
@@ -74,5 +81,6 @@
       </li>
       
     </ul>
-	</nav>
+    </nav>
   </div>
+  <hr>

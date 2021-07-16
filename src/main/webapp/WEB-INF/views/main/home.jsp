@@ -17,7 +17,7 @@
 <body>
 	<nb:navbar></nb:navbar>
 		<div class="container">
-			<h1>메인페이지 </h1>
+			<h1>메인페이지입니다 </h1>
 		</div>
 </body>
 </html>
