@@ -4,14 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.log4j.Log4j;
-
 @Controller
 @Log4j
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/help")
+public class HelpController {
 
-//	@RequestMapping("/login")
-//	public void login() {
-//		log.info("login method");
-//	}
+	
+	//고객센터 
+	@RequestMapping("/cs")
+	public void cs() {
+		log.info(" help cs method");
+	}
 }
