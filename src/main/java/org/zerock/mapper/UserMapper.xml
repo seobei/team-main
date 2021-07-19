@@ -14,4 +14,22 @@
 	</insert>
 
 
+
+	  <select id="read" >
+		  SELECT 
+			userid userid,
+			userpw userpw,
+			username username,
+			userphone userphone,
+			userem userem,
+			useradd useradd,
+			enabled enabled,
+			regdate regdate,
+			updateDate updateDate
+		  FROM 
+		    GH_User 
+		  WHERE
+		    userid = #{userid}
+
+     </select>
 </mapper>

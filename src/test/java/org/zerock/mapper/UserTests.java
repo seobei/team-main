@@ -35,14 +35,28 @@ public class UserTests {
 		assertNotNull(encoder);
 	}
 	
-	@Test(expected = Exception.class)
+	
+	//데이터 추가 
+	// expected = Exception.class ?????
+	//실패해도 초록불? 
+	//@Test(expected = Exception.class)
+	@Test
 	public void testInsert2() {
 		UserVO vo1 = new UserVO();
-		vo1.setUserid("admin");
+		vo1.setUserid("admin33");
 		vo1.setUserpw(encoder.encode("admin")); // encode
-		vo1.setUserName("어드민");
+		vo1.setUserName("어드민33");
+		vo1.setUserphone("01022223333");
+		vo1.setUserem("so12@abc.com");
 		
 		mapper.insert(vo1);
+	}
+	
+	//데이터조회 
+	@Test
+	public void testread() {
+		UserVO vo = mapper.read("admin");
+		assertEquals("어드민", vo.getUserName());
 	}
 
 }
