@@ -53,14 +53,14 @@
 			
 			
 			$("#signbtn").on("click", function(){
-				if($("#id").val()==""){
+				if($("#userid").val()==""){
 					alert("아이디를 입력해주세요.");
-					$("#id").focus();
+					$("#userid").focus();
 					return false;
 				}
-				if($("#pw").val()==""){
+				if($("#userpw").val()==""){
 					alert("비밀번호를 입력해주세요.");
-					$("#pw").focus();
+					$("#userpw").focus();
 					return false;
 				}
 				if($("#pwchk").val()==""){
@@ -98,16 +98,16 @@
         </div>
 		<div class="jumbotron" >
 		   <div class="row justify-content-center ">
-           	  <form class="col-5" action="" method="post">
+           	  <form class="col-5" action="${appRoot }/main/signup" method="post">
 	           	  <div class="form-group">
 						<h4>
 						 회원정보를 입력해주세요. 
 						</h4>
 					</div>
 	                <div class="form-group">
-	                    <label class="control-label" for="id">아이디</label>
+	                    <label class="control-label" for="userid">아이디</label>
 	                    <div class="input-group">
-	                    <input class="form-control" type="text" id="id" name="id" />
+	                    <input class="form-control" type="text" id="userid" name="userid" />
 							<button class="btn btn-outline-secondary" type="button"id="id-dup-btn">
 									중복 체크        
 							</button>
@@ -115,8 +115,8 @@
 							<small id="id-message" class="form-text"></small>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="pw">비밀번호</label>
-	                    <input class="form-control" type="password" id="pw" name="pw" />
+	                    <label class="control-label" for="userpw">비밀번호</label>
+	                    <input class="form-control" type="password" id="userpw" name="userpw" />
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pwchk">비밀번호 재확인 </label>
@@ -127,12 +127,12 @@
 	                    <input class="form-control" type="text" id="userName" name="userName" />
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="userEmail">이메일</label>
-	                    <input class="form-control" type="email"  id="userEmail" name="userEmail" />
+	                    <label class="control-label" for="userem">이메일</label>
+	                    <input class="form-control" type="email"  id="userEmail" name="userem" />
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="userPhone">연락처</label>
-	                    <input class="form-control" type="text" id="userPhone" name="userPhone" />
+	                    <label class="control-label" for="userphone">연락처</label>
+	                    <input class="form-control" type="text" id="userPhone" name="userphone" />
 	                </div>
 	                <div class="form-group">
 	                    <button class="btn signupbtn" type="submit" id="signbtn">회원가입</button>

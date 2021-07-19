@@ -6,28 +6,37 @@
 <mapper namespace="org.zerock.mapper.UserMapper">
 
 
+	<!-- 데이터 추가  -->
 	<insert id="insert">
 		INSERT INTO GH_User
-		(userid, userpw, username,userphone, userem)
+		(userid, userpw, username, userphone, userem)
 		VALUES
 		(#{userid}, #{userpw}, #{userName},#{userphone},#{userem})
 	</insert>
 
+	<insert id="insertAuth">
+		INSERT INTO GH_auth
+		(userid, auth)
+		VALUES
+		(#{userid}, #{auth})
+	</insert>
+	
 
-
-	  <select id="read" >
+	<!-- 데이터 읽어오기   -->
+	  <select id="read" resultType="org.zerock.domain.UserVO" >
 		  SELECT 
-			userid userid,
-			userpw userpw,
-			username username,
-			userphone userphone,
-			userem userem,
-			useradd useradd,
-			enabled enabled,
-			regdate regdate,
-			updateDate updateDate
+			m.userid userid,
+			m.userpw userpw,
+			m.username username,
+			m.userphone userphone,
+			m.userem userem,
+			m.useradd useradd,
+			m.enabled enabled,
+			m.regdate regdate,
+			m.updateDate updateDate,
+			a.auth auth
 		  FROM 
-		    GH_User 
+		    GH_User m LEFT JOIN GH_User_auth a ON m.userid = a.userid
 		  WHERE
 		    userid = #{userid}
 

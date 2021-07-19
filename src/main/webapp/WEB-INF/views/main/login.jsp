@@ -67,8 +67,8 @@
             </div>
             
              <div class="row justify-content-center ">
-				<form class="col-5"  action="${appRoot }/main/home" >
-					<div class="form-group">
+				<form class="col-5"  action="${appRoot }/login" method="post" >
+					<div class="form-group"> 
 						<label for="idinput" ></label>				
 						<input id="idinput" class="form-control" name="username" placeholder="아이디 " />
 					</div>

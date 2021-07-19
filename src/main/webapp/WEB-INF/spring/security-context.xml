@@ -10,19 +10,42 @@
 <bean id="bcryptPasswordEncoder" 
 	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
-<security:http>
+<bean id="customUserDetailsService"
+	class="org.zerock.security.CustomUserDetailsService"></bean>	
+	
+<!-- <security:http>
 	<security:http-basic/>
 	
+	<security:form-login login-page="/main/login"/>
+	
 	<security:logout/>
+	
+	
 </security:http>
-
-<security:authentication-manager>
+ -->
+ <security:http>
+	<security:intercept-url pattern = "/secure/all" access="permitAll"/>
+	<security:intercept-url pattern = "/secure/user" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern = "/secure/admin" access="hasRole('ROLE_ADMIN')"/>
+	<security:form-login login-page="/main/login" default-target-url="/main/home"/>
+	<security:logout/>
+	<security:csrf disabled="true"/>
+	<security:remember-me data-source-ref="dataSource" />
+</security:http>
+<!-- <security:authentication-manager>
 	<security:authentication-provider>
 		<security:user-service>
 			<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/> 
 		</security:user-service>
 	</security:authentication-provider>
 </security:authentication-manager>
+ -->
 
-
+<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>	
+	
+	
 </beans>

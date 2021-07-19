@@ -1,6 +1,7 @@
 package org.zerock.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,4 +17,7 @@ public class UserVO {
 	private Date regdate;
 	private Date updateDate;
 	private boolean enabled;
+	
+	//유저에있는권한들 
+	private List<AuthVO> authList;
 }

@@ -17,27 +17,44 @@ $(function() {
 <div class="d-flex justify-content-end">
 	<nav class="navbar navbar-expand-sm navbar-light">
 	
-		<!-- 로그아웃  -->
-		<form action="${appRoot }/logout" method="post" id="navbar-logout-form"> </form>
-		
-		
 		<ul  class="navbar-nav">
-		 <!--  로그아웃  -->
-  		 <!--  로그인한 사용자만 보이게  -->
-  		  <sec:authorize access="isAuthenticated()">
-			<li class="nav-item">
-            	<a class="nav-link" href="#" id="navbar-logout-link">로그아웃</a>
-         	</li>
-         </sec:authorize>
-			<li class="nav-item">
-       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
-     		 </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
-	      </li>
-		</ul>
+	  		   <sec:authorize access="!isAuthenticated()">
+				<li class="nav-item">
+	       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
+	     		 </li>
+	     		</sec:authorize>
+	     	
+		     	<sec:authorize access="!isAuthenticated()">
+			      <li class="nav-item">
+			        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
+			      </li>
+			     </sec:authorize>
+		     	
+		     	
+		     		
+  		 		<!-- 로그아웃, 마이페이지 로그인한 사용자만 보이게  -->
+			     <sec:authorize access="isAuthenticated()">
+			    
+			      <li class="nav-item">
+			      	${parm.userid }님 
+			      </li>
+			      <li class="nav-item">
+		            <a class="nav-link" href="#" id="navbar-logout-link">로그아웃</a>
+		         </li>
+		         </sec:authorize>
+	         
+		         <sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
+		     		 </li>
+		     	</sec:authorize> 
+			</ul>
 		</nav>
 </div>
+<!-- 로그아웃  -->
+		<form action="${appRoot }/logout" method="post" id="navbar-logout-form"> </form>
+		
+
 <div class="navbar row justify-content-center p-0">
 		<div class="col-md-3 text-center p-0">
 		  <a class="navbar-brand" href="${appRoot}/main/home"> 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.AuthVO;
 import org.zerock.domain.UserVO;
 
 import lombok.Setter;
@@ -43,20 +44,37 @@ public class UserTests {
 	@Test
 	public void testInsert2() {
 		UserVO vo1 = new UserVO();
-		vo1.setUserid("admin33");
-		vo1.setUserpw(encoder.encode("admin")); // encode
-		vo1.setUserName("어드민33");
-		vo1.setUserphone("01022223333");
-		vo1.setUserem("so12@abc.com");
+		vo1.setUserid("member");
+		vo1.setUserpw(encoder.encode("member")); // encode
+		vo1.setUserName("멤");
+		vo1.setUserphone("01034567892");
+		vo1.setUserem("so122@abc.com");
 		
 		mapper.insert(vo1);
 	}
 	
-	//데이터조회 
+	//데이터조회  
 	@Test
 	public void testread() {
 		UserVO vo = mapper.read("admin");
 		assertEquals("어드민", vo.getUserName());
+	}
+	
+	//권한 넣기 ! 
+	@Test
+	public void testInsertAuth() {
+		AuthVO vo1 = new AuthVO();
+		vo1.setAuth("ROLE_MEMBER");
+		vo1.setUserid("member");
+		mapper.insertAuth(vo1);
+		
+		vo1.setAuth("ROLE_MEMBER");
+		vo1.setUserid("admin");
+		mapper.insertAuth(vo1);
+		
+		vo1.setAuth("ROLE_ADMIN");
+		vo1.setUserid("admin");
+		mapper.insertAuth(vo1);
 	}
 
 }
