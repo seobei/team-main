@@ -3,9 +3,32 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<script>
+
+$(function() {
+	//로그아웃 동작 
+    $("#navbar-logout-link").click(function(e) {
+        e.preventDefault();
+        $("#navbar-logout-form").submit();
+    });
+})
+</script>
+
 <div class="d-flex justify-content-end">
 	<nav class="navbar navbar-expand-sm navbar-light">
+	
+		<!-- 로그아웃  -->
+		<form action="${appRoot }/logout" method="post" id="navbar-logout-form"> </form>
+		
+		
 		<ul  class="navbar-nav">
+		 <!--  로그아웃  -->
+  		 <!--  로그인한 사용자만 보이게  -->
+  		  <sec:authorize access="isAuthenticated()">
+			<li class="nav-item">
+            	<a class="nav-link" href="#" id="navbar-logout-link">로그아웃</a>
+         	</li>
+         </sec:authorize>
 			<li class="nav-item">
        			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
      		 </li>

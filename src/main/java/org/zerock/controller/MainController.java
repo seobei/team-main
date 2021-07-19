@@ -18,7 +18,6 @@ public class MainController {
 		log.info("home method");
 	}
 	
-	
 	//로그인 
 	@RequestMapping("/login")
 	public void login() {
@@ -37,4 +36,10 @@ public class MainController {
 		log.info(" singup method");
 	}
 	
+	
+	//마이페이지 
+	@RequestMapping("/mypage")
+	public void mypage() {
+		log.info(" mypage method");
+	}
 }

@@ -70,11 +70,11 @@
 				<form class="col-5"  action="${appRoot }/main/home" >
 					<div class="form-group">
 						<label for="idinput" ></label>				
-						<input id="idinput" class="form-control" name="id" placeholder="아이디 " />
+						<input id="idinput" class="form-control" name="username" placeholder="아이디 " />
 					</div>
 					<div class="form-group">
 						<label for="pwinput"></label>
-						<input id="pwinput" type="password" class="form-control" name="pw" placeholder="비밀번호" />
+						<input id="pwinput" type="password" class="form-control" name="password" placeholder="비밀번호" />
 					</div>
 					<div class="form-group mt-5">							
 						<input id="lgbtn" class="btn" type="submit" value="로그인">

@@ -5,9 +5,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+<!-- 패스워드 암화화 코드  -->
+<bean id="bcryptPasswordEncoder" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 <security:http>
 	<security:http-basic/>
-
+	
+	<security:logout/>
 </security:http>
 
 <security:authentication-manager>
