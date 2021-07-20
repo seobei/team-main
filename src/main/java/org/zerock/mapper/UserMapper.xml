@@ -23,7 +23,7 @@
 	
 
 	<!-- 데이터 읽어오기   -->
-	  <select id="read" resultType="org.zerock.domain.UserVO" >
+	  <select id="read" resultMap="userMap" >
 		  SELECT 
 			m.userid userid,
 			m.userpw userpw,
@@ -36,9 +36,26 @@
 			m.updateDate updateDate,
 			a.auth auth
 		  FROM 
-		    GH_User m LEFT JOIN GH_User_auth a ON m.userid = a.userid
+		    GH_User m LEFT JOIN GH_auth a ON m.userid = a.userid
 		  WHERE
-		    userid = #{userid}
+		   m.userid = #{userid} AND enabled = 1
 
      </select>
+     
+ 
+
+	<!-- 책 662쪽 -->
+	  <resultMap type="org.zerock.domain.UserVO" id="userMap">
+	  	<id property="userid" column="userid" />
+	  	<result property="userpw" column="userpw" />
+	  	<result property="userName" column="username" />
+	  	<result property="regdate" column="regdate" />
+	  	<result property="updateDate" column="updateDate" />
+	  	<result property="enabled" column="enabled" />
+	  	<collection property="authList" resultMap="authMap" />
+	  </resultMap>
+	  <resultMap type="org.zerock.domain.AuthVO" id="authMap">
+	  	<result property="userid" column="userid" />
+	  	<result property="auth" column="auth" />
+	  </resultMap>
 </mapper>

@@ -28,6 +28,8 @@ public class MainController {
 	@RequestMapping("/home")
 	public void main() {
 		log.info("home method");
+		
+//		return "/main/home";
 	}
 	
 	//로그인 
@@ -58,7 +60,7 @@ public class MainController {
 	
 
 	
-	//회원가입  
+	//회원가입 버튼 클릭시 -> 회원가입정보저장 되는 코드 
 	
 	@PostMapping("/signup")
 	public String signupPost(UserVO vo, RedirectAttributes rttr) {

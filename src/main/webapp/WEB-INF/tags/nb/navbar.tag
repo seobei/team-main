@@ -35,8 +35,9 @@ $(function() {
   		 		<!-- 로그아웃, 마이페이지 로그인한 사용자만 보이게  -->
 			     <sec:authorize access="isAuthenticated()">
 			    
-			      <li class="nav-item">
-			      	${parm.userid }님 
+			      <li class="nav-item p-2">
+			      	<sec:authentication property="principal.user.userName" />
+			      	<span style="color:#6d0d27;">님 반갑습니다 !</span>
 			      </li>
 			      <li class="nav-item">
 		            <a class="nav-link" href="#" id="navbar-logout-link">로그아웃</a>

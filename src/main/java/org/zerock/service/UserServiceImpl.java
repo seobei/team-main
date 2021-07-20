@@ -15,7 +15,8 @@ public class UserServiceImpl implements UserService {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
-
+	//UserMapper타입으로 만들어진 객체를 mapper주입 !
+	
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder encoder;
 	
