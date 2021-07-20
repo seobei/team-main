@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.UserMapper">
+
+
+	<!-- 데이터 추가  -->
+	<insert id="insert">
+		INSERT INTO GH_User
+		(userid, userpw, username, userphone, userem)
+		VALUES
+		(#{userid}, #{userpw}, #{userName},#{userphone},#{userem})
+	</insert>
+
+	<insert id="insertAuth">
+		INSERT INTO GH_auth
+		(userid, auth)
+		VALUES
+		(#{userid}, #{auth})
+	</insert>
+	
+
+	<!-- 데이터 읽어오기   -->
+	  <select id="read" resultMap="userMap" >
+		  SELECT 
+			m.userid userid,
+			m.userpw userpw,
+			m.username username,
+			m.userphone userphone,
+			m.userem userem,
+			m.useradd useradd,
+			m.enabled enabled,
+			m.regdate regdate,
+			m.updateDate updateDate,
+			a.auth auth
+		  FROM 
+		    GH_User m LEFT JOIN GH_auth a ON m.userid = a.userid
+		  WHERE
+		   m.userid = #{userid} AND enabled = 1
+
+     </select>
+     
+ 
+
+	<!-- 책 662쪽 -->
+	  <resultMap type="org.zerock.domain.UserVO" id="userMap">
+	  	<id property="userid" column="userid" />
+	  	<result property="userpw" column="userpw" />
+	  	<result property="userName" column="username" />
+	  	<result property="regdate" column="regdate" />
+	  	<result property="updateDate" column="updateDate" />
+	  	<result property="enabled" column="enabled" />
+	  	<collection property="authList" resultMap="authMap" />
+	  </resultMap>
+	  <resultMap type="org.zerock.domain.AuthVO" id="authMap">
+	  	<result property="userid" column="userid" />
+	  	<result property="auth" column="auth" />
+	  </resultMap>
+</mapper>
