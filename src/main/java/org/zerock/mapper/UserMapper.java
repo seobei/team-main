@@ -9,6 +9,9 @@ public interface UserMapper {
 	public int insert(UserVO vo);
 	public int insertAuth(AuthVO vo);
 	
+	//기업
+	public int insertB(UserVO vo);
+	
 	//데이터조회하기 
 	public UserVO read(String userid);
 	

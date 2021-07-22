@@ -44,11 +44,15 @@ public class MainController {
 //		return "/main/home";
 	}
 	
+	
+	
 	//로그인 
 	@RequestMapping("/login")
 	public void login() {
 		log.info("login method");
 	}
+	
+	
 	
 	//약관동의  
 	@RequestMapping("/tos")
@@ -56,11 +60,65 @@ public class MainController {
 		log.info(" Terms of service method");
 	}
 	
+	
+	
 	//회원가입 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public void signup() {
 		log.info(" singup method");
 	}
+	
+	//회원가입 버튼 클릭시 -> 회원가입정보저장 되는 코드 
+	@PostMapping("/signup")
+	public String signupPost(UserVO vo, RedirectAttributes rttr) {
+		log.info(" singupPost method");
+
+		boolean ok = service.insert(vo);
+
+		if (ok) {
+			return "redirect:/main/home";
+		} else {
+			return "redirect:/main/signup?error";
+		}
+	}
+	
+	//아이디 중복 확인
+	@GetMapping("/dup")
+	@ResponseBody
+	public ResponseEntity<String> duplicate(String id) {
+		log.info("duplicate method");
+
+		// 서비스 일 시키고
+		UserVO vo = service.read(id);
+
+		if (vo == null) {
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<> ("exist", HttpStatus.OK);
+		}
+
+	}
+	
+	//기업용 회원가입B
+	@RequestMapping(value = "/signupB", method = RequestMethod.GET)
+	public void signupB() {
+		log.info(" singupBG method");
+	}
+	
+	//기업용 회원가입B
+	@RequestMapping(value = "/signupB", method = RequestMethod.POST)
+	public String signupB(UserVO vo, RedirectAttributes rttr) {
+		log.info(" singupBP method");
+
+		boolean ok = service.insertB(vo);
+
+		if (ok) {
+			return "redirect:/main/home";
+		} else {
+			return "redirect:/main/signupB?error";
+		}
+	}
+	
 	
 	
 	//마이페이지 
@@ -77,7 +135,8 @@ public class MainController {
 	}
 	
 	
-	//수정후 정보페이지 로딩 
+	//수정후 정보페이지 로딩  
+	//경로이동하는건 get방식 
 	@GetMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
 	public void info(Principal principal, Model model) {
@@ -89,21 +148,7 @@ public class MainController {
 	}
 	
 	
-	//회원가입 버튼 클릭시 -> 회원가입정보저장 되는 코드 
-	
-	@PostMapping("/signup")
-	public String signupPost(UserVO vo, RedirectAttributes rttr) {
-		log.info("signupPost ");
-		
-		boolean ok = service.insert(vo);
-		
-		if (ok) {
-			return "redirect:/main/home";
-		} else {
-			return "redirect:/main/signup?error";
-		}
-	}
-	
+
 	
 	//비밀번호확인 후 정보페이지로 이동 
 	@PostMapping("/myinfos")

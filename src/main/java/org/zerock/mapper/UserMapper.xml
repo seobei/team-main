@@ -6,12 +6,12 @@
 <mapper namespace="org.zerock.mapper.UserMapper">
 
 
-	<!-- 데이터 추가  -->
+	<!-- 개인회원  데이터 추가  -->
 	<insert id="insert">
 		INSERT INTO GH_User
-		(userid, userpw, username, userphone, userem)
+		(userid, userpw, username, userPhone, userEmail)
 		VALUES
-		(#{userid}, #{userpw}, #{userName},#{userphone},#{userem})
+		(#{userid}, #{userpw}, #{userName}, #{userPhone}, #{userEmail})
 	</insert>
 
 	<insert id="insertAuth">
@@ -21,13 +21,21 @@
 		(#{userid}, #{auth})
 	</insert>
 	
+	<!-- 기업 데이터 추가  -->
+	<insert id="insertB">
+		INSERT INTO GH_User
+		(userid, userpw, username, userPhone, userEmail, CompanyRegistrationNumber)
+		VALUES
+		(#{userid}, #{userpw}, #{userName}, #{userPhone}, #{userEmail}, #{CompanyRegistrationNumber})
+	</insert>
+	
 	<!--  정보 수정  -->
 	<update id="update">
 	  UPDATE GH_User
 	  SET 
 	      userName = #{userName},
-	      userphone = #{userphone},
-	      userem = #{userem},
+	      userPhone = #{userPhone},
+	      userEmail = #{userEmail},
 	      useradd = #{useradd},
 	      updatedate = now()
 	  WHERE
@@ -41,8 +49,9 @@
 			m.userid userid,
 			m.userpw userpw,
 			m.username username,
-			m.userphone userphone,
-			m.userem userem,
+			m.userPhone userPhone,
+			m.CompanyRegistrationNumber CompanyRegistrationNumber,
+			m.userEmail userEmail,
 			m.useradd useradd,
 			m.enabled enabled,
 			m.regdate regdate,
@@ -62,8 +71,9 @@
 	  	<id property="userid" column="userid" />
 	  	<result property="userpw" column="userpw" />
 	  	<result property="userName" column="username" />
-	  	<result property="userphone" column="userphone" />
-	  	<result property="userem" column="userem" />
+	  	<result property="userPhone" column="userPhone" />
+	  	<result property="userEmail" column="userEmail" />
+	  	<result property="CompanyRegistrationNumber" column="CompanyRegistrationNumber" />
 	  	<result property="useradd" column="useradd" />
 	  	<result property="regdate" column="regdate" />
 	  	<result property="updateDate" column="updateDate" />

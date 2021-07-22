@@ -11,8 +11,9 @@ public class UserVO {
 	private String userid;
 	private String userpw;
 	private String userName;
-	private String userphone;
-	private String userem;
+	private String userPhone;
+	private String userEmail;
+	private String CompanyRegistrationNumber;
 	private String useradd;
 	private Date regdate;
 	private Date updateDate;

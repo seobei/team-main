@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public boolean insert(UserVO vo) {
-		//cnt 질문하기 ?
 		
 		// 패스워드 암호화
 		vo.setUserpw(encoder.encode(vo.getUserpw()));
@@ -37,6 +36,27 @@ public class UserServiceImpl implements UserService {
 
 		return cnt == 1;
 	}
+	
+	
+	//기업정보 추가 
+	@Override
+	public boolean insertB(UserVO vo) {
+		
+		
+		// 패스워드 암호화
+		vo.setUserpw(encoder.encode(vo.getUserpw()));
+		int cnt = mapper.insertB(vo);
+
+		// 권한 입력
+		AuthVO avo = new AuthVO();
+		avo.setUserid(vo.getUserid());
+		avo.setAuth("ROLE_BUSINESS");
+		mapper.insertAuth(avo);
+
+		return cnt == 1;
+	}
+	
+
 
 	@Override
 	public UserVO read(String name) {

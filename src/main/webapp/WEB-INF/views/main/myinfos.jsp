@@ -97,6 +97,7 @@
 			      		<p>회원정보 <br>
 			      		<form method="post" action="${appRoot }/main/modify">
 			      		
+			      			 			  
 				      		<div class="form-group">
 			                    <label class="control-label" for="userid">아이디</label>
 			                    <input readonly value="${uservo.userid }" class="form-control" type="text" id="userid" name="userid" />
@@ -106,12 +107,12 @@
 			                    <input readonly value="${uservo.userName }" class="form-control" type="text" id="userName" name="userName" />
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label" for="userem">이메일</label>
-			                    <input  value="${uservo.userem }" class="form-control" type="email"  id="userEmail" name="userem" />
+			                    <label class="control-label" for="userEmail">이메일</label>
+			                    <input  value="${uservo.userEmail }" class="form-control" type="email"  id="userEmail" name="userEmail" />
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label" for="userphone">연락처</label>
-			                    <input  value="${uservo.userphone }" class="form-control" type="text" id="userPhone" name="userphone" />
+			                    <label class="control-label" for="userPhone">연락처</label>
+			                    <input  value="${uservo.userPhone }" class="form-control" type="text" id="userPhone" name="userPhone" />
 			                </div>
 			                <div class="form-group">
 			                    <label class="control-label" for="useradd">주소 </label>
