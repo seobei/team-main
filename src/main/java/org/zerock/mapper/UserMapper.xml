@@ -21,7 +21,20 @@
 		(#{userid}, #{auth})
 	</insert>
 	
-
+	<!--  정보 수정  -->
+	<update id="update">
+	  UPDATE GH_User
+	  SET 
+	      userName = #{userName},
+	      userphone = #{userphone},
+	      userem = #{userem},
+	      useradd = #{useradd},
+	      updatedate = now()
+	  WHERE
+	      userid = #{userid}
+   </update>
+   
+   
 	<!-- 데이터 읽어오기   -->
 	  <select id="read" resultMap="userMap" >
 		  SELECT 
@@ -49,6 +62,9 @@
 	  	<id property="userid" column="userid" />
 	  	<result property="userpw" column="userpw" />
 	  	<result property="userName" column="username" />
+	  	<result property="userphone" column="userphone" />
+	  	<result property="userem" column="userem" />
+	  	<result property="useradd" column="useradd" />
 	  	<result property="regdate" column="regdate" />
 	  	<result property="updateDate" column="updateDate" />
 	  	<result property="enabled" column="enabled" />

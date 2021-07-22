@@ -17,7 +17,10 @@
 	<security:http-basic/>
 	
 	<!-- //default-target-url 성공했을때 가는 페이지  -->
-	<security:form-login login-page="/main/login" default-target-url="/main/home"/>
+	<security:form-login 
+		login-page="/main/login" 
+		default-target-url="/main/home" 
+		 />
 	
 	<security:logout/>
 	

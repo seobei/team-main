@@ -6,4 +6,10 @@ public interface UserService {
 
 	boolean insert(UserVO vo);
 	
+
+	UserVO read(String name);
+
+
+	boolean modify(UserVO vo);
+	
 }

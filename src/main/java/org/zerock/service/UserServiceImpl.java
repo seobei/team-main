@@ -37,4 +37,24 @@ public class UserServiceImpl implements UserService {
 
 		return cnt == 1;
 	}
+
+	@Override
+	public UserVO read(String name) {
+		
+		return mapper.read(name);
+	}
+	
+	
+	
+	
+	
+	@Override
+	public boolean modify(UserVO vo) {
+		
+		int cnt = mapper.update(vo);
+		return cnt == 1;
+		
+	}
+	
+	
 }
