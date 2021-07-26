@@ -49,6 +49,11 @@ $(function() {
 		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
 		     		 </li>
 		     	</sec:authorize> 
+		     	 <sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/main/mgreceive">쪽지함 </a>
+		     		 </li>
+		     	</sec:authorize> 
 			</ul>
 		</nav>
 </div>

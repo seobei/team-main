@@ -326,5 +326,15 @@ public class MainController {
 		return "main/findPw";	
 	}
 	
+	// 받은 쪽지함
+	@RequestMapping("mgreceive")
+	public void mgreceive() {
+		
+	}
 	
+	// 보낸 쪽지함
+	@RequestMapping("mgsend")
+	public void mgsend() {
+		
+	}
 }
