@@ -11,7 +11,7 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>마이페이지 </title>
+<title>마이페이지 정보보기  </title>
 
 <style type="text/css">
 	
@@ -30,62 +30,69 @@
 	.btncl{color: #6d0d27;}
 	
 	
+      
+     
+     
 </style>
 
 <script type="text/javascript">
 
-	$(document).ready(function(){
-		
-		
-		
-			//비밀번호수정클릭시 수정 모달 나오게 
-			var modifyPasswordModal = $("#password-modify-modal")
-			$("#pw-modify-btn1").click(function(){
-				
-				modifyPasswordModal.modal('show');
-				
-				
-			})
-			
-		
-			var PasswordModal = $("#password-modal");
-			
-			//회원탈퇴클릭시 탈퇴확인 비번 모달 나오게 
-			$("#info-remove-btn1").click(function(){
-				
-				var ans = confirm("회원을 탈퇴하시겠습니까 ? ");
-				
-				
-				if(ans){
-					
-					PasswordModal.modal('show');
-					
-				}
-			})
-			
-			
-			//패스워드 일치 확인 
-			$("#newPassword-ck").keyup(function() {
-				var pw1 = $("#user-pw").val();
-				var pw2 = $("#newPassword-ck").val();
-				var modifyBtn = $("#password-modal-btn");
-				
-				if ((pw1 != pw2)) {
-					modifyBtn.attr("disabled", "disabled");
-					$("#password-message").text("패스워드가 일치하지 않습니다.");
-				} else {
-					if (pw1 == "") {
-						modifyBtn.attr("disabled", "disabled");	
-						$("#password-message").text("패스워드를 입력해주세요.");
-					} else {
-						modifyBtn.removeAttr("disabled");
-						$("#password-message").empty();
-					}
-				}
-			});
-			
-	})
 
+$(document).ready(function(){
+	
+	
+	
+		//비밀번호수정클릭시 수정 모달 나오게 
+		var modifyPasswordModal = $("#password-modify-modal")
+		$("#pw-modify-btn1").click(function(){
+			
+			modifyPasswordModal.modal('show');
+			
+			
+		})
+		
+	
+		var PasswordModal = $("#password-modal");
+		
+		//회원탈퇴클릭시 탈퇴확인 비번 모달 나오게 
+		$("#info-remove-btn1").click(function(){
+			
+			var ans = confirm("회원을 탈퇴하시겠습니까 ? ");
+			
+			
+			if(ans){
+				
+				PasswordModal.modal('show');
+				
+			}
+		})
+		
+		
+		//패스워드 일치 확인 
+		$("#newPassword-ck").keyup(function() {
+			var pw1 = $("#user-pw").val();
+			var pw2 = $("#newPassword-ck").val();
+			var modifyBtn = $("#password-modal-btn");
+			
+			if ((pw1 != pw2)) {
+				modifyBtn.attr("disabled", "disabled");
+				$("#password-message").text("패스워드가 일치하지 않습니다.");
+			} else {
+				if (pw1 == "") {
+					modifyBtn.attr("disabled", "disabled");	
+					$("#password-message").text("패스워드를 입력해주세요.");
+				} else {
+					modifyBtn.removeAttr("disabled");
+					$("#password-message").empty();
+				}
+			}
+		});
+		
+})
+
+	
+	
+	
 </script>
 </head>
 <body>
@@ -120,31 +127,77 @@
 		  
 		    <div class="tab-content" id="v-pills-tabContent">
 		    
-		     <!-- 정보수정 비밀번호 확인 컨텐츠   -->
+		      <!--  비밀번화가 맞으면 보여줘야될 정보 컨텐츠 -->
 		      <div class="jumbotron tab-pane fade show active " id="v-pills-pwck" role="tabpanel" aria-labelledby="v-pills-pwck-tab">
-		      		
-		      		<p>정보수정을 원하시면 비밀번호를 입력해주세요 ! <br>
-		      		<form action="${appRoot }/main/myinfos" method="post"> 
-		      		
-			      		<div class="form-group">
-		                    <label class="control-label" for="userpw">비밀번호</label>
-		                    <div class="input-group">
-		                    	<input class="form-control" type="password" id="userpwck" name="userpwck" />
-								<input class="btn btn-outline-secondary" type="submit" id="pwbtn" value="확인"/> 
+		      		<div class="cth">
+			      		<c:if test="${param.status == 'success' }">
+							<div id="alert1" class="alert alert-primary" role="alert">
+								회원 정보를 수정하였습니다.
 							</div>
-		                </div>
-		      		</form>
-		      		
-		      		<c:if test="${param.error != null }">
-		      			<span class="alert alert-danger">비밀번호가 일치하지않습니다. </span> 
-		      		</c:if>
-	            </div>
+					   </c:if>
+					   <c:if test="${param.status == 'error' }">
+							<div id="alert1" class="alert alert-danger" role="alert">
+								회원 정보 수정을 할 수 없습니다.
+							</div>
+						</c:if>
+					   
+					   
+			      		<p>회원정보 <br>
+			      		<form method="post" action="${appRoot }/main/modify">
+			      		
+			      			<sec:authorize access="hasRole('ROLE_BUSINESS')">
+                                  <div class="form-group">
+                                    <label class="control-label" for="CompanyRegistrationNumber">사업자등록번호</label>
+                                    <input readonly value="${uservo.companyRegistrationNumber }" 
+                                    class="form-control" type="text" id="CompanyRegistrationNumber" name="CompanyRegistrationNumber"/>
+                                </div>
+                             </sec:authorize>
+			      			 			  
+				      		<div class="form-group">
+			                    <label class="control-label" for="userid">아이디</label>
+			                    <input readonly value="${uservo.userid }" class="form-control" type="text" id="userid" name="userid" />
+			                </div>
+			                <div class="form-group">
+			                    <label class="control-label" for="userName">이름</label>
+			                    <input readonly value="${uservo.userName }" class="form-control" type="text" id="userName" name="userName" />
+			                </div>
+			                <div class="form-group">
+			                    <label class="control-label" for="userEmail">이메일</label>
+			                    <input  value="${uservo.userEmail }" class="form-control" type="email"  id="userEmail" name="userEmail" />
+			                </div>
+			                <div class="form-group">
+			                    <label class="control-label" for="userPhone">연락처</label>
+			                    <input  value="${uservo.userPhone }" class="form-control" type="text" id="userPhone" name="userPhone" />
+			                </div>
+			                <div class="form-group">
+			                    <label class="control-label" for="useradd">주소 </label>
+			                    <input  value="${uservo.useradd }" class="form-control" type="text" id="useradd" name="useradd" />
+			                </div>
+			                 <div class="input-group justify-content-between">
+		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정 " />
+		                    	<a id="info-notmodify" class="btn btn-outline-secondary" href="${appRoot }/main/mypage" > 취소  </a>
+		                    	
+							</div>
+		                </form>
+	                </div>
+		      </div>
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
 		      
 		      
 		      <!--  주문목록 관련 컨텐츠  -->
 		      <div class="jumbotron tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 		      		주문목록 - 주문한 상품리스트 - 상품보기,택배조회(임의로 택배번호발급 - 최대한심플하게 )
 		      </div>
+		      
+		      
 		      
 		      
 		      
@@ -169,7 +222,9 @@
 		</div>
 	</div>
 		
-			
+		
+		
+				
 			
 	<!-- 회원탈퇴시  기존패스워드 확인 후 탈퇴하기   (모달 !)  -->
 	<div class="modal fade" id="password-modal">
