@@ -80,7 +80,7 @@ public class MainController {
 		boolean ok = service.insert(vo);
 
 		if (ok) {
-			return "redirect:/main/home";
+			return "redirect:/main/login";
 		} else {
 			return "redirect:/main/signup?error";
 		}
