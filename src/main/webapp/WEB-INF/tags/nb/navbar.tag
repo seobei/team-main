@@ -96,7 +96,8 @@ $(function() {
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
           <li><a class="dropdown-item" href="#">자유게시판  </a></li>
-          <li><a class="dropdown-item" href="#">중고마켓  </a></li>
+          <!-- 0729 재경 수정 -->
+          <li><a class="dropdown-item" href="${appRoot }/board/market">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
