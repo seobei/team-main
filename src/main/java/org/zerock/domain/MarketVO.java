@@ -14,6 +14,6 @@ public class MarketVO {
 	private String mdetail;
 	private Date mregdate;
 	private String maddress;
-	
+	private String mstate;
 	
 }

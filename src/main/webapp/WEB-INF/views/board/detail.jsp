@@ -17,7 +17,7 @@
 <div class="container">
 <nb:navbar/>
 
-	<h1>나는야 상품 페이지</h1>
+	<h1>상품 페이지</h1>
 	
 	<div class="row">
 		<div class="col-12">
@@ -31,34 +31,43 @@
 					<input readonly="readonly" id="mprice" class="form-control" name="mprice" value="${market.mprice }">
 				</div>	
 				
-				</div>
-				<div class="form-group">
-					<label for="textarea1">내용</label>
-					<textarea readonly="readonly" id="textarea1" class="form-control" name="mdetail"><c:out value="${market.mdetail }" /></textarea>
-				</div>
-				
-				<div class="form-group">
-					<label for="maddress">주소</label>
-					<input readonly="readonly" id="maddress" class="form-control" name="maddress" value="${market.maddress }">
-				</div>					
-				
-				<div class="form-group">
-					<label for="mregdate">등록일</label>
-					<input readonly="readonly" id="mregdate" class="form-control" name="mregdate" value="${market.mregdate }">
+					<div class="form-group">
+					<label for="mwriter">작성자</label>
+					<input readonly="readonly" id="mwriter" class="form-control" name="mwriter" value="${market.mwriter }">
 				</div>	
 				
+				</div>
+				<div class="form-group">
+					<label for="textarea1">게시 날짜</label>
+					<span class="form-control" name="mdetail"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
+				</div>
 				
+				<div class="form-group">
+					<label for="mregdate">상품상태</label>
+					<input readonly="readonly" id="mregdate" class="form-control" name="mregdate" value="${market.mstate }">
+				</div>	
+				
+				<div class="form-group">
+					<label for="mregdate">거래지역</label>
+					<input readonly="readonly" id="mregdate" class="form-control" name="mregdate" value="${market.maddress }">
+				</div>	
+				
+				<hr>
+				<h3>상품 정보</h3>
+				<hr>
+				
+				
+				<div class="form-group">
+					<label for="maddress">상세 설명</label>
+					<input readonly="readonly" id="maddress" class="form-control" name="maddress" value="${market.mdetail }">
+				</div>
 <%-- 				<c:if test="${not empty board.fileName }">
 					<div>
 						<img class="img-fluid" 
 						src="${imgRoot}${board.bno }/${board.fileName}">
 					</div>
 				</c:if> --%>
-				
-				<div class="form-group">
-					<label for="mwriter">작성자</label>
-					<input readonly="readonly" id="mwriter" class="form-control" name="mwriter" value="${market.mwriter }">
-				</div>				
+								
 				
 <%-- 				<c:url value="/board/modify" var="modifyUrl">
 					<c:param name="bno" value="${board.bno }" />

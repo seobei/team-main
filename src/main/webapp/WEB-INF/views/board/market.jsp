@@ -71,14 +71,15 @@
 
 	    	<img src="${appRoot }/resources/product/ma01.jpg" class="card-img-top" >
 	     	<div class="card-body">	
-	 	     	<div class="card-title">${market.mtitle }</div>     
+	 	     	<div class="card-title">상품명: ${market.mtitle }</div>     
 	       	</div>
 	        
 	       <div class="form-group">
-		        <span class="card-text">${market.mprice }</span>
-		        <span class="card-date"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
+		        <span class="card-text">가격: ${market.mprice }</span>
+		        <hr>
+		        <span class="card-date">게시 날짜: <fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
 	      		<hr>
-	       		<div class="card-add">${market.maddress }</div>
+	       		<div class="card-add">거래 지역: ${market.maddress }</div>
 	       </div>  
     </div>
   </div>

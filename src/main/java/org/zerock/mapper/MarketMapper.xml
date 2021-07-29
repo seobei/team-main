@@ -16,7 +16,8 @@
     	mprice mprice,
     	mdetail mdetail,
     	mregdate mregdate,
-    	maddress maddress
+    	maddress maddress,
+    	mstate mstate
     
      FROM market
      
@@ -37,7 +38,8 @@
     	mprice mprice,
     	mdetail mdetail,
     	mregdate mregdate,
-    	maddress maddress
+    	maddress maddress,
+    	mstate mstate
     	
      FROM market
      
@@ -61,9 +63,9 @@
 	<!-- 개인회원  데이터 추가  -->
 	<insert id="insert">
 		INSERT INTO market
-		(mwriter, mtitle, mprice, mdetail, maddress)
+		(mwriter, mtitle, mprice, mdetail, maddress, mstate)
 		VALUES
-		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress})
+		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate})
 	</insert>
 
  	<insert id="insertWish">
@@ -95,7 +97,8 @@
 			mprice,
 			mdetail,
 			mregdate,
-			maddress
+			maddress,
+			mstate
 		  FROM 
 		    market 
 		  WHERE
@@ -112,6 +115,7 @@
 	  	<result property="mdetail" column="mdetail" />
 	  	<result property="mregdate" column="mregdate" />
 	  	<result property="maddress" column="maddress" />
+	  	<result property="mstate" column="mstate" />
 	  </resultMap>
 <!-- <resultMap type="org.zerock.domain.AuthVO" id="authMap">
 	  	<result property="userid" column="userid" />
