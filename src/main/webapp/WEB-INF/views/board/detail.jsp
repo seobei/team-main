@@ -2,6 +2,8 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!-- 날짜 형식 fmt tag 사용하기 위해 import함 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
 <% request.setCharacterEncoding("utf-8"); %>
 
@@ -16,6 +18,7 @@
 <body>
 <div class="container">
 <nb:navbar/>
+<nb:scroll/>
 
 	<h1>상품 페이지</h1>
 	
@@ -38,19 +41,23 @@
 				
 				</div>
 				<div class="form-group">
-					<label for="textarea1">게시 날짜</label>
-					<span class="form-control" name="mdetail"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
+					<label for="mregdate">게시 날짜</label>
+					<span class="form-control" id="mregdate" name="mregdate"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
 				</div>
 				
 				<div class="form-group">
-					<label for="mregdate">상품상태</label>
-					<input readonly="readonly" id="mregdate" class="form-control" name="mregdate" value="${market.mstate }">
+					<label for="mstate">상품상태</label>
+					<input readonly="readonly" id="mstate" class="form-control" name="mstate" value="${market.mstate }">
 				</div>	
 				
 				<div class="form-group">
-					<label for="mregdate">거래지역</label>
-					<input readonly="readonly" id="mregdate" class="form-control" name="mregdate" value="${market.maddress }">
+					<label for="maddress">거래지역</label>
+					<input readonly="readonly" id="maddress" class="form-control" name="maddress" value="${market.maddress }">
 				</div>	
+				
+				<button type="button" class="btn btncl" id="info-remove-btn1"><i class="far fa-heart"></i></button>
+				<!-- <i class="fas fa-heart"></i> 검은하트-->
+				<input class="btn btn-primary" type="button" value="쪽지 보내기">
 				
 				<hr>
 				<h3>상품 정보</h3>
@@ -58,9 +65,10 @@
 				
 				
 				<div class="form-group">
-					<label for="maddress">상세 설명</label>
-					<input readonly="readonly" id="maddress" class="form-control" name="maddress" value="${market.mdetail }">
+					<label for="mdetail">상세 설명</label>
+					<input readonly="readonly" id="mdetail" class="form-control" name="mdetail" value="${market.mdetail }">
 				</div>
+				
 <%-- 				<c:if test="${not empty board.fileName }">
 					<div>
 						<img class="img-fluid" 

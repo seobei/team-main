@@ -80,6 +80,9 @@
 		        <span class="card-date">게시 날짜: <fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
 	      		<hr>
 	       		<div class="card-add">거래 지역: ${market.maddress }</div>
+	      		<hr>
+	       		<div class="card-add">상품 상태: ${market.mstate }</div>
+	       		
 	       </div>  
     </div>
   </div>
