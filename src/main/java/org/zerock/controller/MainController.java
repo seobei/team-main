@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +15,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.MessageVO;
 import org.zerock.domain.UserVO;
 import org.zerock.security.domain.CustomUser;
+import org.zerock.service.MessageService;
 import org.zerock.service.UserService;
 
 
@@ -38,6 +42,9 @@ public class MainController {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MessageService messageservice;
 	
 	
 	//메인 홈 
@@ -80,7 +87,7 @@ public class MainController {
 		boolean ok = service.insert(vo);
 
 		if (ok) {
-			return "redirect:/main/home";
+			return "redirect:/main/login";
 		} else {
 			return "redirect:/main/signup?error";
 		}
@@ -326,15 +333,59 @@ public class MainController {
 		return "main/findPw";	
 	}
 	
-	// 받은 쪽지함
-	@RequestMapping("mgreceive")
-	public void mgreceive() {
+	 
+      
+      
+
+        @GetMapping("/mgsend")
+    	@PreAuthorize("isAuthenticated()")
+		public void listsend(Principal principal, MessageVO vo, Model model) {
+		log.info("mgsend");
+		vo.setWriter(principal.getName());
+		List<MessageVO> list = messageservice.getListSend(vo);
+		model.addAttribute("listsend", list);
 		
-	}
+		log.info("mgsendprincipal method");
+        log.info(principal.getName());
+        UserVO uservo = service.read(principal.getName());
+		model.addAttribute("uservo", uservo);
+        }
+        
+        @PostMapping("/mgsend")       
+        public String listsendPost(MessageVO vo, RedirectAttributes rttr) {
+            log.info("listsendPost method");
+            boolean success = messageservice.mesinsert(vo);
+            if (success) {
+            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
+    		}
+            return "redirect:/main/mgsend";           
+        }
+        
+        @GetMapping("/mgreceive")
+    	@PreAuthorize("isAuthenticated()")
+		public void listrecevie(Principal principal, MessageVO vo, Model model) {
+		log.info("mgsend");
+		vo.setWriter(principal.getName());
+		List<MessageVO> list = messageservice.getListReceive(vo);
+		model.addAttribute("listReceive", list);
+
+		log.info("mgsendprincipal method");
+        log.info(principal.getName());
+        UserVO uservo = service.read(principal.getName());
+		model.addAttribute("uservo", uservo);
+        }
+        
+        @PostMapping("/mgreceive")
+        public String listreceviePost(MessageVO vo, RedirectAttributes rttr) {
+            log.info("listreceviePost method");
+            boolean success = messageservice.mesinsert(vo);
+            if (success) {
+            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
+    		}
+           // 이부분이다 설명을 듣고 싶으면 mgreceive.jsp로 가라
+            return "redirect:/main/mgreceive";           
+        }
+
 	
-	// 보낸 쪽지함
-	@RequestMapping("mgsend")
-	public void mgsend() {
-		
-	}
+	
 }
