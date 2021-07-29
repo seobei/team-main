@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.MarketMapper">
+
+<select id="getList" resultType="org.zerock.domain.MarketVO">
+    
+    <![CDATA[
+    
+    SELECT 
+    	mno mno,
+    	mwriter mwriter,
+    	mtitle mtitle,
+    	mprice mprice,
+    	mdetail mdetail,
+    	mregdate mregdate,
+    	maddress maddress
+    
+     FROM market
+     
+     WHERE mno > 0 ORDER BY mno DESC
+     
+    ]]>
+    
+  </select>
+  
+  <select id="getListWithPaging" resultType="org.zerock.domain.MarketVO">
+
+    <![CDATA[
+    
+    SELECT 
+    	mno mno,
+    	mwriter mwriter,
+    	mtitle mtitle,
+    	mprice mprice,
+    	mdetail mdetail,
+    	mregdate mregdate,
+    	maddress maddress
+    	
+     FROM market
+     
+     ORDER BY mno DESC
+     
+     LIMIT #{from}, #{amount}
+     
+    ]]>
+
+  </select>
+
+  <!-- resultType : 결과를 받을 타입 지정 -->
+  <select id="getTotalCount" resultType="int"> 
+  SELECT COUNT(*) FROM market
+  </select>
+
+
+
+
+
+	<!-- 개인회원  데이터 추가  -->
+	<insert id="insert">
+		INSERT INTO market
+		(mwriter, mtitle, mprice, mdetail, maddress)
+		VALUES
+		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress})
+	</insert>
+
+ 	<insert id="insertWish">
+		INSERT INTO wishlist
+		(mwriter, mno)
+		VALUES
+		(#{mwriter}, #{mno})
+	</insert> 
+
+	<!--  상세페이지 정보 수정  -->
+<!-- 	<update id="update">
+	  UPDATE market
+	  SET 
+	      mtitle = #{mtitle},
+	      mprice = #{mprice},
+	      mdetail = #{mdetail},
+	      maddress = #{maddress},
+	      useradd = #{useradd},
+	  WHERE
+	      mwriter = #{mwriter}
+   </update> -->
+
+
+
+
+
+
+
+
+	<!-- 상품 조회 페이지   -->
+	  <select id="getdetail" resultMap="marketMap" >
+		  SELECT 
+			mno,
+			mwriter,
+			mtitle,
+			mprice,
+			mdetail,
+			mregdate,
+			maddress
+		  FROM 
+		    market 
+		  WHERE
+		    mno = #{mno}
+
+     </select>
+
+
+	  <resultMap type="org.zerock.domain.MarketVO" id="marketMap">
+	  	<id property="mno" column="mno" />
+	  	<result property="mwriter" column="mwriter" />
+	  	<result property="mtitle" column="mtitle" />
+	  	<result property="mprice" column="mprice" />
+	  	<result property="mdetail" column="mdetail" />
+	  	<result property="mregdate" column="mregdate" />
+	  	<result property="maddress" column="maddress" />
+	  </resultMap>
+<!-- <resultMap type="org.zerock.domain.AuthVO" id="authMap">
+	  	<result property="userid" column="userid" />
+	  	<result property="auth" column="auth" />
+	  </resultMap> -->
+</mapper>
