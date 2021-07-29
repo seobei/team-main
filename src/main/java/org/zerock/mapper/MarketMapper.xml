@@ -86,13 +86,6 @@
 	      mwriter = #{mwriter}
    </update> -->
 
-
-
-
-
-
-
-
 	<!-- 상품 조회 페이지   -->
 	  <select id="getdetail" resultMap="marketMap" >
 		  SELECT 
