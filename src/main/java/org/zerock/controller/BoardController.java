@@ -10,22 +10,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MarketVO;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.MarketService;
 
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
 @RequestMapping("/board")
 
+// 추가
+@AllArgsConstructor
+
 public class BoardController {
 	
-	@Setter (onMethod_ = @Autowired)
 	private MarketService service;
 	
 
@@ -58,14 +61,14 @@ public class BoardController {
         
     	// cri 파라미터 값을 넣어 페이지에 대한 값을 입력해주기
     	@GetMapping("/write")
-    	public void register(@ModelAttribute("cri") Criteria cri) {
+    	public void write(@ModelAttribute("cri") Criteria cri) {
     		// forward /WEB-INF/views/board/register.jsp
     	}
         
         
-        
+        // 추가
         @PostMapping("/write")
-    	public String write(MarketVO market, RedirectAttributes rttr) {
+    	public String write(MarketVO mvo, @RequestParam("market_file") MultipartFile[] market_file , RedirectAttributes rttr) {
     		
     		
     		// title, content, writer
@@ -77,18 +80,19 @@ public class BoardController {
 			 */
         	
         	// service에게 등록업무 시키고
-    		boolean ok = service.insert(market); 
+    	 service.write(mvo, market_file); 
     		
-    		if (ok) {
-    			return "redirect:/board/market"; 
-    		} else {
-    			return "redirect:/board/market?error";
-    		} 		
+    		//  정보 전달
+    	 	// 고쳐야함
+    	 rttr.addFlashAttribute("result", mvo.getMno());
+    	 
+    			
+    	 return "redirect:/board/market"; 
     	}
         
               
-        @GetMapping("/detail")
-        public void getdetail(@RequestParam("mno") int mno, Model model) {
+        @GetMapping("/getdetail")
+        public void getdetail(@RequestParam("mno") int mno, @ModelAttribute("cri") Criteria cri, Model model) {
             log.info("board/detail method");
 
             // getdetail 메소드 실행하라고 시킴

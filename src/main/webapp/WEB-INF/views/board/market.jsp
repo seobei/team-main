@@ -60,7 +60,7 @@
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
 <c:forEach items="${list }" var="market">
-<c:url value="/board/detail" var="getUrl">
+<c:url value="/board/getdetail" var="getUrl">
 <c:param name="mno" value="${market.mno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />

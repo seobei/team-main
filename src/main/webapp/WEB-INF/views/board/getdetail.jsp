@@ -20,10 +20,15 @@
 <nb:navbar/>
 <nb:scroll/>
 
-	<h1>상품 페이지</h1>
-	
+	<h3>상품 페이지</h3>
 	<div class="row">
 		<div class="col-12">
+			<div>
+			<div>
+			<img src="${appRoot }/resources/product/ma01.jpg" class="rounded float-left">
+			</div>
+			
+			<div>
 			<form>
 				<div class="form-group">
 					<label for="mtitle">상품명</label>
@@ -38,6 +43,7 @@
 					<label for="mwriter">작성자</label>
 					<input readonly="readonly" id="mwriter" class="form-control" name="mwriter" value="${market.mwriter }">
 				</div>	
+				
 				
 				</div>
 				<div class="form-group">
@@ -55,9 +61,17 @@
 					<input readonly="readonly" id="maddress" class="form-control" name="maddress" value="${market.maddress }">
 				</div>	
 				
-				<button type="button" class="btn btncl" id="info-remove-btn1"><i class="far fa-heart"></i></button>
+				<!-- ################# 버튼들 ###############  -->
+				
+				<button type="button" class="btn btncl" id="market_heart"><i class="far fa-heart"></i> 찜하기 </button>
 				<!-- <i class="fas fa-heart"></i> 검은하트-->
-				<input class="btn btn-primary" type="button" value="쪽지 보내기">
+				<button type="button" class="btn btncl" id="market_dm"><i class="far fa-envelope"></i> 쪽지 보내기 </button>
+				
+				</div>
+				
+			</div>
+				
+				
 				
 				<hr>
 				<h3>상품 정보</h3>
@@ -66,8 +80,29 @@
 				
 				<div class="form-group">
 					<label for="mdetail">상세 설명</label>
-					<input readonly="readonly" id="mdetail" class="form-control" name="mdetail" value="${market.mdetail }">
+					<textarea readonly="readonly" id="mdetail" class="form-control" name="mdetail" value="${market.mdetail }"></textarea>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<%--  수정 삭제  
+				<c:url value="/board/update" var="updateUrl">
+					<c:param name="mno" value="${market.mno }" />
+					<c:param name="pageNum" value="${cri.pageNum }" />
+					<c:param name="amount" value="${cri.amount }" />
+				</c:url>
+				
+				<c:if test="${???.userid eq market.mwriter }" >
+					<a class="btn btn-secondary" href="${updateUrl }">수정/삭제</a>
+				</c:if>  --%>
+				
+				
 				
 <%-- 				<c:if test="${not empty board.fileName }">
 					<div>

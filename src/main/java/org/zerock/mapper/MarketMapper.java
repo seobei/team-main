@@ -9,13 +9,16 @@ import org.zerock.domain.WishlistVO;
 public interface MarketMapper {
 
 	// 상품 등록
-	public int insert(MarketVO vo);
+	public int insert(MarketVO mvo);
+	
+	public int insertSelectKey(MarketVO mvo); 
 	
 	// 찜상품 등록
-	public int insertWish(WishlistVO vo);
+	public int insertWish(WishlistVO wvo);
 	
 
 	// 데이터조회하기 
+	// 생각을해본다
 	public MarketVO getdetail(int mno);
 	
 	//데이터 수정하기 

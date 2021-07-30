@@ -67,13 +67,20 @@
 		VALUES
 		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate})
 	</insert>
-
+	
+	<!-- 왜 필요한가 알아보자 -->
+	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="mno" keyColumn="mno">
+		INSERT INTO market (mwriter, mtitle, mprice, mdetail, maddress, mstate)
+		VALUES (#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate})
+	</insert>
+	
+<!-- 
  	<insert id="insertWish">
 		INSERT INTO wishlist
 		(mwriter, mno)
 		VALUES
 		(#{mwriter}, #{mno})
-	</insert> 
+	</insert>  -->
 
 	<!--  상세페이지 정보 수정  -->
 <!-- 	<update id="update">
@@ -88,21 +95,22 @@
 	      mwriter = #{mwriter}
    </update> -->
 
+<!-- 파일도 조회를 해야한다  -->
 	<!-- 상품 조회 페이지   -->
 	  <select id="getdetail" resultMap="marketMap" >
 		  SELECT 
-			mno,
-			mwriter,
-			mtitle,
-			mprice,
-			mdetail,
-			mregdate,
-			maddress,
-			mstate
+			m.mno mno,
+			m.mwriter mwriter ,
+			m.mtitle mtitle,
+			m.mprice mprice,
+			m.mdetail mdetail,
+			m.mregdate mregdate,
+			m.maddress maddress,
+			m.mstate mstate,
 		  FROM 
-		    market 
+		    market m
 		  WHERE
-		    mno = #{mno}
+		    m.mno = #{mno}
 
      </select>
 

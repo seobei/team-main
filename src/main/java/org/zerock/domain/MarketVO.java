@@ -1,6 +1,7 @@
 package org.zerock.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import lombok.Data;
 public class MarketVO {
 
 	private int mno;
+	// userid 
 	private String mwriter;
 	private String mtitle;
 	private int mprice;
@@ -15,5 +17,9 @@ public class MarketVO {
 	private Date mregdate;
 	private String maddress;
 	private String mstate;
+	
+	// 은비 파일
+	
+	private List<String> fileName; 
 	
 }
