@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
+
+
 <% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
@@ -11,6 +13,34 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+
+<!-- timeago -->
+<script src="${appRoot }/resources/js/date.js"></script>
+     
+<script>
+$(document).ready(function() {
+	$("#list-pagenation1 a").click(function(e) {
+		// 기본 액션 중지 (hyperlink 역할 안함)
+		e.preventDefault();
+		
+		//console.log("a요소 클릭됨");
+		
+		var actionForm = $("#actionForm");
+		
+		// form의 pageNum input의 값을 a 요소의 href값으로 변경
+		actionForm.find("[name=pageNum]").val($(this).attr("href"));
+		
+		// submit
+		actionForm.submit();
+	});
+	/* for문 대신에 each 함수 사용해서 timeBefore js에 값 보내주는 스크립트 */
+	$(".card-time-before").each(function(i, e) {
+		timeBefore(e);
+	})
+	
+});
+</script>        
+
 
 <title>중고마켓 </title>
 
@@ -60,7 +90,7 @@
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
 <c:forEach items="${list }" var="market">
-<c:url value="/board/detail" var="getUrl">
+<c:url value="/board/getdetail" var="getUrl">
 <c:param name="mno" value="${market.mno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />
@@ -70,13 +100,18 @@
     <div class="card">
 
 	    	<img src="${appRoot }/resources/product/ma01.jpg" class="card-img-top" >
+	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
 	     	<div class="card-body">	
+	     		<span class="card-text">${market.mno }</span>
 	 	     	<div class="card-title">${market.mtitle }</div>     
 	       	</div>
 	        
 	       <div class="form-group">
-		        <span class="card-text">${market.mprice }</span>
-		        <span class="card-date"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
+		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
+				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
+		        <span class="card-time-before">${market.mregdate.time }</span>
+		        <span class="card-date">${timebefore }</span>
+		        
 	      		<hr>
 	       		<div class="card-add">${market.maddress }</div>
 	       </div>  
@@ -112,7 +147,7 @@
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/board/list" method="get">
+	<form id="actionForm" action="${appRoot }/board/market" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
