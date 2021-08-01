@@ -22,7 +22,13 @@ security info
 </sec:authorize>
 
 
+<!—  글꼴 수정  —>
+<style>
+@import 
+url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
+ body{font-family: 'Do Hyeon', sans-serif;}
+</style>
 
 
 

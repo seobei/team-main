@@ -96,10 +96,10 @@ public class BoardController {
             log.info("board/detail method");
 
             // getdetail 메소드 실행하라고 시킴
-            MarketVO vo = service.getdetail(mno);
+            MarketVO mvo = service.getdetail(mno);
             
             // 가져온 결과 값을 모델에 담아서 응답
-            model.addAttribute("market", vo);
+            model.addAttribute("market", mvo);
             
             // forward 생략 가능
         }

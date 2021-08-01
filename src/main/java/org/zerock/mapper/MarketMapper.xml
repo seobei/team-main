@@ -95,8 +95,7 @@
 	      mwriter = #{mwriter}
    </update> -->
 
-<!-- 파일도 조회를 해야한다  -->
-	<!-- 상품 조회 페이지   -->
+	<!-- 은비 상품 조회 페이지 작성 완료  -->
 	  <select id="getdetail" resultMap="marketMap" >
 		  SELECT 
 			m.mno mno,
@@ -107,8 +106,11 @@
 			m.mregdate mregdate,
 			m.maddress maddress,
 			m.mstate mstate,
+			mf.fileName fileName,
+			ghu.userid userid
 		  FROM 
-		    market m
+		    market m LEFT JOIN market_file mf ON m.mno = mf.mno
+		                  JOIN GH_User ghu ON m.mwriter = ghu.userid    
 		  WHERE
 		    m.mno = #{mno}
 
@@ -124,7 +126,13 @@
 	  	<result property="mregdate" column="mregdate" />
 	  	<result property="maddress" column="maddress" />
 	  	<result property="mstate" column="mstate" />
+	  	<collection property="fileName" resultMap="fileNameMap"></collection>
 	  </resultMap>
+	  
+	  <resultMap type="string" id="fileNameMap">
+	  	<result column="fileName" />
+	  </resultMap>
+	  
 <!-- <resultMap type="org.zerock.domain.AuthVO" id="authMap">
 	  	<result property="userid" column="userid" />
 	  	<result property="auth" column="auth" />

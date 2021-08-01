@@ -18,9 +18,9 @@ public interface MarketMapper {
 	
 
 	// 데이터조회하기 
-	// 생각을해본다
 	public MarketVO getdetail(int mno);
 	
+	// 생각을해본다
 	//데이터 수정하기 
 //	public int update(MarketVO vo);
 	

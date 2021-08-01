@@ -25,13 +25,15 @@
 		<div class="row">
 			<div class="col-12">
 				<form action="${appRoot }/board/write" method="post" enctype="multipart/form-data">
+				
 					<div class="form-group">
-						<label for="mtitle">제목</label> <input id="mtitle"
-							class="form-control" name="mtitle">
+						<label for="mtitle">제목</label>
+						<input id="mtitle" class="form-control" name="mtitle">
 					</div>
+					
 					<div class="form-group">
-						<label for="mwriter">작성자</label> <input id="mwriter"
-							class="form-control" name="mwriter">
+						<label for="mwriter">작성자</label>
+						<input id="mwriter" class="form-control" name="mwriter">
 					</div>
 
 
@@ -40,16 +42,20 @@
 
 						<!-- 중복체크 방지 -->
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="mstate"
-								id="mstate1" value="새 상품" checked> <label
-								class="form-check-label" for="mstate1"> 새 상품 </label>
+							<input class="form-check-input" type="radio" name="mstate" id="mstate1" value="새 상품" checked>
+							<label class="form-check-label" for="mstate1"> 새 상품 </label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="mstate"
-								id="mstate2" value="중고 상품"> <label
-								class="form-check-label" for="mstate2"> 중고 상품 </label>
+							<input class="form-check-input" type="radio" name="mstate" id="mstate2" value="중고 상품">
+								<label class="form-check-label" for="mstate2"> 중고 상품 </label>
 						</div>
 					</div>
+					
+						<div class="form-group">
+							<label for="mprice">상품가격</label>
+							<input id="mprice" class="form-control" name="mprice">
+						</div>
+						
 						<!-- 은비 파일 -->
 						<div class="form-group">
 						<label for="market_file">파일</label>
@@ -58,12 +64,13 @@
 						</div>
 
 						<div class="form-group">
-							<label for="mdetail">거래지역</label>
-							<textarea id="mdetail" class="form-control" name="mdetail"></textarea>
+							<label for="maddress">거래지역</label>
+							<input id="maddress" class="form-control" name="maddress">
 						</div>
 						
+						
 						<div class="form-group">
-							<label for="mdetail">내용</label>
+							<label for="mdetail">상세 설명</label>
 							<textarea id="mdetail" class="form-control" name="mdetail"></textarea>
 						</div>
 						<input class="btn btn-primary" type="submit" value="작성" />

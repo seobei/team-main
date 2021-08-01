@@ -38,8 +38,8 @@ public class MarketServiceImpl implements MarketService {
    private Market_fileMapper market_fileMapper;
    
    public MarketServiceImpl() {
-	   this.bucketName = "choongang-ys";
-	   this.profileName = "spring1";
+	   this.bucketName = "choongang-gohome";
+	   this.profileName = "gohome1";
 	   
 	   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 	      ProfileFile pf = ProfileFile.builder()
@@ -75,33 +75,35 @@ public class MarketServiceImpl implements MarketService {
      }
    
    // s3에 파일 업로드 
-   private void upload(MarketVO mvo, MultipartFile mfile) {
-	   log.info("####################################3");
-	   log.info(mvo.getMno() + "/" + mfile.getOriginalFilename());
-	   log.info("####################################3");
+   private void upload(MarketVO mvo, MultipartFile market_file) {
+	   log.info("####################################s3에 올라간 파일명 확인");
+	   log.info(mvo.getMno() + "/" + market_file.getOriginalFilename());
+	   log.info("####################################s3에 올라간 파일명 확인");
 
-	      try (InputStream is = mfile.getInputStream()) {
+	      try (InputStream is = market_file.getInputStream()) {
 	         PutObjectRequest objectRequest = PutObjectRequest.builder().bucket(bucketName)
-	               .key(mvo.getMno() + "/" + mfile.getOriginalFilename()).contentType(mfile.getContentType())
+	               .key("market/"+ mvo.getMno() + "/" + market_file.getOriginalFilename()).contentType(market_file.getContentType())
 	               .acl(ObjectCannedACL.PUBLIC_READ).build();
 
-	         s3.putObject(objectRequest, RequestBody.fromInputStream(is, mfile.getSize()));
+	         s3.putObject(objectRequest, RequestBody.fromInputStream(is, market_file.getSize()));
 
 	      } catch (Exception e) {
 	         throw new RuntimeException(e);
 	      }
 
 	   }
-   
-// 수정해야함
+  // 은비 읽어오기 수정함
+  //mno값으로 받아온 파일명을 list에 넣어서 불러옴
    @Override
    public MarketVO getdetail(int mno) {
-//	   MarketVO vo = mapper.read(mno);
-//	      List<String> mfile = market_fileMapper.getByBno(mno);
-//	      vo.setFileName(mfile);
-	      return null;
+	   MarketVO mvo = market_mapper.getdetail(mno);
+	   List<String> market_file = market_fileMapper.getByMno(mno);
+	      mvo.setFileName(market_file);
+	      return mvo;
    }
+   
 
+// 수정해야함
    @Override
    public List<MarketVO> getList(Criteria cri) {
       return market_mapper.getListWithPaging(cri);
