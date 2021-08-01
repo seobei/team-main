@@ -38,8 +38,8 @@ public class MarketServiceImpl implements MarketService {
    private Market_fileMapper market_fileMapper;
    
    public MarketServiceImpl() {
-	   this.bucketName = "choongang-gohome";
-	   this.profileName = "gohome1";
+	   this.bucketName = "choongang-ys";
+	   this.profileName = "spring1";
 	   
 	   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 	      ProfileFile pf = ProfileFile.builder()

@@ -17,8 +17,9 @@
     	mdetail mdetail,
     	mregdate mregdate,
     	maddress maddress,
-    	mstate mstate
-    
+    	mstate mstate,
+    	msold msold
+    	
      FROM market
      
      WHERE mno > 0 ORDER BY mno DESC
@@ -39,7 +40,8 @@
     	mdetail mdetail,
     	mregdate mregdate,
     	maddress maddress,
-    	mstate mstate
+    	mstate mstate,
+    	msold msold
     	
      FROM market
      
@@ -63,15 +65,15 @@
 	<!-- 개인회원  데이터 추가  -->
 	<insert id="insert">
 		INSERT INTO market
-		(mwriter, mtitle, mprice, mdetail, maddress, mstate)
+		(mwriter, mtitle, mprice, mdetail, maddress, mstate, msold)
 		VALUES
-		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate})
+		(#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate}, #{msold})
 	</insert>
 	
-	<!-- 왜 필요한가 알아보자 -->
+	
 	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="mno" keyColumn="mno">
-		INSERT INTO market (mwriter, mtitle, mprice, mdetail, maddress, mstate)
-		VALUES (#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate})
+		INSERT INTO market (mwriter, mtitle, mprice, mdetail, maddress, mstate, msold)
+		VALUES (#{mwriter}, #{mtitle}, #{mprice}, #{mdetail}, #{maddress}, #{mstate}, #{msold})
 	</insert>
 	
 <!-- 
@@ -106,6 +108,7 @@
 			m.mregdate mregdate,
 			m.maddress maddress,
 			m.mstate mstate,
+			m.msold msold,
 			mf.fileName fileName,
 			ghu.userid userid
 		  FROM 
@@ -126,6 +129,7 @@
 	  	<result property="mregdate" column="mregdate" />
 	  	<result property="maddress" column="maddress" />
 	  	<result property="mstate" column="mstate" />
+	  	<result property="msold" column="msold" />
 	  	<collection property="fileName" resultMap="fileNameMap"></collection>
 	  </resultMap>
 	  

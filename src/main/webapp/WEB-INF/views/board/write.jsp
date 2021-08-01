@@ -51,6 +51,20 @@
 						</div>
 					</div>
 					
+					<div class="form-group">
+						<label for="msold">판매/나눔</label>
+
+						<!-- 중복체크 방지 -->
+						<div class="form-check2">
+							<input class="form-check-input2" type="radio" name="msold" id="msold1" value="판매" checked>
+							<label class="form-check-label2" for="mstate1"> 판매 </label>
+						</div>
+						<div class="form-check2">
+							<input class="form-check-input2" type="radio" name="msold" id="msold2" value="나눔">
+								<label class="form-check-label2" for="msold2"> 나눔 </label>
+						</div>
+					</div>
+					
 						<div class="form-group">
 							<label for="mprice">상품가격</label>
 							<input id="mprice" class="form-control" name="mprice">

@@ -31,7 +31,7 @@
 	<hr> 	
 	<div class="row">
 	
-			<form>
+			<form id="market_update">
 			
 <!-- 은비 첨부파일 불러오기  -->			
 
@@ -72,6 +72,11 @@
 					<label for="mstate">상품상태</label>
 					<input readonly="readonly" id="mstate" class="form-control" name="mstate" value="${market.mstate }">
 				</div>	
+				
+				<div class="form-group">
+					<label for="msold">판매/나눔</label>
+					<input readonly="readonly" id="msold" class="form-control" name="msold" value="${market.msold }">
+				</div>
 				
 				<div class="form-group">
 					<label for="maddress">거래지역</label>

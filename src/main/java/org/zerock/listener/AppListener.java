@@ -43,7 +43,7 @@ public class AppListener implements ServletContextListener {
 		 * "https://choongang-gohome.s3.ap-northeast-2.amazonaws.com/market/";
 		 * application.setAttribute("imgRoot", bucketUrl);
 		 */    	
-    	String bucketUrl = "https://choongang-gohome.s3.ap-northeast-2.amazonaws.com/";
+    	String bucketUrl = "https://choongang-ys.s3.ap-northeast-2.amazonaws.com/";
     	application.setAttribute("imgRoot", bucketUrl);
     }
 	

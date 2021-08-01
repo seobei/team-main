@@ -17,6 +17,7 @@ public class MarketVO {
 	private Date mregdate;
 	private String maddress;
 	private String mstate;
+	private String msold;
 	
 	// 은비 파일
 	
