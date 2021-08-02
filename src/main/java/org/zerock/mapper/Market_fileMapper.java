@@ -12,8 +12,8 @@ public interface Market_fileMapper {
 	
 	public List<String> getByMno(int mno);
 	
-	public int deleteBYMno(int mno);
+	public int deleteByMno(int mno);
 	
-	public int update(MarketVO mvo);
-
+	public void removeByUserid(UserVO vo);
+	
 }

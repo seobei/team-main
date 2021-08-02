@@ -68,7 +68,8 @@ public class BoardController {
         
         // 추가
         @PostMapping("/write")
-    	public String write(MarketVO mvo, @RequestParam("market_file") MultipartFile[] market_file , RedirectAttributes rttr) {
+    	public String write(MarketVO mvo,
+    					@RequestParam("market_file") MultipartFile[] market_file , RedirectAttributes rttr) {
     		
     		
     		// title, content, writer
@@ -91,17 +92,39 @@ public class BoardController {
     	}
         
               
-        @GetMapping("/getdetail")
+        @GetMapping({"/getdetail", "/modify"})
         public void getdetail(@RequestParam("mno") int mno, @ModelAttribute("cri") Criteria cri, Model model) {
             log.info("board/detail method");
 
-            // getdetail 메소드 실행하라고 시킴
-            MarketVO mvo = service.getdetail(mno);
+            // read 메소드 실행하라고 시킴
+            MarketVO mvo = service.read(mno);
             
             // 가져온 결과 값을 모델에 담아서 응답
             model.addAttribute("market", mvo);
             
             // forward 생략 가능
         }
+        
+        @PostMapping("/modify")
+//		@PreAuthorize("principal.username == #board.writer") // 720 쪽
+//		@PreAuthorize("authication.name == #board.writer") // spring.io
+		public String modify(MarketVO mvo, Criteria cri, 
+				@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
+
+			boolean success = service.modify(mvo, file);
+			
+			if (success) {
+				rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("messageTitle", "수정 성공");
+				rttr.addFlashAttribute("messageBody", "수정 되었습니다.");
+			}
+			
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+//			rttr.addAttribute("type", cri.getType());
+//			rttr.addAttribute("keyword", cri.getKeyword());
+			
+			return "redirect:/board/market";
+		}
         
 }

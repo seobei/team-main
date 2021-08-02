@@ -14,10 +14,10 @@ public class MarketVO {
 	private String mtitle;
 	private int mprice;
 	private String mdetail;
-	private Date mregdate;
-	private String maddress;
 	private String mstate;
 	private String msold;
+	private Date mregdate;
+	private String maddress;
 	
 	// 은비 파일
 	

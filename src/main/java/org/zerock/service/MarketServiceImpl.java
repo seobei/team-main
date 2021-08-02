@@ -21,6 +21,7 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.profiles.ProfileFile;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -32,10 +33,12 @@ public class MarketServiceImpl implements MarketService {
    private S3Client s3;
    
    @Setter (onMethod_ = @Autowired)
-   private MarketMapper market_mapper;
+   private MarketMapper mapper;
    
    @Setter (onMethod_ = @Autowired)
-   private Market_fileMapper market_fileMapper;
+   private Market_fileMapper fileMapper;
+   
+   //댓글 추가 필요함
    
    public MarketServiceImpl() {
 	   this.bucketName = "choongang-ys";
@@ -56,11 +59,17 @@ public class MarketServiceImpl implements MarketService {
 	            .build();
    }
    
+// 공부!!!
+	@Override
+	public void write(MarketVO mvo) {
+		mapper.insertSelectKey(mvo);
+	}
+
    @Override
-   // 트랜잭션 작동 여부 확인
-   @Transactional
+   @Transactional // 트랜잭션 작동 여부 확인
    public void write(MarketVO mvo, MultipartFile[] mfile) {
       write(mvo);
+      
       for (MultipartFile market_file : mfile) { 
          
          if (market_file != null && market_file.getSize() > 0) {
@@ -68,56 +77,114 @@ public class MarketServiceImpl implements MarketService {
             mfvo.setMno(mvo.getMno());
             mfvo.setFileName(market_file.getOriginalFilename());
             
-            market_fileMapper.insert(mfvo);
+            fileMapper.insert(mfvo);
 			upload(mvo, market_file);
          }
       }
      }
    
    // s3에 파일 업로드 
-   private void upload(MarketVO mvo, MultipartFile market_file) {
+   private void upload(MarketVO mvo, MultipartFile mfile) {
 	   log.info("####################################s3에 올라간 파일명 확인");
-	   log.info(mvo.getMno() + "/" + market_file.getOriginalFilename());
+	   log.info(mvo.getMno() + "/" + mfile.getOriginalFilename());
 	   log.info("####################################s3에 올라간 파일명 확인");
 
-	      try (InputStream is = market_file.getInputStream()) {
+	      try (InputStream is = mfile.getInputStream()) {
 	         PutObjectRequest objectRequest = PutObjectRequest.builder().bucket(bucketName)
-	               .key("market/"+ mvo.getMno() + "/" + market_file.getOriginalFilename()).contentType(market_file.getContentType())
+	               .key("market/"+ mvo.getMno() + "/" + mfile.getOriginalFilename())
+	               .contentType(mfile.getContentType())
 	               .acl(ObjectCannedACL.PUBLIC_READ).build();
 
-	         s3.putObject(objectRequest, RequestBody.fromInputStream(is, market_file.getSize()));
+	         s3.putObject(objectRequest, RequestBody.fromInputStream(is, mfile.getSize()));
 
 	      } catch (Exception e) {
 	         throw new RuntimeException(e);
 	      }
 
 	   }
+   
   // 은비 읽어오기 수정함
   //mno값으로 받아온 파일명을 list에 넣어서 불러옴
    @Override
-   public MarketVO getdetail(int mno) {
-	   MarketVO mvo = market_mapper.getdetail(mno);
-	   List<String> market_file = market_fileMapper.getByMno(mno);
+   public MarketVO read(int mno) {
+	   MarketVO mvo = mapper.read(mno);
+	   List<String> market_file = fileMapper.getByMno(mno);
 	      mvo.setFileName(market_file);
 	      return mvo;
    }
    
 
+   @Override
+	public boolean modify(MarketVO mvo) {
+		return mapper.update(mvo) == 1;
+	}
+   
+   @Override
+	public boolean modify(MarketVO mvo, MultipartFile file) {
+		
+		
+		if (file != null & file.getSize() > 0) {
+			// s3는 삭제 후 재업로드
+			MarketVO oldimage = mapper.read(mvo.getMno());
+			removeFile(oldimage);
+			upload(mvo, file);
+			
+			// tbl_board_file은 삭제 후 인서트
+			fileMapper.deleteByMno(mvo.getMno());
+			
+			Market_fileVO mfvo = new Market_fileVO();
+			mfvo.setMno(mvo.getMno());
+			mfvo.setFileName(file.getOriginalFilename());
+			fileMapper.insert(mfvo);
+		}
+		return modify(mvo);
+	}
+   
+
+	
+	@Override
+	@Transactional
+	public boolean remove(int mno) {
+		// 댓글 삭제
+		// replyMapper.deleteByBno(bno);
+		
+		// 파일 삭제 (s3)
+		MarketVO vo = mapper.read(mno);
+		removeFile(vo);
+		
+		// 파일 삭제 (db)
+		fileMapper.deleteByMno(mno);
+		
+		
+		// 게시물 삭제
+		int cnt = mapper.delete(mno);
+		
+		return cnt == 1;
+	}
+
+	private void removeFile(MarketVO mvo) {
+//		String bucketName = "";
+		String key = mvo.getMno() + "/" + mvo.getFileName();
+		
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		s3.deleteObject(deleteObjectRequest);
+	}
+
+
 // 수정해야함
    @Override
    public List<MarketVO> getList(Criteria cri) {
-      return market_mapper.getListWithPaging(cri);
+      return mapper.getListWithPaging(cri);
    }
 
    @Override
    public int getTotal(Criteria cri) {
       //게시글 총 갯수 구하는 매퍼  
-      return market_mapper.getTotalCount(cri); 
+      return mapper.getTotalCount(cri); 
    }
-   // 공부!!!
-   @Override
-	public void write(MarketVO mvo) {
-		// TODO Auto-generated method stub
-		market_mapper.insertSelectKey(mvo);
-	}
+   
 }
