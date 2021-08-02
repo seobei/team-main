@@ -184,8 +184,7 @@ public class MainController {
 		
 	
 	//정보불러서 수정하기 
-	@PostMapping("/modify")
-	
+	@PostMapping("/modify")	
 	@PreAuthorize("isAuthenticated()")
 	public String modify(UserVO vo, RedirectAttributes rttr, Authentication auth) {
 		

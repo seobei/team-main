@@ -2,27 +2,30 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MarketVO;
 
 public interface MarketService {
 	
-	//데이터 추가 
-	boolean insert(MarketVO vo);
+	// 글 쓰기 : 데이터 추가 
+	public void write(MarketVO mvo);
+
+	// 글 쓰기 : 파일 데이터 추가 
+	public void write(MarketVO mvo, MultipartFile[] market_file);
+
+	// 읽어오기 : 데이터 조회
+	public MarketVO read(int mno);
+
+	// 글 수정 
+	public boolean modify(MarketVO mvo);
 	
-	
-	//데이터 가져오기 
-	MarketVO getdetail(int mno);
-	
-	//데이터 수정 
-//	boolean modify(UserVO vo);
-//	boolean modifyPassword(UserVO vo, String oldPassword);
-//	boolean modifyPassword(UserVO vo);
-	
-	//데이터 삭제 
-//	boolean remove(UserVO vo);
-//	boolean remove(UserVO vo, String inputPassword);
-	
+	// 글 수정 & 파일 데이터 수정
+	public boolean modify(MarketVO mvo, MultipartFile file);
+
+	// 글 삭제
+	public boolean remove(int mno);
+
 	// 리스트
 	public List<MarketVO> getList(Criteria cri);
 
