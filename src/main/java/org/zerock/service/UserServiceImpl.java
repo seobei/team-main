@@ -127,10 +127,7 @@ public class UserServiceImpl implements UserService {
 	//나중에 추가해야될내용 -> 게시글 삭제,댓글삭제 
 	@Override
 	public boolean remove(UserVO vo) {
-		
-		
-		//권한 삭제 
-		mapper.removeAuth(vo);
+
 		//회원 삭제 
 		int cnt = mapper.remove(vo);
 		return cnt ==1;

@@ -43,10 +43,6 @@ public class MainController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
 	
-	@Setter(onMethod_ = @Autowired)
-	private MessageService messageservice;
-	
-	
 	//메인 홈 
 	@RequestMapping("/home")
 	public void main() {
@@ -54,25 +50,19 @@ public class MainController {
 		
 //		return "/main/home";
 	}
-	
-	
-	
+
 	//로그인 
 	@RequestMapping("/login")
 	public void login() {
 		log.info("login method");
 	}
-	
-	
-	
+
 	//약관동의  
 	@RequestMapping("/tos")
 	public void tos() {
 		log.info(" Terms of service method");
 	}
-	
-	
-	
+
 	//회원가입 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public void signup() {
@@ -124,7 +114,7 @@ public class MainController {
 		boolean ok = service.insertB(vo);
 
 		if (ok) {
-			return "redirect:/main/home";
+			return "redirect:/main/login";
 		} else {
 			return "redirect:/main/signupB?error";
 		}
@@ -137,10 +127,7 @@ public class MainController {
 	public void mypage() {
 		log.info(" mypage method");
 	}
-	
-	
 
-	
 	//수정후 정보페이지 로딩  
 	//경로이동하는건 get방식 
 	
@@ -153,10 +140,7 @@ public class MainController {
 		model.addAttribute("uservo", uservo);
 		
 	}
-	
-	
 
-	
 	//비밀번호확인 후 정보페이지로 이동 
 	@PostMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
@@ -170,8 +154,6 @@ public class MainController {
 		String Encoderpw =uservo.getUserpw();
 		
 		BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-		
-		
 		
 		String resultshow ="";
 		
@@ -332,60 +314,6 @@ public class MainController {
 		}
 		return "main/findPw";	
 	}
-	
-	 
-      
-      
 
-        @GetMapping("/mgsend")
-    	@PreAuthorize("isAuthenticated()")
-		public void listsend(Principal principal, MessageVO vo, Model model) {
-		log.info("mgsend");
-		vo.setWriter(principal.getName());
-		List<MessageVO> list = messageservice.getListSend(vo);
-		model.addAttribute("listsend", list);
-		
-		log.info("mgsendprincipal method");
-        log.info(principal.getName());
-        UserVO uservo = service.read(principal.getName());
-		model.addAttribute("uservo", uservo);
-        }
-        
-        @PostMapping("/mgsend")       
-        public String listsendPost(MessageVO vo, RedirectAttributes rttr) {
-            log.info("listsendPost method");
-            boolean success = messageservice.mesinsert(vo);
-            if (success) {
-            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
-    		}
-            return "redirect:/main/mgsend";           
-        }
-        
-        @GetMapping("/mgreceive")
-    	@PreAuthorize("isAuthenticated()")
-		public void listrecevie(Principal principal, MessageVO vo, Model model) {
-		log.info("mgsend");
-		vo.setWriter(principal.getName());
-		List<MessageVO> list = messageservice.getListReceive(vo);
-		model.addAttribute("listReceive", list);
-
-		log.info("mgsendprincipal method");
-        log.info(principal.getName());
-        UserVO uservo = service.read(principal.getName());
-		model.addAttribute("uservo", uservo);
-        }
-        
-        @PostMapping("/mgreceive")
-        public String listreceviePost(MessageVO vo, RedirectAttributes rttr) {
-            log.info("listreceviePost method");
-            boolean success = messageservice.mesinsert(vo);
-            if (success) {
-            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
-    		}
-           // 이부분이다 설명을 듣고 싶으면 mgreceive.jsp로 가라
-            return "redirect:/main/mgreceive";           
-        }
-
-	
 	
 }

@@ -39,12 +39,12 @@ $(function() {
 		<ul  class="navbar-nav mr-auto text-center"> 
 			<li class="nav-item">
 	       			 <font size="4px">
-		       			 <a class="nav-link" href="${appRoot }/main/mgreceive">받은쪽지함 </a>
+		       			 <a class="nav-link" href="${appRoot }/message/mgreceive">받은쪽지함 </a>
 	       			 </font>
 	     	</li>
 	     	<li class="nav-item">
 	     			<font size="4px">
-	       			 	<a class="nav-link" href="${appRoot }/main/mgsend">보낸쪽지함 </a>	     			
+	       			 	<a class="nav-link" href="${appRoot }/message/mgsend">보낸쪽지함 </a>	     			
 	     			</font>
 	     	</li>	
 	     	<li class="nav-item">
@@ -79,6 +79,8 @@ $(function() {
 								<td id="td" style="text-align: center">${message.reader }</td>
 								<td id="td" style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd [hh:mm]" value="${message.regdate }" /></td>
 							</tr>
+							
+						<!-- 모달 -->
 		                <div class="modal fade" id="call${status.count }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -92,17 +94,17 @@ $(function() {
 								<div class="modal-body">
 										<div class="form-group">
 											<label for="writer" class="col-form-label">보내는 사람</label>
-											<input type="text" readonly class="form-control" id="writer" value="${uservo.userid}" name="writer">
+											<input type="text" readonly class="form-control" id="writer${status.count }" value="${uservo.userid}" name="writer">
 										</div>
 		
 										<div class="form-group">
 											<label for="reader" class="col-form-label">받는 사람</label>
-											<input type="text" readonly class="form-control" id="reader" name="reader" value="${message.reader}">
+											<input type="text" readonly class="form-control" id="reader${status.count }" name="reader" value="${message.reader}">
 										</div>
 		
 										<div class="form-group">
 											<label for="content" class="col-form-label">내용</label>
-											<textarea class="form-control" readonly id="content" name="content">${message.content}</textarea>
+											<textarea class="form-control" readonly id="content${status.count }" name="content">${message.content}</textarea>
 										</div>
 								 
 										<div class="modal-footer">
@@ -127,10 +129,10 @@ $(function() {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="${appRoot }/main/mgsend" method="post">
+					<form action="${appRoot }/message/mgsend" method="post">
 						<div class="form-group">
 							<label for="writer" class="col-form-label">보내는 사람</label>
-							<input type="text" readonly class="form-control" id="writer" value="${uservo.userid}" name="writer">
+							<input type="text" readonly class="form-control" id="writerTh" value="${uservo.userid}" name="writer">
 						</div>
 	
 						<div class="form-group">
@@ -145,7 +147,7 @@ $(function() {
 					 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-							<button id="sendbtnTh" type="submit" class="btn btn-secondary" >답장하기</button>
+							<button id="sendbtnTh" type="submit" class="btn btn-secondary" >보내기</button>
 						</div>		
 					</form>					
 				</div>
@@ -153,8 +155,37 @@ $(function() {
 		</div>
 	</div>
 <c:if test="${not empty message}">
-<script type="text/javascript">
-alert("${message}");
+<script>
+	alert("${message}");
+	$(document).ready(function() {
+	var canUseId = false;
+	
+	$("#sendbtnTh").click(function(){
+		var idVal = $("#readerTh").val();
+		var messageElem = $("#id-message");
+		canUseId = false;
+		
+		if(idVal == "") {
+			messageElem.text("입력해주세요.");
+		} else {
+			var data = {id : idVal};
+			$.ajax({
+				type: "get",
+				url: "${appRoot }/main/dup",
+				data: data,
+				success: function (data) {
+					if (data == "success") {
+						console.log("전송 가능한 아이디");
+						canUseId = true;
+					} else if (data == "exist") {
+						console.log("전송 불가능한 아이디");
+					}
+					
+				}
+			})
+		}
+		})
+	})
 </script>
 </c:if>
 </div>

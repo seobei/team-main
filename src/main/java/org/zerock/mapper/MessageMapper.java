@@ -2,7 +2,6 @@ package org.zerock.mapper;
 
 import java.util.List;
 import org.zerock.domain.MessageVO;
-import org.zerock.domain.UserVO;
 
 public interface MessageMapper {
 	

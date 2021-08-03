@@ -22,9 +22,7 @@ public interface UserMapper {
 	
 	
 	//테이터 삭제
-	public int remove(UserVO vo);
-	public int removeAuth(UserVO vo);
-	
+	public int remove(UserVO vo);	
 	
 	// 재경 아이디 찾기
 	public UserVO findId(UserVO vo);

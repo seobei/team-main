@@ -174,7 +174,7 @@ $(document).ready(function(){
 			                    <input  value="${uservo.useradd }" class="form-control" type="text" id="useradd" name="useradd" />
 			                </div>
 			                 <div class="input-group justify-content-between">
-		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정 " />
+		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정" />
 		                    	<a id="info-notmodify" class="btn btn-outline-secondary" href="${appRoot }/main/mypage" > 취소  </a>
 		                    	
 							</div>

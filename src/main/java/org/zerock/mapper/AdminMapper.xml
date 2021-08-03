@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.AdminMapper">
+	
+	<!-- 일반회원 리스트조회 -->
+	<select id="getUserlist" resultType="org.zerock.domain.UserVO" >
+		  SELECT * FROM GH_User WHERE CompanyRegistrationNumber is NULL order by regdate desc ;
+    </select>
+	
+	<!-- 일반회원 회원추가 -->
+	<insert id="getUserinsert">
+		INSERT INTO GH_User
+		(userid, userpw, username, userPhone, userEmail, useradd)
+		VALUES
+		(#{userid}, #{userpw}, #{userName}, #{userPhone}, #{userEmail}, #{useradd})
+	</insert>
+
+	<!-- 일반회원 권한추가 -->
+	<insert id="getUserinsertAuth">
+		INSERT INTO GH_auth
+		(userid, auth)
+		VALUES
+		(#{userid}, #{auth})
+	</insert>
+	
+	<!--  일반회원 정보 수정  -->
+	<update id="Userupdate">
+	  UPDATE GH_User
+	  SET 
+	      userName = #{userName},
+	      userPhone = #{userPhone},
+	      userEmail = #{userEmail},
+	      useradd = #{useradd},
+	      updatedate = now()
+	  WHERE
+	      userid = #{userid}
+	</update>
+	
+	<!-- 일반회원 회원탈퇴 -->
+	<delete id="Userdelete">
+		DELETE FROM GH_User
+		WHERE userid = #{userid}
+	</delete>
+	
+	<!-- 업체회원 리스트조회 -->
+	<select id="getComplist" resultType="org.zerock.domain.UserVO" >
+		  SELECT * FROM GH_User WHERE CompanyRegistrationNumber is not NULL order by regdate desc ;
+    </select>							
+	
+	<!-- 업체회원 회원추가 -->
+	<insert id="getCompinsert">
+		INSERT INTO GH_User
+		(userid, userpw, username, userPhone, userEmail, useradd, CompanyRegistrationNumber)
+		VALUES
+		(#{userid}, #{userpw}, #{userName}, #{userPhone}, #{userEmail}, #{useradd}, #{CompanyRegistrationNumber})
+	</insert>
+	
+	<!-- 업체회원 권한추가 -->
+	<insert id="getCompinsertAuth">
+		INSERT INTO GH_auth
+		(userid, auth)
+		VALUES
+		(#{userid}, #{auth})
+	</insert>
+	
+	<!--  업체회원 정보 수정  -->
+	<update id="Compupdate">
+	  UPDATE GH_User
+	  SET 
+	      userName = #{userName},
+	      userPhone = #{userPhone},
+	      userEmail = #{userEmail},
+	      useradd = #{useradd},
+	      updatedate = now()
+	  WHERE
+	      userid = #{userid}
+	</update>
+	
+	<!-- 일반회원 회원탈퇴 -->
+	<delete id="Compdelete">
+		DELETE FROM GH_User
+		WHERE userid = #{userid}
+	</delete>
+</mapper>
