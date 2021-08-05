@@ -132,7 +132,7 @@
 			<div class="row justify-content-center text-center m-2">
 				<div class="col-2">
 					<a href="${appRoot }/main/findPw" >
-						<small>비밀번호 찾기  </small>
+						비밀번호 찾기
 					</a> 
 				</div>
 
@@ -144,7 +144,7 @@
 						
 				<div class="col-2">
 					<a href="${appRoot }/main/tos">
-						회원가입 
+						회원가입
 					</a>
 				</div>
 			</div>	
