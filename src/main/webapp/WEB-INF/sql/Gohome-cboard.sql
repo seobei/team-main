@@ -19,7 +19,18 @@ CREATE TABLE C_board_file (
 	fileName VARCHAR(200) not null,
 	FOREIGN KEY (bno) REFERENCES C_board(bno) ON DELETE CASCADE
 );
+-- 자유게시판 댓글 테이블 
+CREATE TABLE cb_reply (
+	rno INT PRIMARY KEY AUTO_INCREMENT,
+    bno INT NOT NULL,
+    reply VARCHAR(512) NOT NULL,
+    replyer VARCHAR(50) NOT NULL,
+    replyDate TIMESTAMP DEFAULT now(),
+    updateDate TIMESTAMP DEFAULT now(),
+    FOREIGN KEY (bno) REFERENCES C_board(bno)
+);
 
 
 SELECT * FROM C_board;
 SELECT * FROM C_board_file;
+SELECT * FROM cb_reply;
