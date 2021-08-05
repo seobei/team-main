@@ -46,8 +46,7 @@ width: 300px;
 }
 
 .card-img-top img{
-width: 300px;
-
+	max-width :100%;
 
 }
 
@@ -92,6 +91,23 @@ $(document).ready(function() {
 <div class="container">	
 <nb:navbar/>
 <nb:scroll />			  
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <img src="..." class="rounded mr-2" alt="...">
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    프로젝트 진행 목적이므로 모든 이미지에 대한 저작권은 블라블라~~ 
+    
+  </div>
+</div>
+
+
 		  
 <!-- 배너 : 슬라이드 -->
 <!-- 배너 링크 고정이 아닌 이벤트 페이지 번호로 이동할 수 있게끔 수정할 것 -->		
@@ -117,21 +133,42 @@ $(document).ready(function() {
   </a>
 </div>	
 	
-	
+<%--		
+<div>
+	<c:url value="/market/write" var="writeUrl">	
+			<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+			<c:param name="amount" value="${cri.amount }"></c:param>
+	</c:url>
+
+<br>
+ <c:if test="${pinfo.user.userid}" >
+	<a class="btn btncl" href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
+</c:if> 				
+</div>		
+--%>	
+
+<!-- 키워드 -->
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">#침실</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">#서재</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
 	
 	
 		
 <!-- 상품 목록 -->	
-<div class="d-flex justify-content-between p-2 m-3">
+<h4>오늘의 상품 추천 </h4>
 
-	<h4>오늘의 상품 추천 </h4>
-	
-	<sec:authorize access="isAuthenticated()">
-	  
-	 <a class="btn  btn-info" href="${appRoot }/market/write"><i class="fas fa-pen"></i>글쓰기 </a>
-	 
-	</sec:authorize>	
-</div>
+
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
 <c:forEach items="${list }" var="market">
@@ -144,7 +181,7 @@ $(document).ready(function() {
   <div class="col mb-4">
     <div class="card">
 
-	    	<img src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
+	    	<img src="${imgRoot}market/${market.mno }/${market_file}" class="card-img-top" >
 	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
 	     	<div class="card-body">	
 	     		<input type="hidden" class="card-text" value="${market.mno }"/>

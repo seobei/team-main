@@ -21,7 +21,7 @@ public interface MarketService {
 	public boolean modify(MarketVO mvo);
 	
 	// 글 수정 & 파일 데이터 수정
-	public boolean modify(MarketVO mvo, MultipartFile file);
+	public boolean modify(MarketVO mvo, MultipartFile[] market_file);
 
 	// 글 삭제
 	public boolean remove(int mno);

@@ -13,9 +13,11 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <style type = "text/css">
+#image_container {
+	width :300px;
+}
 
-
-.image_container img {
+#image_container img {
 	max-width :100%;
 	padding : 20px;
 }
@@ -25,7 +27,7 @@
 
 
 
-<title>중고마켓 글쓰기</title>
+<title>Insert title here</title>
 </head>
 <body>
 <div class="container">
@@ -95,22 +97,12 @@
 						
 						</div>
 						
-						
-						
-						
-						
-						
 						<div>파일 미리보기</div>
 						<div class="jumbotron jumbotron-fluid">
-					
-						<div class="container">
-						  <div class="row row-cols-3 image_container" >
-						
-						    	<!-- 이미지 불러오는곳  -->
+						  <div class="container">
+							<div id="image_container" ></div>
 						  </div>
 						</div>
-						</div>
-						
 						
 						
 						<!-- 파일 미리보기 스크립트 -->
@@ -121,22 +113,17 @@
 									var reader = new FileReader(); 
 									
 									reader.onload = function(event) { 
-										var newCol = document.createElement("div");
-										newCol.classList.add("col")
 										var img = document.createElement("img"); 
 										
 										img.setAttribute("src", event.target.result); 
-										
-										newCol.appendChild(img);
-										
-										document.querySelector("div.image_container").appendChild(newCol); 
+										document.querySelector("div#image_container").appendChild(img); 
 									}; 
 										
 									
 									console.log(image); 
 									reader.readAsDataURL(image); 		
 								} 
-									
+			
 							} 
 						</script>
 

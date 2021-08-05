@@ -50,12 +50,7 @@ $(function() {
 		         </li>
 		     	</sec:authorize>
 	     	
-	     		<!-- 재경 추가 -->
-		     	 <sec:authorize access="isAuthenticated()">
-		         <li class="nav-item">
-		       			 <a class="nav-link" href="${appRoot }/market/write">글쓰기 </a>
-		         </li>
-		     	</sec:authorize>	
+
 		     	 
 
 		     	<sec:authorize access="isAuthenticated()">
@@ -128,10 +123,18 @@ $(function() {
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
-       <li class="nav-item">
-        <a class="nav-link" href="${appRoot }/help/cs"  role="button"  aria-expanded="false">
-          고객센터  
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"  role="button"  aria-expanded="false">
+         고객센터  
         </a>
+       <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+          <li><a class="dropdown-item" href="${appRoot }/cs/notice">공지사항 </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/questionAndAnswer">Q&A</a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/oneToOne">1:1문의</a></li>
+          <li><hr class="dropdown-divider"></li>
+        </ul> 
+        
+        
       </li>
       
     </ul>

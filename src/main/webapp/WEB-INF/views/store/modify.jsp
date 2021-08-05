@@ -10,19 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-<style type="text/css">
-#carouselExampleControls {
-width : 540px;
-}
-#carouselExampleControls img{
-max-width : 100%;
-} 
-
-</style> 
-
-
-
 
 <title>Insert title here</title>
 
@@ -45,49 +34,20 @@ $(document).ready(function() {
 <nb:scroll/>
 	<h1>글 수정/삭제</h1>
 		<hr> 	
-	<div class="row m-2" >
+	<div class="row">
 		<div class="col-12">
 			<form id="market-modify" action="${appRoot }/market/modify" method="post" enctype="multipart/form-data">
 				<input hidden name="mno" value="${market.mno }" />
 				
-<%-- 			<div class="form-group">
+			<div class="form-group">
 			<c:if test="${not empty market.fileName }">
             <c:forEach items="${market.fileName }" var="market_file">
                <div>
-                  <img class="rounded float-left" src="${imgRoot}market/${market.mno }/${market_file}">
+                  <img class="rounded float-left" src="${imgRoot}${market.mno }/${market_file}">
                </div>
             </c:forEach>
             </c:if>
-			</div>	 --%>
-			
-			
-	<div class="form-group">
-		<c:if test="${not empty market.fileName }">
-			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-	  			<div class="carousel-inner">
-	    
-	         <c:forEach items="${market.fileName }" var="market_file" varStatus="status">
-	
-				<div class="carousel-item <c:if test='${status.first }' >active</c:if>">
-					<img src="${imgRoot}market/${market.mno }/${market_file}">
-				</div>
-	
-	
-	        </c:forEach>
-	          
-	           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-				 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				 <span class="sr-only">Previous</span>
-	           </a>
-	           <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-				 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				 <span class="sr-only">Next</span>
-	           </a> 
-	          
-	           </div>
-	       </div>
-	    </c:if> 
-	</div>
+			</div>	
 			
 				<div class="form-group">
 					<label for="mdetail">나눔, 판매</label>
@@ -144,7 +104,7 @@ $(document).ready(function() {
 														
 				<div class="form-group">
 					<label for="input3">파일</label>
-					<input id="input3" class="form-control" type="file" name="market_file" multiple="multiple"  accept="image/*">
+					<input id="input3" class="form-control" type="file" name="file" multiple="multiple"  accept="image/*">
 				</div>
 				
 				<input hidden name="pageNum" value="${cri.pageNum }" />
@@ -161,8 +121,8 @@ $(document).ready(function() {
 				</div>	
 
 									
-				<input class="btn btncl" id="market_detail_modify" type="submit" value="수정" /><i class="far fa-edit"></i>
-				<input id="market-remove-btn1" class="btn btncl" type="button" value="삭제" /><i class="far fa-trash-alt"></i>
+				<i class="far fa-edit"></i><input class="btn btncl" id="market_detail_modify" type="submit" value="수정" ></input>
+				<i class="far fa-trash-alt"></i><input id="market-remove-btn1" class="btn btncl" type="button" value="삭제" >
 			</form>
 		</div>
 	</div>

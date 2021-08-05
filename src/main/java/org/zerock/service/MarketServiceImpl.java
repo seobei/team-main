@@ -130,23 +130,28 @@ public class MarketServiceImpl implements MarketService {
 			return mapper.update(mvo) == 1;
 		}	    
 	    
+		
+		
 		@Override
-		public boolean modify(MarketVO mvo, MultipartFile file) {
-			
-			
-			if (file != null & file.getSize() > 0) {
-				// s3는 삭제 후 재업로드
-				MarketVO oldimage = mapper.read(mvo.getMno());
-				removeFile(oldimage);
-				upload(mvo, file);
-				
-				// tbl_board_file은 삭제 후 인서트
-				fileMapper.deleteByMno(mvo.getMno());
-				
-				Market_fileVO mfvo = new Market_fileVO();
-				mfvo.setMno(mvo.getMno());
-				mfvo.setFileName(file.getOriginalFilename());
-				fileMapper.insert(mfvo);
+		@Transactional
+		public boolean modify(MarketVO mvo, MultipartFile[] market_file) {
+			// 은비 s3 삭제
+			MarketVO oldimage = mapper.read(mvo.getMno());
+			removeFile(oldimage);
+			// 은비 db delete
+			fileMapper.deleteByMno(mvo.getMno());
+
+			for (MultipartFile file : market_file) {
+				log.info("테스트:" + file.toString());
+
+				if (file != null & file.getSize() > 0) {
+
+					Market_fileVO mfvo = new Market_fileVO();
+					mfvo.setMno(mvo.getMno());
+					mfvo.setFileName(file.getOriginalFilename());
+					fileMapper.insert(mfvo);
+					upload(mvo, file);
+				}
 			}
 			return modify(mvo);
 		}
@@ -177,8 +182,8 @@ public class MarketServiceImpl implements MarketService {
  
 		
 		private void removeFile(MarketVO mvo) {
-//			String bucketName = "";
-			String key = mvo.getMno() + "/" + mvo.getFileName();
+			for (String fileName : mvo.getFileName()) {
+				String key = "market/" + mvo.getMno() + "/" + fileName;
 			
 			DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 					.bucket(bucketName)
@@ -187,7 +192,7 @@ public class MarketServiceImpl implements MarketService {
 			
 			s3.deleteObject(deleteObjectRequest);
 		}
-		
+		}
 		
 		
 		
