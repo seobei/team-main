@@ -42,56 +42,84 @@ $(document).ready(function(){
 	
 	
 	
-		//비밀번호수정클릭시 수정 모달 나오게 
-		var modifyPasswordModal = $("#password-modify-modal")
-		$("#pw-modify-btn1").click(function(){
-			
-			modifyPasswordModal.modal('show');
-			
-			
-		})
+	//비밀번호수정클릭시 수정 모달 나오게 
+	var modifyPasswordModal = $("#password-modify-modal")
+	$("#pw-modify-btn1").click(function(){
+		modifyPasswordModal.modal('show');
 		
+		
+	})
 	
-		var PasswordModal = $("#password-modal");
+	//비번수정 입력 확인 
+	$("#password-modal-btn").click(function() {
 		
-		//회원탈퇴클릭시 탈퇴확인 비번 모달 나오게 
-		$("#info-remove-btn1").click(function(){
-			
-			var ans = confirm("회원을 탈퇴하시겠습니까 ? ");
-			
-			
-			if(ans){
-				
-				PasswordModal.modal('show');
-				
+		//비번입력 했는지 
+			if($("#old-Password").val()==""){
+				alert("기존 비밀번호을 입력해주세요 .");
+				$("#old-Password").focus();
+				return false;
 			}
-		})
+			if($("#user-pw").val()==""){
+				alert("새 비밀번호을 입력해주세요 .");
+				$("#user-pw").focus();
+				return false;
+			}
+			if($("#newPassword-ck").val()==""){
+				alert("새 비밀번호 확인을 입력해주세요 .");
+				$("#newPassword-ck").focus();
+				return false;
+			}
 		
-		
-		//패스워드 일치 확인 
-		$("#newPassword-ck").keyup(function() {
-			var pw1 = $("#user-pw").val();
-			var pw2 = $("#newPassword-ck").val();
-			var modifyBtn = $("#password-modal-btn");
 			
-			if ((pw1 != pw2)) {
-				modifyBtn.attr("disabled", "disabled");
-				$("#password-message").text("패스워드가 일치하지 않습니다.");
+		});			
+	//패스워드 일치 확인 
+	$("#newPassword-ck").keyup(function() {
+		var pw1 = $("#user-pw").val();
+		var pw2 = $("#newPassword-ck").val();
+		var modifyBtn = $("#password-modal-btn");
+		
+		if ((pw1 != pw2)) {
+			modifyBtn.attr("disabled", "disabled");
+			$("#password-message").text("패스워드가 일치하지 않습니다.");
+		} else {
+			if (pw1 == "") {
+				modifyBtn.attr("disabled", "disabled");	
+				$("#password-message").text("패스워드를 입력해주세요.");
 			} else {
-				if (pw1 == "") {
-					modifyBtn.attr("disabled", "disabled");	
-					$("#password-message").text("패스워드를 입력해주세요.");
-				} else {
-					modifyBtn.removeAttr("disabled");
-					$("#password-message").empty();
-				}
+				modifyBtn.removeAttr("disabled");
+				$("#password-message").empty();
 			}
-		});
+		}
+	});
+	
+	var PasswordModal = $("#password-modal");
+	//회원탈퇴클릭시 탈퇴확인 비번 모달 나오게 
+	$("#info-remove-btn1").click(function(){
+		var ans = confirm("회원을 탈퇴하시겠습니까 ? ");
 		
-})
+		
+		if(ans){
+			
+			PasswordModal.modal('show');
+			
+		}
+	})
+	
+	//회원탈퇴 비번확인 
+	$("#remove-btn").click(function() {
+		
+		//비번입력 했는지 
+			if($("#input-Password").val()==""){
+				alert("비밀번호을 입력해주세요 .");
+				$("#input-title").focus();
+				return false;
+			}
+		
+			
+		});
 
 	
-	
+})
 	
 </script>
 </head>
@@ -143,7 +171,7 @@ $(document).ready(function(){
 					   
 					   
 			      		<p>회원정보 <br>
-			      		<form method="post" action="${appRoot }/main/modify">
+			      		<form method="post" action="${appRoot }/mypage/modify">
 			      		
 			      			<sec:authorize access="hasRole('ROLE_BUSINESS')">
                                   <div class="form-group">
@@ -175,7 +203,7 @@ $(document).ready(function(){
 			                </div>
 			                 <div class="input-group justify-content-between">
 		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정 " />
-		                    	<a id="info-notmodify" class="btn btn-outline-secondary" href="${appRoot }/main/mypage" > 취소  </a>
+		                    	<a id="info-notmodify" class="btn btn-outline-secondary" href="${appRoot }/mypage/mypage" > 취소  </a>
 		                    	
 							</div>
 		                </form>
@@ -220,6 +248,12 @@ $(document).ready(function(){
 		    </div>
 		  </div>
 		</div>
+		
+			
+	<footer>
+		<nb:footer></nb:footer>
+	</footer>
+	
 	</div>
 		
 		
@@ -238,7 +272,7 @@ $(document).ready(function(){
 						<span>&times;</span>
 					</button>
 				</div>		
-				<form action="${appRoot}/main/removeuser" method="post" >
+				<form action="${appRoot}/mypage/removeuser" method="post" >
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="inputPassword">비밀번호 </label>
@@ -249,7 +283,7 @@ $(document).ready(function(){
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">
 							닫기
 						</button>
-						<button type="submit" id="password-modal-btn" class="btn btn-danger">확인</button>
+						<button type="submit" id="remove-btn" class="btn btn-danger">확인</button>
 					</div>
 				</form>
 			</div>
@@ -270,7 +304,7 @@ $(document).ready(function(){
 						<span>&times;</span>
 					</button>
 				</div>		
-				<form action="${appRoot}/main/modifypassword" method="post" >
+				<form action="${appRoot}/mypage/modifypassword" method="post" >
 					<div class="modal-body">
 						
 						<div class="form-group">
@@ -296,6 +330,22 @@ $(document).ready(function(){
 				</form>
 			</div>
 		</div>
+		
+		
 	</div>
+	
+	
+		
+
+	
+	
+	<c:if test="${not empty qqq}">
+	
+		<script type="text/javascript">
+		alert("${qqq}");
+		</script>
+		
+	</c:if>		
+
 </body>
 </html>

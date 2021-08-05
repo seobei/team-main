@@ -14,20 +14,31 @@ $(function() {
 })
 </script>
 
+
+
+
+<!--  검색  -->
+<!-- 회원가입 페이지 ! -->
+<!-- 기업 회원가입 페이지 ! -->
+<!-- 회원정보 페이지 ! -->
+
+
+
+
 <div class="d-flex justify-content-end">
 	<nav class="navbar navbar-expand-sm navbar-light">
 	
 		<ul  class="navbar-nav">
 	  		   <sec:authorize access="!isAuthenticated()">
-				<li class="nav-item">
-	       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
-	     		 </li>
+					<li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
+		     		 </li>
 	     		</sec:authorize>
 	     	
 		     	<sec:authorize access="!isAuthenticated()">
-			      <li class="nav-item">
-			        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
-			      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
+				      </li>
 			     </sec:authorize>
 		     	
 		     	
@@ -45,13 +56,11 @@ $(function() {
 		         </sec:authorize>
 	         
 		         <sec:authorize access="isAuthenticated()">
+
 		         <li class="nav-item">
 		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
 		         </li>
 		     	</sec:authorize>
-	     	
-
-		     	 
 
 		     	<sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
@@ -60,7 +69,6 @@ $(function() {
 		     	 </li>
 		     	</sec:authorize> 	 
 		     		 
-
 			</ul>
 		</nav>
 </div>
@@ -71,7 +79,7 @@ $(function() {
 <div class="navbar row justify-content-center p-0">
 		<div class="col-md-3 text-center p-0">
 		  <a class="navbar-brand" href="${appRoot}/main/home"> 
-		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo.png">
+		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo22.png">
 		  </a>
 		</div>
 		
@@ -107,21 +115,17 @@ $(function() {
           커뮤니티 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">자유게시판  </a></li>
-          <!-- 0729 재경 수정 -->
+          <li><a class="dropdown-item" href="${appRoot}/community/cbhome">자유게시판  </a></li>
           <li><a class="dropdown-item" href="${appRoot }/market/main">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
+      <!-- 업체 서브 빠이빠이  -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-          업체  
+      	<a class="nav-link" href="${appRoot }/experts/ehome"  role="button"  aria-expanded="false">
+          업체 
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">인테리어 </a></li>
-          <li><a class="dropdown-item" href="#">이사  </a></li>
-          <li><hr class="dropdown-divider"></li>
-        </ul>
+        
       </li>
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"  role="button"  aria-expanded="false">
@@ -140,4 +144,4 @@ $(function() {
     </ul>
     </nav>
   </div>
-  <hr>
+  <hr class="m-1">
