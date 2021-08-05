@@ -138,13 +138,13 @@
 
 				<div class="col-2">
 					<a href="${appRoot }/main/login">
-						<small>로그인  </small>
+						로그인  
 					</a>
 				</div>
 						
 				<div class="col-2">
 					<a href="${appRoot }/main/tos">
-						<small>회원가입 </small>
+						회원가입 
 					</a>
 				</div>
 			</div>	
