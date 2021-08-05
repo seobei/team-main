@@ -30,7 +30,7 @@
 
 	<dependencies>
 	
-	<!-- 메일인증  api -->
+		<!-- 메일인증  api -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>

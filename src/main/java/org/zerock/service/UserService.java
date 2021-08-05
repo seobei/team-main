@@ -21,8 +21,6 @@ public interface UserService {
 	boolean remove(UserVO vo);
 	boolean remove(UserVO vo, String inputPassword);
 	
-	
-	
 	//아이디 찾기
 	UserVO findId(UserVO vo);
 
