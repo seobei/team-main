@@ -109,9 +109,12 @@ public class BoardController {
 //		@PreAuthorize("principal.username == #board.writer") // 720 쪽
 //		@PreAuthorize("authication.name == #board.writer") // spring.io
 		public String modify(MarketVO mvo, Criteria cri, 
-				@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
+				@RequestParam("market_file") MultipartFile[] market_file, RedirectAttributes rttr) {
 
-			boolean success = service.modify(mvo, file);
+        
+			boolean success = service.modify(mvo, market_file);
+			//test
+			
 			
 			if (success) {
 				rttr.addFlashAttribute("result", "success");
@@ -126,5 +129,31 @@ public class BoardController {
 			
 			return "redirect:/board/market";
 		}
+        
+        @PostMapping("/remove")
+        //@PreAuthorize("principal.username == #writer") // 720 쪽 
+        public String remove(@RequestParam("mno") int mno,
+              Criteria cri, RedirectAttributes rttr, String mwriter) {
+           // parameter 수집
+           
+           // service 일
+           boolean success = service.remove(mno);
+           // 결과 담고
+           if (success) {
+              rttr.addFlashAttribute("result", "success");
+              rttr.addFlashAttribute("messageTitle", "삭제 성공");
+              rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");
+           }
+           rttr.addAttribute("pageNum", cri.getPageNum());
+           rttr.addAttribute("amount", cri.getAmount());
+			/*
+			 * rttr.addAttribute("type", cri.getType()); rttr.addAttribute("keyword",
+			 * cri.getKeyword());
+			 */
+           
+           // forward or redirect
+           return "redirect:/board/market";
+           
+        }
         
 }

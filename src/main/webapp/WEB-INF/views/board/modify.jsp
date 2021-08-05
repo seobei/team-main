@@ -21,8 +21,8 @@ $(document).ready(function() {
 	var removeUrl = "${appRoot }/board/remove";
 	$("#board-remove-btn1").click(function() {
 		if (confirm("삭제 하시겠습니까?")) {
-			$("#modify-form1").attr("action", removeUrl);
-			$("#modify-form1").submit();
+			$("#market-modify").attr("action", removeUrl);
+			$("#market-modify").submit();
 		}
 	});
 });
@@ -108,7 +108,7 @@ $(document).ready(function() {
 														
 				<div class="form-group">
 					<label for="input3">파일</label>
-					<input id="input3" class="form-control" type="file" name="file" multiple="multiple"  accept="image/*">
+					<input id="input3" class="form-control" type="file" name="market_file" multiple="multiple"  accept="image/*">
 				</div>
 				
 				<input hidden name="pageNum" value="${cri.pageNum }" />
@@ -121,12 +121,12 @@ $(document).ready(function() {
 				
 				<div class="form-group">
 					<label for="mdetail">상세 설명</label>
-					<textarea id="mdetail" class="form-control" name="mdetail" value="${market.mdetail }"></textarea>
+					<textarea id="mdetail" class="form-control" name="mdetail">${market.mdetail }</textarea>
 				</div>	
 
 									
-				<input class="btn btncl" id="market_detail_modify" type="submit" value="수정" ><i class="far fa-edit"></i></input>
-				<input id="board-remove-btn1" class="btn btncl" type="button" value="삭제" ><i class="far fa-trash-alt"></i></input>
+				<input class="btn btncl" id="market_detail_modify" type="submit" value="수정" /><i class="far fa-edit"></i>
+				<input id="board-remove-btn1" class="btn btncl" type="button" value="삭제" /><i class="far fa-trash-alt"></i>
 			</form>
 		</div>
 	</div>

@@ -13,7 +13,7 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
 
-<title>Insert title here</title>
+<title>중고마켓 글쓰기</title>
 </head>
 <body>
 	<nb:navbar />
