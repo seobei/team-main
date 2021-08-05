@@ -14,13 +14,33 @@
 	  	VALUES (#{writer}, #{reader}, #{content})
 	</insert>
 	
+	<select id="getTotalListSend" resultType ="int">
+	  	SELECT count(*) 
+	  	FROM GH_Message 
+	  	WHERE writer = #{writer} 
+	</select>
+	
 	
 	<select id="getListSend" resultType ="org.zerock.domain.MessageVO">
-	  	SELECT * FROM GH_Message WHERE writer = #{writer} order by mno desc
+	  	SELECT * 
+	  	FROM GH_Message 
+	  	WHERE writer = #{vo.writer} 
+	  	order by mno desc
+	  	LIMIT #{page}, 10
+	</select>
+
+	<select id="getTotalListReceive" resultType ="org.zerock.domain.MessageVO">
+	  	SELECT count(*) 
+	  	FROM GH_Message 
+	  	WHERE writer = #{writer} 
 	</select>
 	  
 	<select id="getListReceive" resultType ="org.zerock.domain.MessageVO">
-	  	SELECT * FROM GH_Message WHERE reader = #{writer} order by mno desc
+	  	SELECT * 
+	  	FROM GH_Message 
+	  	WHERE reader = #{vo.writer} 
+	  	order by mno desc
+	  	LIMIT #{page}, 10
 	</select>
 	
 	<select id="getSearchMessageList" resultType ="org.zerock.domain.MessageVO">

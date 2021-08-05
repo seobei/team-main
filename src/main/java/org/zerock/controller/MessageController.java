@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,16 +36,19 @@ public class MessageController {
 	
 	@GetMapping("/mgsend")
 	@PreAuthorize("isAuthenticated()")
-	public void listsend(Principal principal, MessageVO vo, Model model) {
-	log.info("mgsend");
-	vo.setWriter(principal.getName());
-	List<MessageVO> list = messageservice.getListSend(vo);
-	model.addAttribute("listsend", list);
-	
-	log.info("mgsendprincipal method");
-    log.info(principal.getName());
-    UserVO uservo = service.read(principal.getName());
-	model.addAttribute("uservo", uservo);
+	public void listsend(Principal principal, MessageVO vo, Model model, @RequestParam(value = "page", defaultValue = "1")Integer page) {
+		log.info("mgsend");
+		vo.setWriter(principal.getName());
+		List<MessageVO> list = messageservice.getListSend(vo, page);
+		int total = messageservice.getTotalListSend(vo);
+
+		model.addAttribute("total", total);
+		model.addAttribute("listsend", list);
+
+		log.info("mgsendprincipal method");
+	    log.info(principal.getName());
+	    UserVO uservo = service.read(principal.getName());
+		model.addAttribute("uservo", uservo);
 	
     }
     
@@ -75,10 +77,13 @@ public class MessageController {
     
     @GetMapping("/mgreceive")
 	@PreAuthorize("isAuthenticated()")
-	public void listrecevie(Principal principal, MessageVO vo, Model model) {
+    public void listrecevie(Principal principal, MessageVO vo, Model model, @RequestParam(value = "page", defaultValue = "1")Integer page) {
 	log.info("mgsend");
 	vo.setWriter(principal.getName());
-	List<MessageVO> list = messageservice.getListReceive(vo);
+	List<MessageVO> list = messageservice.getListReceive(vo, page);
+	int total = messageservice.getTotalListSend(vo);
+
+	model.addAttribute("total", total);
 	model.addAttribute("listReceive", list);
 
 	log.info("mgsendprincipal method");
