@@ -17,12 +17,12 @@
 
 <script>
 $(document).ready(function() {
-	var modifyUrl = "${appRoot }/board/modify";
-	var removeUrl = "${appRoot }/board/remove";
-	$("#board-remove-btn1").click(function() {
+	var modifyUrl = "${appRoot }/market/modify";
+	var removeUrl = "${appRoot }/market/remove";
+	$("#market-remove-btn1").click(function() {
 		if (confirm("삭제 하시겠습니까?")) {
-			$("#modify-form1").attr("action", removeUrl);
-			$("#modify-form1").submit();
+			$("#market-modify").attr("action", removeUrl);
+			$("#market-modify").submit();
 		}
 	});
 });
@@ -36,7 +36,7 @@ $(document).ready(function() {
 		<hr> 	
 	<div class="row">
 		<div class="col-12">
-			<form id="market-modify" action="${appRoot }/board/modify" method="post" enctype="multipart/form-data">
+			<form id="market-modify" action="${appRoot }/market/modify" method="post" enctype="multipart/form-data">
 				<input hidden name="mno" value="${market.mno }" />
 				
 			<div class="form-group">
@@ -117,12 +117,12 @@ $(document).ready(function() {
 				
 				<div class="form-group">
 					<label for="mdetail">상세 설명</label>
-					<textarea id="mdetail" class="form-control" name="mdetail" value="${market.mdetail }"></textarea>
+					<textarea id="mdetail" class="form-control" name="mdetail">${market.mdetail }</textarea>
 				</div>	
 
 									
-				<input class="btn btncl" id="market_detail_modify" type="submit" value="수정" ><i class="far fa-edit"></i></input>
-				<input id="board-remove-btn1" class="btn btncl" type="button" value="삭제" ><i class="far fa-trash-alt"></i></input>
+				<i class="far fa-edit"></i><input class="btn btncl" id="market_detail_modify" type="submit" value="수정" ></input>
+				<i class="far fa-trash-alt"></i><input id="market-remove-btn1" class="btn btncl" type="button" value="삭제" >
 			</form>
 		</div>
 	</div>

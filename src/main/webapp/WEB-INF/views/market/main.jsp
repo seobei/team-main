@@ -14,6 +14,49 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+<style type="text/css">
+hr {
+margin : 0px;
+}
+ 
+a { 
+color : black;
+} 
+a:hover { 
+color : black;
+text-decoration:none ;
+} 
+.card-body {
+padding : 10px;
+}
+
+.card-title{
+font-size : 22px;
+}
+
+#card-detail, #card-address{
+padding : 10px;
+
+}
+
+.card-img-top {
+width: 300px;
+
+
+}
+
+.card-img-top img{
+width: 300px;
+
+
+}
+
+
+
+</style> 
+
+
+
 <!-- timeago -->
 <script src="${appRoot }/resources/js/date.js"></script>
      
@@ -72,25 +115,32 @@ $(document).ready(function() {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>		
-		
-<div> <p>임시</p>
-	<c:url value="/board/write" var="writeUrl">	
+</div>	
+	
+<%--		
+<div>
+	<c:url value="/market/write" var="writeUrl">	
 			<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 			<c:param name="amount" value="${cri.amount }"></c:param>
 	</c:url>
-	<a href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
-<br>
 
+<br>
+ <c:if test="${pinfo.user.userid}" >
+	<a class="btn btncl" href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
+</c:if> 				
 </div>		
+--%>	
+	
+	
 		
 <!-- 상품 목록 -->	
 <h4>오늘의 상품 추천 </h4>
 
+
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
 <c:forEach items="${list }" var="market">
-<c:url value="/board/getdetail" var="getUrl">
+<c:url value="/market/detail" var="getUrl">
 <c:param name="mno" value="${market.mno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />
@@ -99,20 +149,20 @@ $(document).ready(function() {
   <div class="col mb-4">
     <div class="card">
 
-	    	<img src="${appRoot }/resources/product/ma01.jpg" class="card-img-top" >
+	    	<img src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
 	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
 	     	<div class="card-body">	
-	     		<span class="card-text">${market.mno }</span>
-	 	     	<div class="card-title">${market.mtitle }</div>     
+	     		<input type="hidden" class="card-text" value="${market.mno }"/>
+	 	     	<div class="card-title" >${market.mtitle }</div>     
 	       	</div>
 	        
-	       <div class="form-group">
+	       <div class="form-group" id="card-detail">
 		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
 				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
-		        <span class="card-time-before">${market.mregdate.time }</span>
-		        <span class="card-date">${timebefore }</span>
-		        
+		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
+		   </div>     
 	      		<hr>
+	       <div id="card-address">
 	       		<div class="card-add">${market.maddress }</div>
 	       </div>  
     </div>
@@ -147,7 +197,7 @@ $(document).ready(function() {
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/board/market" method="get">
+	<form id="actionForm" action="${appRoot }/market/main" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
@@ -155,7 +205,7 @@ $(document).ready(function() {
 
 
 </div>
-
+</div>
 
 </body>
 </html>

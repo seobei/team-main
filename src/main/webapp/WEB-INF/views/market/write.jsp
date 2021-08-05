@@ -12,6 +12,21 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+<style type = "text/css">
+#image_container {
+	width :300px;
+}
+
+#image_container img {
+	max-width :100%;
+	padding : 20px;
+}
+
+
+</style>
+
+
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,11 +34,13 @@
 <nb:navbar/>
 <nb:scroll/>
 
-		<h1>글 쓰기</h1>
+		<h1>중고마켓 상품등록</h1>
+		<hr>
+
 
 		<div class="row">
 			<div class="col-12">
-				<form action="${appRoot }/board/write" method="post" enctype="multipart/form-data">
+				<form action="${appRoot }/market/write" method="post" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label for="mdetail">나눔, 판매</label>
@@ -46,7 +63,8 @@
 					
 					<div class="form-group">
 						<label for="mwriter">작성자</label>
-						<input id="mwriter" class="form-control" name="mwriter">
+						<input id="mwriter" readonly class="form-control" name="mwriter" value="${pinfo.user.userid }">
+						
 					</div>
 
 
@@ -75,8 +93,42 @@
 						<div class="form-group">
 						<label for="market_file">파일</label>
 						<!-- type file로 지정, multiple 멀티플로 어셉트 이미지 -->
-						<input id="market_file" class="form-control" type="file" name="market_file" multiple="multiple" accept="image/*">
+						<input id="market_file" class="form-control" type="file" name="market_file" multiple="multiple" accept="image/*" onchange="setThumbnail(event);">
+						
 						</div>
+						
+						<div>파일 미리보기</div>
+						<div class="jumbotron jumbotron-fluid">
+						  <div class="container">
+							<div id="image_container" ></div>
+						  </div>
+						</div>
+						
+						
+						<!-- 파일 미리보기 스크립트 -->
+
+						<script> 
+							function setThumbnail(event) { 
+								for (var image of event.target.files) { 
+									var reader = new FileReader(); 
+									
+									reader.onload = function(event) { 
+										var img = document.createElement("img"); 
+										
+										img.setAttribute("src", event.target.result); 
+										document.querySelector("div#image_container").appendChild(img); 
+									}; 
+										
+									
+									console.log(image); 
+									reader.readAsDataURL(image); 		
+								} 
+			
+							} 
+						</script>
+
+
+						
 
 						<div class="form-group">
 							<label for="maddress">거래지역</label>

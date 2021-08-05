@@ -9,6 +9,8 @@ SELECT * FROM market;
 SELECT * FROM wishlist;
 SELECT * FROM market_file;
 
+DELETE FROM GH_User;
+
 DROP TABLE market;
 DROP TABLE market_file;
 DROP TABLE wishlist;
@@ -21,7 +23,7 @@ CREATE TABLE market(
     mprice INT NOT NULL, -- 상품가격
     mdetail VARCHAR(2000) NOT NULL, -- 상세설명
     mstate VARCHAR(50) NOT NULL, -- 상품 상태 
-    msold VARCHAR(50) NOT NULL, -- 판매 분류
+    msold VARCHAR(10) NOT NULL, -- 판매 분류
     mregdate TIMESTAMP DEFAULT NOW(), -- 상품 등록일
     maddress VARCHAR(50), -- 주소        
     FOREIGN KEY (mwriter) REFERENCES GH_User(userid) ON DELETE CASCADE

@@ -96,7 +96,7 @@ public class MarketServiceImpl implements MarketService {
 		      try (InputStream is = mfile.getInputStream()) {
 			       PutObjectRequest objectRequest = PutObjectRequest.builder()
 			        	   .bucket(bucketName)
-			               .key(mvo.getMno() + "/" + mfile.getOriginalFilename())
+			               .key("market/" +mvo.getMno() + "/" + mfile.getOriginalFilename())
 			               .contentType(mfile.getContentType())
 			               .acl(ObjectCannedACL.PUBLIC_READ)
 			               .build();		   
@@ -174,7 +174,8 @@ public class MarketServiceImpl implements MarketService {
 			
 			return cnt == 1;
 		}
-
+ 
+		
 		private void removeFile(MarketVO mvo) {
 //			String bucketName = "";
 			String key = mvo.getMno() + "/" + mvo.getFileName();

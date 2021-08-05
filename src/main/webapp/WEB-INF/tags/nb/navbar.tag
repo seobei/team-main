@@ -47,8 +47,25 @@ $(function() {
 		         <sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
 		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
-		     		 </li>
-		     	</sec:authorize> 
+		         </li>
+		     	</sec:authorize>
+	     	
+	     		<!-- 재경 추가 -->
+		     	 <sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/market/write">글쓰기 </a>
+		         </li>
+		     	</sec:authorize>	
+		     	 
+
+		     	<sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+<%-- 		         	<sec:authentication property="principal.user" var="user" /> --%>		         	
+		       		<a class="nav-link" href="${appRoot }/message/mgreceive?writer=${user.userid}">쪽지함 </a>
+		     	 </li>
+		     	</sec:authorize> 	 
+		     		 
+
 			</ul>
 		</nav>
 </div>
@@ -97,7 +114,7 @@ $(function() {
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
           <li><a class="dropdown-item" href="#">자유게시판  </a></li>
           <!-- 0729 재경 수정 -->
-          <li><a class="dropdown-item" href="${appRoot }/board/market">중고마켓  </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/market/main">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>

@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MarketVO;
+import org.zerock.domain.MessageVO;
 import org.zerock.domain.PageDTO;
+import org.zerock.domain.UserVO;
 import org.zerock.service.MarketService;
+import org.zerock.service.MessageService;
+import org.zerock.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -24,15 +29,21 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/board")
+@RequestMapping("/market")
 @AllArgsConstructor
-public class BoardController {
+public class MarketController {
 	
 	@Setter (onMethod_ = @Autowired)
 	private MarketService service;
 	
-
-        @GetMapping("/market")
+	@Setter(onMethod_ = @Autowired)
+	private MessageService messageservice;	
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserService userservice;	
+	
+	
+        @GetMapping("/main")
         public void market(@ModelAttribute("cri") Criteria cri, Model model) {
             log.info("market method");
        		int total = service.getTotal(cri);    
@@ -59,15 +70,15 @@ public class BoardController {
         	rttr.addFlashAttribute("result", mvo.getMno());
 
 
-        	return "redirect:/board/market"; 
+        	return "redirect:/market/main"; 
     		} 		
     	
         
               
-		@GetMapping({"/getdetail", "/modify"})
+		@GetMapping({"/detail", "/modify"})
 		public void get(@RequestParam("mno") int mno, @ModelAttribute("cri") Criteria cri, Model model) {
-            log.info("board/detail method");
-
+            log.info("market/detail method");
+            
             MarketVO mvo = service.read(mno);
             
             model.addAttribute("market", mvo);
@@ -94,9 +105,54 @@ public class BoardController {
 //			rttr.addAttribute("type", cri.getType());
 //			rttr.addAttribute("keyword", cri.getKeyword());
 			
-			return "redirect:/board/market";
+			return "redirect:/market/main";
 		}
 		
 		
+		@PostMapping("/remove")
+//		@PreAuthorize("principal.username == #writer") // 720 쪽
+		public String remove(@RequestParam("mno") int mno,
+				Criteria cri, RedirectAttributes rttr, String writer) {
+			// parameter 수집
+			
+			// service 일
+			boolean success = service.remove(mno);
+			// 결과 담고
+			if (success) {
+				rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("messageTitle", "삭제 성공");
+				rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");
+			}
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+
+			
+			// forward or redirect
+			return "redirect:/market/main";
+			
+		}
+		
+		
+		
+		/*
+		 * @GetMapping("/mgsend") //@PreAuthorize("isAuthenticated()") public void
+		 * listsend(Principal principal, MessageVO vo, Model model) {
+		 * 
+		 * vo.setWriter(principal.getName()); List<MessageVO> list =
+		 * messageservice.getListSend(vo); model.addAttribute("listsend", list);
+		 * 
+		 * UserVO uservo = userservice.read(principal.getName());
+		 * model.addAttribute("uservo", uservo);
+		 * 
+		 * }
+		 * 
+		 * 
+		 * @PostMapping("/mgsend" ) public String listsendPost(MessageVO vo,
+		 * RedirectAttributes rttr) { log.info("listsendPost method"); boolean success =
+		 * messageservice.mesinsert(vo); if (success) {
+		 * rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. "); } else {
+		 * rttr.addFlashAttribute("message", "수신자가 존재하지 않습니다. "); } return
+		 * "redirect:/message/mgsend"; }
+		 */
         
 }
