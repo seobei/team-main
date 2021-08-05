@@ -13,3 +13,7 @@ CREATE TABLE GH_Message (
    regdate TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (writer) REFERENCES GH_User(userid)
 );
+
+SELECT * from market;
+
+select * from market_file;
