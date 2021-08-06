@@ -58,7 +58,7 @@ $(function() {
 		         <sec:authorize access="isAuthenticated()">
 
 		         <li class="nav-item">
-		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
+		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
 		         </li>
 		     	</sec:authorize>
 
