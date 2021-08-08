@@ -87,7 +87,7 @@
 					
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea  id="textarea1" class="form-control" 
+						<textarea id="textarea1" class="form-control" 
 						name="content" rows="10"><c:out value="${cboard.content }" /></textarea>
 					</div>
 					
