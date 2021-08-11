@@ -17,7 +17,7 @@
 </head>
 <style>
 
-	#useraddbtn {
+	#adminaddbtn {
 		margin: 10px;
 		padding: 5px;
 	}
@@ -33,70 +33,68 @@
 </style>
 	
 <script type="text/javascript">
-
 	$(document).ready(function(){
-	
 		$("#signbtn").click(function() {
-		
+			
 			// 사업자 번호 및 연락처 숫자만 입력하게 하기
 			// 자바스크립트 정규표현식
 			var CRNReg = /^[0-9]{10,13}$/g;
 			var NumReg = /^[0-9]{8,11}$/g;
 			var pwReg = /^[A-za-z0-9]{4,12}$/g;
-
-			if($("#useridbtn").val()==""){
+		
+			if($("#adminidbtn").val()==""){
 				alert("아이디를 입력해주세요.");
 				$("#id").focus();
 				return false;
 			}
-			if($("#userpw").val()==""){
+			if($("#adminpw").val()==""){
 				alert("비밀번호를 입력해주세요.");
 				$("#pw").focus();
 				return false;
 			}
 			
-			if (!pwReg.test($("#userpw").val())){
+			if (!pwReg.test($("#adminpw").val())){
 				alert("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
-				$("#userpw").focus();
+				$("#adminpw").focus();
 				return false;
 				
 			} 
 			
-			if($("#userpw2").val()==""){
+			if($("#adminpw2").val()==""){
 				alert("비밀번호를 입력해주세요.");
 				$("#pwchk").focus();
 				return false;
 			}								
-			if($("#userName").val()==""){
+			if($("#adminName").val()==""){
 				alert("성명을 입력해주세요.");
-				$("#userName").focus();
+				$("#adminName").focus();
 				return false;
 			}
 			
-			if($("#userEmail").val()==""){
+			if($("#adminEmail").val()==""){
 				alert("이메일을 입력해주세요.");
-				$("#userEmail").focus();
+				$("#adminEmail").focus();
 				return false;
 			}
-			if($("#userPhone").val()==""){
+			if($("#adminPhone").val()==""){
 				alert("연락처를 입력해주세요.");
-				$("#userPhone").focus();
+				$("#adminPhone").focus();
 				return false;
 			}
 			
-			if (!NumReg.test($("#userPhone").val())){
+			if (!NumReg.test($("#adminPhone").val())){
 				alert("연락처를 다시 확인해주세요.");
-				$("#userPhone").focus();
+				$("#adminPhone").focus();
 				return false;
 			}
 		});
-
+		
 		var canUseId = false;
 		var passwordConfirm = false;
 		
 		// 아이디 중복 확인 
 		$("#id-dup-btn").click(function() {
-			var idVal = $("#userid1").val();
+			var idVal = $("#adminidbtn").val();
 			var messageElem = $("#id-message");
 			// 자바스크립트 정규표현식
 			var idReg = /^[A-za-z]+[A-za-z0-9]{4,9}$/g;
@@ -108,7 +106,7 @@
 				messageElem.text("아이디를 입력해주세요.");
 			
 				
-			} else if(!idReg.test($("#userid1").val())){
+			} else if(!idReg.test($("#adminidbtn").val())){
 				messageElem.html("※ 다시 입력해주세요"+"<br>"+"아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.");
 				
 			} else {
@@ -137,18 +135,18 @@
 				});
 			}
 		})
-	
-	
+		
+		
 		// 패스워드 확인
-		$("#userpw, #userpw2").keyup(function() {
-			var pw1 = $("#userpw").val();
-			var pw2 = $("#userpw2").val();
+		$("#adminpw, #adminpw2").keyup(function() {
+			var pw1 = $("#adminpw").val();
+			var pw2 = $("#adminpw2").val();
 			
 			var messageElem = $("#pw-message");
 			var pwReg = /^[A-za-z0-9]{4,12}$/g;
 			passwordConfirm = false;
 			
-			if(!pwReg.test($("#userpw").val())){
+			if(!pwReg.test($("#adminpw").val())){
 				messageElem.html("비밀번호는 4자 이상이여야 합니다.");
 			}
 			else if (pw1.length > 3){
@@ -173,9 +171,9 @@
 		
 		//비밀번호보기 
 		$('#eye').on("mousedown", function(){
-		    $('#userpw').attr('type',"text");
+		    $('#adminpw').attr('type',"text");
 		}).on('mouseup mouseleave', function() {
-		    $('#userpw').attr('type',"password");
+		    $('#adminpw').attr('type',"password");
 		});
 		function toggleEnableSubmit() {
 			if (passwordConfirm && canUseId) {
@@ -185,18 +183,17 @@
 			}
 		}
 			
-		$("#useraddModal").on("show.bs.modal", function() {
-			$("#useridbtn").val("");
-			$("#userpw").val("");
-			$("#userpw2").val("");
-			$("#userName").val("");
-			$("#userEmail").val("");
-			$("#userPhone").val("");
-			$("#useradd").val("");
+		$("#adminaddModal").on("show.bs.modal", function() {
+			$("#adminidbtn").val("");
+			$("#adminpw").val("");
+			$("#adminpw2").val("");
+			$("#adminName").val("");
+			$("#adminEmail").val("");
+			$("#adminPhone").val("");
+			$("#adminadd").val("");
 			$("#signbtn").prop("disabled", true);
 		
 		});
-
 		//로그아웃 동작 
 	    $("#navbar-logout-link").click(function(e) {
 	        e.preventDefault();
@@ -206,13 +203,13 @@
 	});
 </script>
 <body>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class = "container">
 	
 		<!-- 상단 메뉴바 -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <a class="navbar-brand" href="${appRoot}/main/home">
-			<img alt="gohome-logo" width="100" src="${appRoot }/resources/img/gohomelogo22.png">
+			<img alt="gohome-logo" width="100" src="${appRoot }/resources/img/gohomelogo.png">
 		  </a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
@@ -220,8 +217,8 @@
 		
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 		    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-		      <li class="nav-item active">
-		        <a class="nav-link" href="${appRoot }/admin/home">회원 목록 <span class="sr-only">(current)</span> </a>
+		      <li class="nav-item ">
+		        <a class="nav-link" href="${appRoot }/admin/home">회원 목록 </a>
 		      </li>
 		      <li class="nav-item ">
 		        <a class="nav-link" href="${appRoot }/admin/complist">업체 목록</a>
@@ -232,8 +229,8 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href="${appRoot }/admin/otolist">문의내역 목록</a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="${appRoot }/admin/adminlist">관리자 목록</a>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="${appRoot }/admin/adminlist">관리자 목록 <span class="sr-only">(current)</span> </a>
 		      </li>
 		    </ul>
 		    <ul  class="navbar-nav">
@@ -250,11 +247,11 @@
 		<hr style="border: solid 1px;">
 		
 		
-		<!--  회원 목록 -->	
+		<!--  관리자 목록 -->	
 		<div class="row-12">
-			<h3> 회원 목록 </h3>
-			<button id="useraddbtn" type="button" class="btn btn-outline-secondary" style="float:right"
-					data-toggle="modal" data-target="#useraddModal">회원 추가</button>
+			<h3> 관리자 목록 </h3>
+			<button id="adminaddbtn" type="button" class="btn btn-outline-secondary" style="float:right"
+					data-toggle="modal" data-target="#adminaddModal">관리자계정 추가</button>
 			<table class="table table-striped">
 		        <thead>
 		            <tr style="text-align :center">
@@ -263,118 +260,110 @@
 		                <th style="width: 7%">이름</th>
 		                <th style="width: 13%">연락처</th>
 		                <th style="width: 15%">이메일</th>
-		                <th style="width: 35%">주소</th>
+		                <th style="width: 35%">사업부서</th>
 		                <th style="width: 15%">가입날짜</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		        	<c:forEach items="${Userlist }" var="user" varStatus="userstatus">
-		        		<style>
-		        			#overaddress${userstatus.count}{
-								text-overflow: ellipsis;
-								overflow: hidden;
-								white-space: nowrap;
-								max-width: 35px;
-							}
-		        		</style>
+		        	<c:forEach items="${Adminlist }" var="admin" varStatus="adminstatus">
 		        		<script>
 							$(document).ready(function(){
 								
-								$("#call${userstatus.count }").on("show.bs.modal", function(){
-									$("#userName${userstatus.count }").val("${user.userName }");
-									$("#userEmail${userstatus.count }").val("${user.userEmail }");	
-									$("#userPhone${userstatus.count }").val("${user.userPhone }");	
-									$("#useradd${userstatus.count }").val("${user.useradd }");	
+								$("#call${adminstatus.count }").on("show.bs.modal", function(){
+									$("#userName${adminstatus.count }").val("${admin.userName }");
+									$("#userEmail${adminstatus.count }").val("${admin.userEmail }");	
+									$("#userPhone${adminstatus.count }").val("${admin.userPhone }");	
+									$("#useradd${adminstatus.count }").val("${admin.useradd }");	
 									
 								})
 								
 								
-								$("#userupdbtn${userstatus.count }").click(function(){
+								$("#updbtn${adminstatus.count }").click(function(){
 									var NumReg = /^[0-9]{8,11}$/g;
 									
-									if($("#userName${userstatus.count }").val()==""){
+									if($("#userName${adminstatus.count }").val()==""){
 										alert("성명을 입력해주세요.");
-										$("#userName${userstatus.count }").focus();
+										$("#userName${adminstatus.count }").focus();
 										return false;
 									}
 									
-									if($("#userEmail${userstatus.count }").val()==""){
+									if($("#userEmail${adminstatus.count }").val()==""){
 										alert("이메일을 입력해주세요.");
-										$("#userEmail${userstatus.count }").focus();
+										$("#userEmail${adminstatus.count }").focus();
 										return false;
 									}
-									if($("#userPhone${userstatus.count }").val()==""){
+									if($("#userPhone${adminstatus.count }").val()==""){
 										alert("연락처를 입력해주세요.");
-										$("#userPhone${userstatus.count }").focus();
+										$("#userPhone${adminstatus.count }").focus();
 										return false;
 									}
 									
-									if (!NumReg.test($("#userPhone${userstatus.count }").val())){
+									if (!NumReg.test($("#userPhone${adminstatus.count }").val())){
 										alert("연락처를 다시 확인해주세요.");
-										$("#userPhone${userstatus.count }").focus();
+										$("#userPhone${adminstatus.count }").focus();
 										return false;
 									}	
 									
 									alert("수정 완료됐습니다.")
 								})
 								
-								$("#userdelbtn${userstatus.count }").click(function(){
-									$("form").attr("action", "${appRoot}/admin/delete");
-									alert("회원탈퇴가 완료됐습니다.")
+								$("#delbtn${adminstatus.count }").click(function(){
+									$("form").attr("action", "${appRoot}/admin/admindelete");
+									alert("관리자계정을 삭제 완료됐습니다.")
 								})
 							});
 							
-						</script>
+					</script>
 						<tr>
-							<td>${userstatus.count }</td>
+							<td>${adminstatus.count }</td>
 		                    <td>
-		                   		<a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call${userstatus.count }">
-		                   			${user.userid }
+		                   		<a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call${adminstatus.count }">
+		                   			${admin.userid }
 								</a>
 		                    </td>
-							<td>${user.userName }</td>
-							<td>${user.userPhone }</td>
-							<td>${user.userEmail }</td>
-							<td id="overaddress${userstatus.count}">${user.useradd }</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${user.regdate }" /></td>
+							<td>${admin.userName }</td>
+							<td>${admin.userPhone }</td>
+							<td>${admin.userEmail }</td>
+							<td>${admin.useradd }</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${admin.regdate }" /></td>
 						</tr>
 						
-						<!-- 회원 아이디 클릭시 나오는 상세조회 모달 -->
+						<!-- 관리자 아이디 클릭시 나오는 상세조회 모달 -->
 		
-						<div class="modal fade" id="call${userstatus.count }" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal fade" id="call${adminstatus.count }" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="staticBackdropLabel">${user.userid }님의 정보</h5>
+										<h5 class="modal-title" id="staticBackdropLabel">${admin.userid }님의 정보</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						    			    <span aria-hidden="true">&times;</span>
 						        		</button>
 						      		</div>
 						      		<div class="modal-body">
-						      			<form method="post" action="${appRoot }/admin/update">		  
+						      			<form method="post" action="${appRoot }/admin/adminupdate">		  
 								      		<div class="form-group">
 							                    <label class="control-label" for="userid">아이디</label>
-							                    <input readonly value="${user.userid }" class="form-control" type="text" id="userid-read${userstatus.count }" name="userid" />
+							                    <input readonly value="${admin.userid }" class="form-control" type="text" id="userid${adminstatus.count }" name="userid" />
 							                </div>
 							                <div class="form-group">
 							                    <label class="control-label" for="userName">이름</label>
-							                    <input value="${user.userName }" class="form-control" type="text" id="userName${userstatus.count }" name="userName" />
+							                    <input value="${admin.userName }" class="form-control" type="text" id="userName${adminstatus.count }" name="userName" />
 							                </div>
 							                <div class="form-group">
 							                    <label class="control-label" for="userEmail">이메일</label>
-							                    <input value="${user.userEmail }" class="form-control" type="email"  id="userEmail${userstatus.count }" name="userEmail" />
+							                    <input value="${admin.userEmail }" class="form-control" type="email"  id="userEmail${adminstatus.count }" name="userEmail" />
 							                </div>
 							                <div class="form-group">
 							                    <label class="control-label" for="userPhone">연락처</label>
-							                    <input value="${user.userPhone }" class="form-control" type="text" id="userPhone${userstatus.count }" name="userPhone" />
+							                    <input value="${admin.userPhone }" class="form-control" type="text" id="userPhone${adminstatus.count }" name="userPhone" />
 							                </div>
 							                <div class="form-group">
 							                    <label class="control-label" for="useradd">주소 </label>
-							                    <input value="${user.useradd }" class="form-control" type="text" id="useradd${userstatus.count }" name="useradd" />
+							                    <input value="${admin.useradd }" class="form-control" type="text" id="useradd${adminstatus.count }" name="useradd" />
 							                </div>
 								      		<div class="modal-footer">
-												<button id="userdelbtn${userstatus.count }" type="submit" class="btn btn-danger mr-auto">삭제</button>
-												<button id="userupdbtn${userstatus.count }" type="submit" class="btn btn-primary">수정</button>
+												<button id="delbtn${adminstatus.count }" type="submit" class="btn btn-danger mr-auto">삭제</button>
+												<button id="updbtn${adminstatus.count }" type="submit" class="btn btn-primary">수정</button>
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 									      	</div>
 						                </form>
@@ -396,22 +385,22 @@
 		    </table>
 		</div>
 		
-		<!-- 회원추가 버튼 클릭시 나오는 모달 -->
-		<div class="modal fade" id="useraddModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="useraddModaltitle" aria-hidden="true">
+		<!-- 관리자계정 추가 버튼 클릭시 나오는 모달 -->
+		<div class="modal fade" id="adminaddModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="adminaddModaltitle" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog modal-dialog-centered">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="useraddModaltitle">일반회원 추가</h5>
+		        <h5 class="modal-title" id="adminaddModaltitle">관리자계정 추가</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <form class="col-12" action="${appRoot }/admin/home" method="post">
+		        <form class="col-12" action="${appRoot }/admin/adminlist" method="post">
 	                <div class="form-group">
 	                    <label class="control-label" for="id">아이디</label>
 	                    <div class="input-group"> <!-- 왜 userid와 username이 같으면 안되는지 -->
-	                    <input class="form-control" type="text" id="userid1" name="userid" />
+	                    <input class="form-control" type="text" id="adminidbtn" name="userid" />
 							<button class="btn btn-outline-secondary" type="button"id="id-dup-btn">
 									중복 체크        
 							</button>
@@ -421,7 +410,7 @@
 	                <div class="form-group">
 	                    <label class="control-label" for="pw">비밀번호</label>
 						<div class="input-group-append">
-	                    	<input class="form-control" type="password" id="userpw" name="userpw" autocomplete="false" placeholder="비밀번호를 입력해주세요."/>
+	                    	<input class="form-control" type="password" id="adminpw" name="userpw" autocomplete="false" placeholder="비밀번호를 입력해주세요."/>
 							<button type="button" id="eye"><i class="fas fa-lock"></i></button>
 						</div>
 	                    <small id="pw-message" class="form-text"></small>
@@ -429,27 +418,27 @@
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pwchk">비밀번호 재확인 </label>
-	                    <input class="form-control" type="password" id="userpw2" name="pwchk" placeholder="비밀번호를 입력해주세요."/>
+	                    <input class="form-control" type="password" id="adminpw2" name="pwchk" placeholder="비밀번호를 입력해주세요."/>
 	                    <small id="password-message" class="form-text text-danger"></small>
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="userName">이름</label>
-	                    <input class="form-control" type="text" id="userName" name="userName" />
+	                    <input class="form-control" type="text" id="adminName" name="userName" />
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="userEmail">이메일</label>
-	                    <input class="form-control" type="email"  id="userEmail" name="userEmail" placeholder="name@example.com"/>
+	                    <input class="form-control" type="email"  id="adminEmail" name="userEmail" placeholder="name@example.com"/>
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="userPhone">연락처</label>
-	                    <input class="form-control" type="text" id="userPhone" name="userPhone" placeholder="-제외한 숫자만 입력" />
+	                    <input class="form-control" type="text" id="adminPhone" name="userPhone" placeholder="-제외한 숫자만 입력" />
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="useradd">주소</label>
-	                    <input class="form-control" type="text" id="useradd" name="useradd"/>
+	                    <label class="control-label" for="useradd">사업부서</label>
+	                    <input class="form-control" type="text" id="adminadd" name="useradd"/>
 	                </div>
 			      <div class="modal-footer">
-			        <button type="submit" class="btn btn-primary" id="signbtn">회원 추가</button>
+			        <button type="submit" class="btn btn-primary" id="signbtn">관리자계정 추가</button>
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 			      </div>
 	          	  </form>

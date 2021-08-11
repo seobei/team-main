@@ -30,9 +30,7 @@ $(function() {
 			      </li>
 			     </sec:authorize>
 			     <sec:authorize access="!isAuthenticated()">
-			      <li class="nav-item">
-			        <a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
-			      </li>
+			     
 			     </sec:authorize>
 		     	
 		     	
@@ -60,6 +58,11 @@ $(function() {
  --%>		         	
 		       		<a class="nav-link" href="${appRoot }/message/mgreceive">쪽지함 </a>
 		     	 </li>
+		     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
+					</li>
+		     	 </sec:authorize>
 		     	</sec:authorize> 
 			</ul>
 		</nav>

@@ -213,6 +213,7 @@
 
 </script>
 <body>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class = "container">
 	
 		<!-- 상단 메뉴바 -->
@@ -233,10 +234,13 @@
 		        <a class="nav-link" href="${appRoot }/admin/complist">업체 목록 <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">상품 목록</a>
+		        <a class="nav-link" href="${appRoot }/admin/productlist">상품 목록</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">문의내역 목록</a>
+		        <a class="nav-link" href="${appRoot }/admin/otolist">문의내역 목록</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="${appRoot }/admin/adminlist">관리자 목록</a>
 		      </li>
 		    </ul>
 		    <ul  class="navbar-nav">
@@ -274,6 +278,14 @@
 		        </thead>
 		        <tbody>
 		        	<c:forEach items="${Complist }" var="comp" varStatus="compstatus">
+		        		<style>
+		        			#overaddress${compstatus.count}{
+								text-overflow: ellipsis;
+								overflow: hidden;
+								white-space: nowrap;
+								max-width: 35px;
+							}
+		        		</style>
 		        		<script>
 							$(document).ready(function(){
 								
@@ -318,6 +330,7 @@
 								
 								$("#compdelbtn${compstatus.count }").click(function(){
 									$("form").attr("action", "${appRoot}/admin/compdelete");
+									alert("업체회원탈퇴가 완료됐습니다.")
 								})
 							});
 						</script>
@@ -332,7 +345,7 @@
 							<td>${comp.userPhone }</td>
 							<td>${comp.userEmail }</td>
 							<td>${comp.companyRegistrationNumber }</td>
-							<td>${comp.useradd }</td>
+							<td id="overaddress${compstatus.count}">${comp.useradd }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${comp.regdate }" /></td>
 						</tr>
 						
@@ -454,5 +467,23 @@
 		</div>
 				
 	</div>
+	</sec:authorize>
+	<script>
+	$(document).ready(function(){
+		$("#returnbtn").click(function(){
+			location.href="${appRoot }/main/home"; 
+		})	
+	})
+	</script>
+	<sec:authorize access="!hasRole('ROLE_ADMIN')">
+	<div class = "container">
+		<nb:navbar></nb:navbar>
+		<h1 style="text-align:center"> 이곳은 고집 관리자페이지 입니다.</h1>
+		<h3 style="text-align:center"> 접근 권한이 없습니다.</h3>
+			<div style="text-align:center">
+				<button id=returnbtn type="button" style="width:400px; height:100px; margin:0 auto;"><span style="font-size:30px">고홈 돌아가기</span></button>
+			</div>
+	</div>
+	</sec:authorize>
 </body>
 </html>
