@@ -2,7 +2,6 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!-- 날짜 형식 fmt tag 사용하기 위해 import함 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -13,6 +12,7 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 <style type = "text/css">
+
 .part-img img {
 	max-width :100%;
 	padding : 20px;
@@ -20,7 +20,34 @@
 .carousel-item img {
 	width :450px;
 }
+
 </style>
+
+<!--  <script>
+  $(".addCart_btn").click(function(){
+   var pno = $("#pno").val();
+   var cartStock = $(".numBox").val();
+      
+   var data = {
+		   pno : pno,
+     cartStock : cartStock
+     };
+   
+   $.ajax({
+    url : "/shop/view/addCart",
+    type : "post",
+    data : data,
+    success : function(result){
+     alert("카트 담기 성공");
+     $(".numBox").val("1");
+    },
+    error : function(){
+     alert("카트 담기 실패");
+    }
+   });
+  });
+ </script> -->
+
 
 
 
@@ -35,29 +62,23 @@
 	<hr> 	
 	
 
-	<div class="row">
-	
-
-					
+<div class="row">		
 			<div class="form-group col-6">
 			<c:if test="${not empty store.fileName }">
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			  <div class="carousel-inner">
 			    
-	           <c:forEach items="${store.fileName }" var="store_file" varStatus="status">
+	           <c:forEach items="${store.fileName }" var="store_file">
 	           
-	           <div class="carousel-item <c:if test='${status.first }' >active</c:if>"">
+	           <div class="carousel-item active">
 					<img src="${imgRoot}store/${store.pno }/${store_file}">
 				</div>
 			
 				
 	           </c:forEach>
-	          
-	           
-	           
 	           
 	            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-				    <spa n class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 				    <span class="sr-only">Previous</span>
 				  </a>
 				  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
@@ -69,13 +90,15 @@
 	           </div>
 		    </c:if> 
 			</div>
-			<!-- <script type="text/javascript">
+<!-- 			<script type="text/javascript">
 			$(function() {
 			 $("#wish1").click(function(){
               $("form").attr("action", "${appRoot}/store/storewish");
              })
              $("#cart1").click(function(){
-              $("form").attr("action", "${appRoot}/store/cart");
+              $("form").attr("action", "${appRoot}/store/addCart");
+              alert("장바구니에 담겼습니다.")
+              
              })
              $("#buy1").click(function(){
               $("form").attr("action", "${appRoot}/store/storebuy");
@@ -84,7 +107,9 @@
 			</script> -->
 			
 		<div class="part-detail col-6">
-			
+		<form action="${appRoot }/store/cart" method="post">
+				<input type = "hidden" name="pno" value = "${store.pno }">	
+						
 				<div class="form-group">
 					<label for="title">상품명</label>
 					<span>${store.title }</span>
@@ -110,21 +135,22 @@
 					<span>${store.delivery }</span>
 				</div>	
 				
-				<button type = "submit" class="btn btncl" id = "wish1" ><i class="fas fa-heart"></i> 찜하기 </button>
-		
-		<form action="${appRoot }/store/cart" method="post">
-				<input type = "hidden" name="pno" value = "${store.pno }">
-				<select name = "cartstock" id = "cartstrock">
+				
+				  <div class="cartStock">
+				  <label for="stock">구입 수량</label>
+				  <select name = "cartstock"  id = "cartstrock">
 					<c:forEach begin="1" end="10" var ="i">
 						<option value="${i }">${i }</option>
 					</c:forEach>
-				</select>		
-				<button type = "submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
-		</form>
-<!-- 첫번째 문제 스크립트 -->
-				<button type = "submit" id ="buy1" class="btn btncl"><i class="far fa-envelope"></i> 구매하기 </button>
-
+				  </select>
+					</div>
 				
+				<button type = "button" class="btn btncl" id = "wish1" ><i class="fas fa-heart"></i> 찜하기 </button>
+				<!-- 장바구니 진행 후 alert으로 성공, 실패 안내 띄우기, 비로그인 상태에서 장바구니 클릭시 로그인 페이지로 이동하는데, alert안내(회원만 사용할 수 있습니다.) 있으면 좋을 거 같음 -->
+				<button type = "submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
+
+				<button type = "button" id ="buy1" class="btn btncl"><i class="far fa-envelope"></i> 구매하기 </button>
+		</form>			
 				<hr>
 		</div>
 

@@ -3,7 +3,7 @@ CREATE DATABASE Gohome;
 
 use Gohome;
 
-SELECT * FROM GH_User;
+SELECT * FROM GH_auth;
 
 -- 사용자정보 테이블 만들기
 CREATE table GH_User(
@@ -46,8 +46,12 @@ DESC GH_User;
 
 SELECT * FROM GH_User;
 
-INSERT INTO GH_User(userid, userpw, username,userphone, userem)
-VALUES ('soo123','qweasd','soo','01022223333','qwe@naver.com');
+INSERT INTO GH_auth(userid, auth)
+VALUES ('admin', 'ROLE_ADMIN');
+
+INSERT INTO GH_User(userid, userpw, username, userPhone, userEmail)
+VALUES ('admin','qwe123','재경','01012340000','wwwcozytest1@gmail.com');
+
 
 DELETE FROM GH_auth WHERE userid='cozy';
 DELETE FROM GH_User WHERE userid='cozy';

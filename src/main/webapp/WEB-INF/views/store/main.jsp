@@ -15,6 +15,10 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <style type="text/css">
+.row {
+margin-top: 20px;
+}
+
 hr {
 margin : 0px;
 }
@@ -53,74 +57,54 @@ width: 300px;
 
 
 </style> 
+ 
 
 
-
-<!-- timeago -->
-<script src="${appRoot }/resources/js/date.js"></script>
-     
-<script>
-$(document).ready(function() {
-	$("#list-pagenation1 a").click(function(e) {
-		// 기본 액션 중지 (hyperlink 역할 안함)
-		e.preventDefault();
-		
-		//console.log("a요소 클릭됨");
-		
-		var actionForm = $("#actionForm");
-		
-		// form의 pageNum input의 값을 a 요소의 href값으로 변경
-		actionForm.find("[name=pageNum]").val($(this).attr("href"));
-		
-		// submit
-		actionForm.submit();
-	});
-	/* for문 대신에 each 함수 사용해서 timeBefore js에 값 보내주는 스크립트 */
-	$(".card-time-before").each(function(i, e) {
-		timeBefore(e);
-	})
-	
-});
-</script>        
-
-
-<title>중고마켓 </title>
+<title>스토어 </title>
 
 </head>
 <body>
 <div class="container">	
 <nb:navbar/>
-<nb:scroll />			  
-
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <img src="..." class="rounded mr-2" alt="...">
-    <strong class="mr-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body">
-    프로젝트 진행 목적이므로 모든 이미지에 대한 저작권은 블라블라~~ 
-    
-  </div>
+<nb:scroll />			
+		<div class="row">
+		  <div class="col-2">
+		    <ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link btn-light active" href="${appRoot }/store/main">카테고리</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link btn-outline-secondary" href="${appRoot }/store/main2">가구</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link btn-outline-secondary" href="#">수납</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link btn-outline-secondary" href="#">조명</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link btn-outline-secondary" href="#">가전</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link btn-outline-secondary"  href="#">장식/소품</a>
+  </li>
+</ul>
 </div>
 
 
+
+
+<div class="col-10">
 		  
 <!-- 배너 : 슬라이드 -->
 <!-- 배너 링크 고정이 아닌 이벤트 페이지 번호로 이동할 수 있게끔 수정할 것 -->		
 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-interval="3000">
-      <a href="${appRoot }/main/home"><img src="${appRoot }/resources/img/ba01.jpg" class="d-block w-100"  id="carousel-size"></a>
+      <a href="${appRoot }/main/tos"><img src="${appRoot }/resources/img/store_01.png" class="d-block w-100"  id="carousel-size"></a>
     </div>
     <div class="carousel-item" data-interval="3000">
-      <a href="${appRoot }/main/login"><img src="${appRoot }/resources/img/ba02.jpg" class="d-block w-100"  id="carousel-size"></a>
-    </div>
-    <div class="carousel-item" data-interval="3000">
-      <a href="${appRoot }/main/signup"><img src="${appRoot }/resources/img/ba03.jpg" class="d-block w-100"  id="carousel-size"></a>
+      <a href="${appRoot }/main/home"><img src="${appRoot }/resources/img/store_02.png" class="d-block w-100"  id="carousel-size"></a>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
@@ -133,74 +117,76 @@ $(document).ready(function() {
   </a>
 </div>	
 	
-<%--		
-<div>
-	<c:url value="/market/write" var="writeUrl">	
-			<c:param name="pageNum" value="${cri.pageNum }"></c:param>
-			<c:param name="amount" value="${cri.amount }"></c:param>
-	</c:url>
-
-<br>
- <c:if test="${pinfo.user.userid}" >
-	<a class="btn btncl" href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
-</c:if> 				
-</div>		
---%>	
-
+	
 <!-- 키워드 -->
-<ul class="nav nav-pills">
+<div>
+<ul class="nav">
   <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#침실</a>
+    <a class="nav-link active" href="#">#침실</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">#서재</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    <a class="nav-link" href="#">#드레스룸</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">#거실</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">#주방</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">#욕실</a>
+  </li>   
+  <li class="nav-item">
+    <a class="nav-link" href="#">#테라스</a>
+  </li>       
 </ul>
-	
+</div>
 	
 		
 <!-- 상품 목록 -->	
 <h4>오늘의 상품 추천 </h4>
 
 
+<a class="btn  btn-info" href="${appRoot }/store/register"><i class="fas fa-pen"></i>글쓰기 </a>
+	 
+
+
+
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
-<c:forEach items="${list }" var="market">
-<c:url value="/market/detail" var="getUrl">
-<c:param name="mno" value="${market.mno }" />
+<c:forEach items="${list }" var="store">
+ <c:url value="/store/detail" var="getUrl">
+<c:param name="pno" value="${store.pno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />
-</c:url>	  
+</c:url>	   
+
+
+
 <a href="${getUrl}">	
-  <div class="col mb-4">
+  <div class="col mb-3">
     <div class="card">
 
-	    	<img src="${imgRoot}market/${market.mno }/${market_file}" class="card-img-top" >
-	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
+	    	<img src="${imgRoot}store/${store.pno }/${store.fileName[0]}" class="card-img-top" >
 	     	<div class="card-body">	
-	     		<input type="hidden" class="card-text" value="${market.mno }"/>
-	 	     	<div class="card-title" >${market.mtitle }</div>     
+	     		<input type="hidden" class="card-text" value="${store.pno }"/>
+	 	     	<div class="card-title" >${store.title }</div>     
 	       	</div>
-	        
+
 	       <div class="form-group" id="card-detail">
-		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
-				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
-		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
+		        <div class="card-text"><fmt:formatNumber pattern="#,###원" value="${store.price }"/></div>
 		   </div>     
 	      		<hr>
 	       <div id="card-address">
-	       		<div class="card-add">${market.maddress }</div>
+	       		<div class="card-add">${store.delivery }</div>
 	       </div>  
     </div>
   </div>
  </a> 
-</c:forEach>	
+ </c:forEach>
 </div>
 
 <!--  pagenation -->
@@ -229,7 +215,7 @@ $(document).ready(function() {
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/market/main" method="get">
+	<form id="actionForm" action="${appRoot }/store/main" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
@@ -237,6 +223,16 @@ $(document).ready(function() {
 
 
 </div>
+
+</div>
+
+		
+		
+	</div>	
+	
+	<footer>
+			<nb:footer/>
+		</footer>
 </div>
 
 </body>

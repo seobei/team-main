@@ -86,27 +86,27 @@
      </select>
      
  
-	 <!-- 재경 아이디 찾기 -->
-		 <select id="findId" resultMap="userMap">
-			SELECT 
-			 *
-			FROM GH_User
-			WHERE username = #{userName} AND userphone = #{userPhone}
-		 </select>
-	
-		 <!-- 재경 비밀번호 찾기 -->
-		 <select id="findPw" resultMap="userMap">
-			SELECT 
-			 *
-			FROM GH_User
-			WHERE userid = #{userid}
-		 </select>
-	
-		 <!-- 재경 비밀번호 변경 -->
-		 <update id="updatePw" >
-			UPDATE GH_User SET userpw = #{userpw} where userid = #{userid}
-		 </update>
-		 
+ 	<!-- 아이디 찾기 -->
+	 <select id="findId" resultMap="userMap">
+		SELECT 
+		 *
+		FROM GH_User
+		WHERE username = #{userName} AND userphone = #{userPhone}
+	 </select>
+
+	 <!-- 비밀번호 찾기 -->
+	 <select id="findPw" resultMap="userMap">
+		SELECT 
+		 *
+		FROM GH_User
+		WHERE userid = #{userid}
+	 </select>
+
+	 <!-- 비밀번호 변경 -->
+	 <update id="updatePw" >
+		UPDATE GH_User SET userpw = #{userpw} where userid = #{userid}
+	 </update>
+	 
 	 
 	 
 	<!-- 책 662쪽 -->

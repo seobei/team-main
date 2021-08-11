@@ -98,23 +98,9 @@ $(document).ready(function() {
 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-interval="3000">
-      <a href="${appRoot }/main/home"><img src="${appRoot }/resources/img/ba01.jpg" class="d-block w-100"  id="carousel-size"></a>
-    </div>
-    <div class="carousel-item" data-interval="3000">
-      <a href="${appRoot }/main/login"><img src="${appRoot }/resources/img/ba02.jpg" class="d-block w-100"  id="carousel-size"></a>
-    </div>
-    <div class="carousel-item" data-interval="3000">
-      <a href="${appRoot }/main/signup"><img src="${appRoot }/resources/img/ba03.jpg" class="d-block w-100"  id="carousel-size"></a>
+      <a href="${appRoot }/market/main"><img src="${appRoot }/resources/img/market_01.png" class="d-block w-100"  id="carousel-size"></a>
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
 </div>	
 	
 	
@@ -145,7 +131,6 @@ $(document).ready(function() {
     <div class="card">
 
 	    	<img src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
-	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
 	     	<div class="card-body">	
 	     		<input type="hidden" class="card-text" value="${market.mno }"/>
 	 	     	<div class="card-title" >${market.mtitle }</div>     

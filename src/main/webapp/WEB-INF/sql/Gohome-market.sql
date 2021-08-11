@@ -29,6 +29,14 @@ CREATE TABLE market(
     FOREIGN KEY (mwriter) REFERENCES GH_User(userid) ON DELETE CASCADE
 );
 
+INSERT INTO market 
+(mwriter, mtitle, mprice, mdetail, mstate, msold, maddress)
+VALUES ('test1', 'test', 100000, '2만원에 급처', '새상품', '판매', '서울대입구');
+
+INSERT INTO market_file
+(mno, filename)
+VALUES ('10', '123.jpg');
+
 -- 이미지파일 업로드
 CREATE TABLE market_file( 
 id INT PRIMARY KEY AUTO_INCREMENT, -- 파일 아이디 식별자
@@ -50,7 +58,5 @@ CREATE TABLE wishlist(
 
 
 
-INSERT INTO market 
-(mwriter, mtitle, mprice, mdetail, mstate, maddress)
-VALUES ('qaqa12', 'test', 100000, '2만원에 급처', '새상품', '서울대입구');
+
 
