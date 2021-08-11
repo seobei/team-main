@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.CBCriteria;
-import org.zerock.domain.CBFileVO;
-import org.zerock.domain.CBoardVO;
-import org.zerock.mapper.CBFileMapper;
-import org.zerock.mapper.CBoardMapper;
+import org.zerock.domain.EBCriteria;
+import org.zerock.domain.EBFileVO;
+import org.zerock.domain.EBoardVO;
+import org.zerock.mapper.EBFileMapper;
+import org.zerock.mapper.EBoardMapper;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.profiles.ProfileFile;
@@ -24,28 +25,27 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-@Service
-public class CBoardServiceImpl implements CBoardService {
 
-	
+@Service
+@Log4j
+public class EBoardServiceImpl implements EBoardService {
+
 	
 	private String bucketName;
 	private String profileName;
 	private S3Client s3;
 	
+	@Setter (onMethod_=@Autowired)
+	private EBoardMapper mapper;
 	
-	 @Setter (onMethod_=@Autowired)
-	 private CBoardMapper mapper;
-	 
-	 @Setter (onMethod_=@Autowired)
-	 private CBFileMapper filemapper;
+	@Setter (onMethod_= @Autowired)
+	private EBFileMapper filemapper;
 	
 	
-	 
 	//s3 파일 업로드 연동  코드 !
 	 
-	public CBoardServiceImpl() {
-		this.bucketName = "choongang-gohome01";
+	public EBoardServiceImpl() {
+		this.bucketName = "choongang-gohome";
 		this.profileName = "gohome1";
 		
 		/*  
@@ -68,33 +68,30 @@ public class CBoardServiceImpl implements CBoardService {
 				.build();
 	}
  
-	 
-	 
-	//파일 업로드 
-	
 	@Override
 	@Transactional
-	public void cbfregister(CBoardVO cboard, MultipartFile file) {
-		cbregister(cboard);
+	public void ebfregister(EBoardVO eboard, MultipartFile file) {
+		ebregister(eboard);
 		
 		if(file !=null && file.getSize() > 0) {
 			
-		
-			CBFileVO vo = new CBFileVO();
-			vo.setBno(cboard.getBno());
+			
+			
+			EBFileVO vo = new EBFileVO();
+			vo.setEno(eboard.getEno());
 			vo.setFileName(file.getOriginalFilename());
 			
-			filemapper.cbfinsert(vo);
-			upload(cboard, file);
+			filemapper.ebfinsert(vo);
+			upload(eboard,file);
 		}
+		
 	}
-
-	private void upload(CBoardVO cboard, MultipartFile file) {
-
+	private void upload(EBoardVO eboard, MultipartFile file) {
+		
 		try (InputStream is = file.getInputStream()) {		
 			PutObjectRequest objectRequest = PutObjectRequest.builder()
 					.bucket(bucketName)
-					.key("cboard/" + cboard.getBno() + "/" + file.getOriginalFilename())
+					.key("experts/" + eboard.getEno() + "/" + file.getOriginalFilename())
 					.contentType(file.getContentType())
 					.acl(ObjectCannedACL.PUBLIC_READ)
 			.build();
@@ -109,95 +106,80 @@ public class CBoardServiceImpl implements CBoardService {
 	}
 	
 	
-	 
-	 
-	//게시글 저장 
+	
+	//글 저장 
 	@Override
-	public void cbregister(CBoardVO cboard) {
+	public void ebregister(EBoardVO eboard) {
 		
-		mapper.cbinsertSelectKey(cboard);
+		mapper.ebinsertSelectKey(eboard);
 		
 	}
 
-	//게시글 읽어오기 
+	
+	
+	//글 읽어오기 
 	@Override
-	public CBoardVO getcb(Long bno) {
-		return mapper.readcb(bno);
+	public EBoardVO geteb(Long eno) {
+		log.info(mapper);
+		log.info(eno);
+		return mapper.readeb(eno);
 	}
 
-
-	//게시글 리스트 가져오기 
+	//글 리스트 가져오기 
 	@Override
-	public List<CBoardVO> getcbList(CBCriteria cri) {
-		
-		return mapper.getcbListWithPaging(cri);
+	public List<EBoardVO> getebList(EBCriteria cri) {
+		return mapper.getebListWithPaging(cri);
+	}
+	
+	@Override
+	public int getebToal(EBCriteria cri) {
+		return mapper.getebTotalCount(cri);
 	}
 
-	// 게시글 리스트 가져오기 마이페이지
-	@Override
-	public List<CBoardVO> getcbList(String writer) {
-		return mapper.getcbList(writer);
-	}
+	
 	
 
 	@Override
-	public int getcbToal(CBCriteria cri) {
-		return mapper.getcbTotalCount(cri);
-	}
-
-
-
-
-
-
-
-	@Override
-	public boolean cbfmodify(CBoardVO cboard, MultipartFile file) {
+	public boolean ebfmodify(EBoardVO eboard, MultipartFile file) {
 		
-		if (file != null & file.getSize() > 0) {
-			// s3는 삭제 후 재업로드
-			CBoardVO oldBoard = mapper.readcb(cboard.getBno());
-			removecbFile(oldBoard);
-			upload(cboard, file);
-
+		if(file != null & file.getSize() > 0) {
 			
-			filemapper.cbfdeleteBybno(cboard.getBno());
-
-			CBFileVO vo = new CBFileVO();
-			vo.setBno(cboard.getBno());
+			EBoardVO oldboard = mapper.readeb(eboard.getEno());
+			removeebFile(oldboard);
+			upload(eboard,file);
+			
+			// _file은 삭제 후 인서트
+			filemapper.ebfdeleteBybno(eboard.getEno());
+			
+			EBFileVO vo = new EBFileVO();
+			vo.setEno(eboard.getEno());
 			vo.setFileName(file.getOriginalFilename());
-			filemapper.cbfinsert(vo);
+			filemapper.ebfinsert(vo);
+			
 		}
-		return cbmodify(cboard);
+		
+		return ebmodify(eboard);
 	}
-
+	
 	
 	@Override
-	public boolean cbmodify(CBoardVO cboard) {
-		return mapper.cbupdate(cboard) == 1;
+	public boolean ebmodify(EBoardVO eboard) {
+		return mapper.ebupdate(eboard) == 1;
 	}
-	
 
 	@Override
 	@Transactional
-	public boolean cbremove(Long bno) {
+	public boolean ebremove(Long eno) {
 		
-		
-		
-		//s3 저장한 파일 삭제
-		CBoardVO vo = mapper.readcb(bno);
-		removecbFile(vo);
-		
-		int cnt = mapper.cbdelete(bno);
-		
+		EBoardVO vo = mapper.readeb(eno);
+		removeebFile(vo);
+		int cnt = mapper.ebdelete(eno);
 		return cnt == 1;
 	}
-
-	private void removecbFile(CBoardVO vo) {
-//		String bucketName = "";
-		String key ="cboard/" + vo.getBno() + "/" + vo.getFileName();
-				
-
+	
+	private void removeebFile(EBoardVO vo) {
+		String key ="experts/" + vo.getEno() + "/" + vo.getFileName();
+		
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
 				.key(key)

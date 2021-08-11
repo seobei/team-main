@@ -43,7 +43,7 @@
            m.mno = #{mno}
     </select> 
 
-
+	
 	<!-- 데이터 수정 -->
 	<update id="update">
 	  	UPDATE market	  	
@@ -112,7 +112,15 @@
 	     LIMIT #{from}, #{amount}     
       ]]>    
 	</select>
-
+	
+	<!-- 마이페이지 마켓편 -->
+	<select id="getmkList" resultType="org.zerock.domain.MarketVO">
+	  	SELECT * FROM market
+	  	WHERE mwriter = #{mwriter}
+	  	ORDER BY mno DESC
+	</select>
+	
+	
 	<!-- 계정 삭제시 게시물 삭제 -->
 	<delete id="removeByUserid">
 		DELETE FROM market

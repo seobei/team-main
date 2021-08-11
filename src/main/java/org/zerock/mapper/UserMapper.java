@@ -24,7 +24,7 @@ public interface UserMapper {
 	
 	// 데이터 삭제
 	public int remove(UserVO vo);
-	public int removeAuth(UserVO vo);
+	//public int removeAuth(UserVO vo);
 	
 	
 	// 아이디 찾기
@@ -34,7 +34,8 @@ public interface UserMapper {
 	// 비밀번호 찾기
 	public UserVO findPw (UserVO vo);
 	
-	// 비밀번호 변경
+
+	//비밀번호 변경
 	public int updatePw(UserVO vo);
 	
 	// 메세지

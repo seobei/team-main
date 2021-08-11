@@ -202,6 +202,8 @@ $(function() {
 	})
 </script>
 </c:if>
-</div>
+		<footer>
+			<nb:footer></nb:footer>
+		</footer> 
 </body>
 </html>

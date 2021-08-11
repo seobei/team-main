@@ -2,6 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
 <% request.setCharacterEncoding("utf-8"); %>
 
@@ -24,10 +25,16 @@
        height: 100%;
 	}
 	
+	.tab-pane{
+		min-height: 450px;
+	}
+	
 	.nav-pills .nav-link.active, .nav-pills .show>.nav-link {background-color: #6d0d27;}
 	.cl{ color:#6d0d27;}
 	.cth{ padding:40px;heigth:100%;}
 	.btncl{color: #6d0d27;}
+	
+	#pills-home-tab, #pills-profile-tab, #pills-experts-tab {background-color:transparent;color: #6d0d27;}
 	
 	
 </style>
@@ -121,7 +128,6 @@
 </head>
 <body>
 
-
 	<div class="container">	
 		<nb:navbar></nb:navbar>
 		
@@ -140,14 +146,13 @@
 		      
 		      <a class="nav-link cl" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">내글관리 </a>
 		      
-		      <a class="nav-link cl" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">뭐가있지 </a>
 		    </div>
 		  </div>
 		
 		  
-		  <div class="col-9">
+		  <div id="ch" class="col-9">
 		  
-		    <div class="tab-content" id="v-pills-tabContent">
+		  	<div class="tab-content" id="v-pills-tabContent">
 		    
 		     <!-- 정보수정 비밀번호 확인 컨텐츠   -->
 		      <div class="jumbotron tab-pane fade show active " id="v-pills-pwck" role="tabpanel" aria-labelledby="v-pills-pwck-tab">
@@ -179,24 +184,426 @@
 		      
 		      
 		      <!--  내글  관련 컨텐츠  -->
-		      <div class="jumbotron tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-		      		내글관리 - 찜목록 , 게시판, 덧글, 업체상담신청내역 
-		      </div>
+		      <script type="text/javascript">
+		     
+					$(document).ready(function(){
+						
+						$("#pills-home-tab").click(function(){
+							
+							$(".sct2").prop("checked", false);
+							$(".selectAll2").prop("checked", false);
+							
+							$(".rezAll").prop("checked", false);
+							$(".sctrez").prop("checked", false);
+						})
+						
+						$("#pills-profile-tab").click(function(){
+							
+							$(".sct1").prop("checked", false);
+							$(".selectAll1").prop("checked", false);
+							
+							$(".rezAll").prop("checked", false);
+							$(".sctrez").prop("checked", false);
+							
+						})
+						
+						$("#pill-experts-tab").click(function(){
+							
+							$(".sct1").prop("checked", false);
+							$(".selectAll1").prop("checked", false);
+							
+							$(".sct2").prop("checked", false);
+							$(".selectAll2").prop("checked", false);
+							
+						})
+						
+					})
+				
+			 </script>
+			 
+			<div class="jumbotron tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-cm" role="tab" aria-controls="pills-cm"
+							aria-selected="true">자유게시판</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-market"
+							role="tab" aria-controls="pills-market" aria-selected="false">중고마켓</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="pills-experts-tab" data-toggle="pill" href="#pills-experts"
+							role="tab" aria-controls="pills-experts" aria-selected="false">업체상담 </a>
+					</li>
+				</ul>
+
+			
+				<div class="tab-content" id="pills-tabContent">
+					
+					<div class="tab-pane fade show active" id="pills-cm" role="tabpanel" aria-labelledby="pills-cm-tab">
+						<div  class="nav justify-content-end m-2" >
+							<form id="removeAllForm1" action="${appRoot }/mypage/removeAll" method="post">
+								<button id="desub" class="btn btn-outline-danger" type="submit" >삭제 </button>
+							</form>
+						</div>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="selectAll1" /> #</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>수정일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${list}" var="cboard" varStatus="status">
+									<tr>
+										<td>
+											<input type="checkbox" name="removeBno" 
+											value="${cboard.bno }" class="sct1" id="${cboard.bno }"
+											form="removeAllForm1"/> ${status.count }
+										</td>
+										
+										<td>
+										<c:url value="/community/cbreading" var="getUrl">
+											<c:param name="bno" value="${cboard.bno }" />								
+										</c:url> 
+										<a href="${getUrl}"> ${cboard.title } </a>
+										</td>
+										
+										<td>${cboard.writer }</td>
+										
+										<td>
+											<fmt:formatDate pattern="yyyy-MM-dd" value="${cboard.regdate }" />
+										</td>
+										
+										<td>
+											<fmt:formatDate pattern="yyyy-MM-dd" value="${cboard.updateDate }" />
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<script>
+					
+						var selectAll = document.querySelector(".selectAll1");
+						selectAll.addEventListener('click', function() {
+							var objs = document.querySelectorAll(".sct1");
+							for (var i = 0; i < objs.length; i++) {
+								objs[i].checked = selectAll.checked;
+							}
+							;
+						}, false);
+						var objs = document.querySelectorAll(".sct1");
+						for (var i = 0; i < objs.length; i++) {
+							objs[i].addEventListener('click', function() {
+								var selectAll = document
+										.querySelector(".selectAll1");
+								for (var j = 0; j < objs.length; j++) {
+									if (objs[j].checked === false) {
+										selectAll.checked = false;
+										return;
+									}
+									;
+								}
+								;
+								selectAll.checked = true;
+							}, false);
+						}
+					</script>	
+							
+					<div class="tab-pane fade show" id="pills-market" role="tabpanel" aria-labelledby="pills-market-tab">
+						<div  class="nav justify-content-end m-2" >
+							<form id="removeAllForm2" action="${appRoot }/mypage/removeAll2" method="post">
+								<button id="desub2" class="btn btn-outline-warning" type="submit" >삭제 </button>
+							</form>
+						</div>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="selectAll2"/> #</th>
+									<th>판매</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>게시 날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${jlist}" var="jmarket" varStatus="status">
+									<tr>
+										<td>
+											<input type="checkbox" name="removeMnoList" value="${jmarket.mno }" class="sct2" 
+											id="${jmarket.mno }" form="removeAllForm2"/> ${status.count }
+										</td>
+											
+											
+										<td>${jmarket.msold }</td>
+										
+										<td>
+											<c:url value="/market/detail" var="getUrl">
+												<c:param name="mno" value="${jmarket.mno }" />								
+											</c:url> 
+											<a href="${getUrl}"> ${jmarket.mtitle } </a>
+										</td>
+										
+										<td>${jmarket.mwriter }</td>
+										
+										<td>
+											<fmt:formatDate pattern="yyyy-MM-dd"
+												value="${jmarket.mregdate }" />
+										</td>
+										
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					
+					<script>
+							var selectAll2 = document.querySelector(".selectAll2");
+							selectAll2.addEventListener('click', function() {
+								var objs2 = document.querySelectorAll(".sct2");
+								for (var i = 0; i < objs2.length; i++) {
+									objs2[i].checked = selectAll2.checked;
+								}
+								;
+							}, false);
+							var objs2 = document.querySelectorAll(".sct2");
+							for (var i = 0; i < objs2.length; i++) {
+								objs2[i].addEventListener('click', function() {
+									var selectAll2 = document
+											.querySelector(".selectAll2");
+									for (var j = 0; j < objs2.length; j++) {
+										if (objs2[j].checked === false) {
+											selectAll2.checked = false;
+											return;
+										}
+										;
+									}
+									;
+									selectAll2.checked = true;
+								}, false);
+							}
+					</script>
+						
+						
+					<div class="tab-pane fade show" id="pills-experts" role="tabpanel" aria-labelledby="pills-experts-tab">
+						<div  class="nav justify-content-end m-2" >
+							<form  id="removeAllForm3" action="${appRoot }/mypage/removerezmsgAll" method="post">
+								<button id="remove-rez" class="btn btn-outline-info" type="submit" >삭제 </button>
+							</form>
+						</div>
+						<sec:authorize access="hasRole('ROLE_USER')">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>
+										<input type="checkbox" class="rezAll" /> #
+									</th>
+									<th>내용 </th>
+									<th>상담 업체</th>
+									<th>상담신청 작성일 </th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${rezlist1}" var="ebrezvo" varStatus="status">
+									<tr>
+										<td>
+											<input type="checkbox" name="removeRnoList" 
+											value="${ebrezvo.rno }" class="sctrez" id="${ebrezvo.rno }"
+											form="removeAllForm3"/> ${status.count }
+										</td>
+										
+										<td>
+											<a type="button" class="nav-link active" data-toggle="modal" data-target="#rez-modal${status.count }">
+												${ebrezvo.content}
+											</a>
+										</td>
+										
+										<td>${ebrezvo.readerName }</td>
+										
+										<td>
+											<fmt:formatDate pattern="yyyy-MM-dd" value="${ebrezvo.regdate }" />  
+										</td>
+										
+										
+									</tr>
+									
+										<!-- 상담 내역 확인   -->
+										<div class="modal fade" id="rez-modal${status.count }" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">
+															인테리어 예약 내역  
+														</h5>
+														<button type="button" class="close" data-dismiss="modal">
+															<span>&times;</span>
+														</button>
+													</div>		
+														<div class="modal-body">
+														 	 <div class="card-body">
+																<label for="input2">업체 </label>
+																<input value="${ebrezvo.readerName }" readonly class="form-control"/>
+															</div>	
+														 	 <div class="card-body">
+														 		    <label class="mt-1 mb-1" for="rezdate" >예약날짜  </label>
+																	<input type="date" readonly class="form-control mt-1 mb-1"  name="rezdate" id="rezdate" value="${ebrezvo.rezdate }"/>
+														 	 </div>
+														 	 <div class="card-body">
+														 		<label class="mt-1 mb-1" for="rezdate" >시간</label>
+																<input type="time" readonly class="form-control mt-1 mb-1"  name="reztime" id="reztime" value="${ebrezvo.reztime }"/>
+														 	 </div>
+														 	 <hr>
+														 	 <div class="card-body">
+														 	 	 예약 내용
+														 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" >
+														 		 	${ebrezvo.content}
+														 		 </textarea>
+														 	 </div>
+														 	 <div class="card-body">
+																<label for="input2">작성자</label>
+																<input id="input2" type="hidden" value="${pinfo.user.userid }" readonly class="form-control" name="writer">
+																<input value="${pinfo.user.userName }" readonly class="form-control">
+															</div>	
+														</div>
+														
+												</div>
+											</div>
+										</div>	
+										
+										
+								</c:forEach>
+							</tbody>
+						</table>
+						</sec:authorize>
+						
+						<sec:authorize access="hasRole('ROLE_BUSINESS')">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											<input type="checkbox" class="rezAll" /> #
+										</th>
+										<th>내용  </th>
+										<th>상담자 </th>
+										<th>상담 신청일 </th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${rezlist}" var="ebrezvo" varStatus="status">
+										<tr>
+											<td>
+												<input type="checkbox" name="removeRnoList" 
+												value="${ebrezvo.rno }" class="sctrez" id="${ebrezvo.rno }"
+												form="removeAllForm3"/> ${status.count }
+											</td>
+											
+											<td>
+												<a type="button" class="nav-link active" data-toggle="modal" data-target="#rez-modal${status.count }">
+													${ebrezvo.content}
+												</a>
+											</td>
+											
+											<td>${ebrezvo.writerName  }</td>
+											
+											<td>
+												<fmt:formatDate pattern="yyyy-MM-dd" value="${ebrezvo.regdate }" />  
+											</td>
+											
+											
+										</tr>
+										
+											<!-- 상담 내역 확인   -->
+											<div class="modal fade" id="rez-modal${status.count }" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">
+															  상담예약 신청 내역  
+															</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>&times;</span>
+															</button>
+														</div>		
+															<div class="modal-body">
+																<div class="card-body">
+																	<label for="input2">상담자 </label>
+																	<input value="${ebrezvo.writerName }" readonly class="form-control"/>
+																</div>	
+															 	 <div class="card-body">
+																	<label for="input2">업체 </label>
+																	
+																	<input id="input2" type="hidden" value="${pinfo.user.userid }" readonly class="form-control" name="writer">
+																	<input value="${pinfo.user.userName }" readonly class="form-control">
+																</div>	
+															 	 <div class="card-body">
+															 		    <label class="mt-1 mb-1" for="rezdate" >예약날짜  </label>
+																		<input type="date" readonly class="form-control mt-1 mb-1"  name="rezdate" id="rezdate" value="${ebrezvo.rezdate }"/>
+															 	 </div>
+															 	 <div class="card-body">
+															 		<label class="mt-1 mb-1" for="rezdate" >시간</label>
+																	<input type="time" readonly class="form-control mt-1 mb-1"  name="reztime" id="reztime" value="${ebrezvo.reztime }"/>
+															 	 </div>
+															 	 <hr>
+															 	 <div class="card-body">
+															 	 	 예약 내용
+															 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" >
+															 		 	${ebrezvo.content}
+															 		 </textarea>
+															 	 </div>
+															 	 
+															</div>
+															
+													</div>
+												</div>
+											</div>	
+											
+											
+									</c:forEach>
+								</tbody>
+							</table>
+						</sec:authorize>
+					</div>
+					<script>
+					
+						var rezAll = document.querySelector(".rezAll");
+						rezAll.addEventListener('click', function() {
+							var obrez = document.querySelectorAll(".sctrez");
+							for (var i = 0; i < obrez.length; i++) {   
+								obrez[i].checked = rezAll.checked;
+							} 
+							;
+						}, false);
+						var obrez = document.querySelectorAll(".sctrez");
+						for (var i = 0; i < obrez.length; i++) {
+							obrez[i].addEventListener('click', function() {
+								var rezAll = document
+										.querySelector(".rezAll");
+								for (var j = 0; j < obrez.length; j++) {
+									if (obrez[j].checked === false) {
+										rezAll.checked = false;
+										return;
+									}
+									;
+								}
+								;
+								rezAll.checked = true;
+							}, false);
+						}
+					</script>	
+					</div>
+					
+				</div>	
+					      
+			 </div>
 		      
-		      
-		      
-		      
-		      <!--  기타 추가할 컨텐츠  -->
-		      <div class="jumbotron tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-		      		뭐가있을까 뭐가있을까 뭐가있을까 뭐가있을까 뭐가있을까  뭐가있을까 뭐가있을까 
-		      </div>
-		      
-		      
-		      
-		      
-		    </div>
+		   </div>
+		   
 		  </div>
-		</div>
+		
 		
 					
 		<footer>
@@ -278,12 +685,9 @@
 		</div>
 	</div>
 	
+
 	
-	<footer>
-		<nb:footer></nb:footer>
-	</footer>
-	
-	
+
 	<c:if test="${not empty qqq}">
 	
 		<script type="text/javascript">

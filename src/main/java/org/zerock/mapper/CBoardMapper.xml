@@ -61,18 +61,10 @@
 		  
 		  
 	
-	  <select id="getcbList" resultType="org.zerock.domain.CBoardVO">
-		  	SELECT 
-		  		bno bno,
-		  		title title,
-		  		content content,
-		  		writer writer,
-		  		regdate regdate,
-		  		updatedate updatedate, 
-		  		cbcategory cbcategory,
-		  	FROM C_board
+  	  <select id="getcbList" resultType="org.zerock.domain.CBoardVO">
+		  	SELECT * FROM C_board
+		  	WHERE writer = #{writer}
 		  	ORDER BY bno DESC
-	
 	  </select>
 	  
 	  <select id="getcbListWithPaging" resultType="org.zerock.domain.CBoardVO">

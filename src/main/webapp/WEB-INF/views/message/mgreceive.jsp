@@ -29,7 +29,7 @@
 		
 	})
 </script>
-<title>Insert title here</title>
+<title>마이쪽지 </title>
 </head>
 <body>
 <div class="container">
@@ -325,6 +325,9 @@
 	
 </script>
 </c:if>
+		<footer>
+			<nb:footer></nb:footer>
+		</footer> 
 </div>
 </body>
 </html>
