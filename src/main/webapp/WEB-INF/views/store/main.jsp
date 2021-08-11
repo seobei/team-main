@@ -15,7 +15,7 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <style type="text/css">
-.row {
+.row, .keyword, .productlist{
 margin-top: 20px;
 }
 
@@ -30,8 +30,18 @@ a:hover {
 color : black;
 text-decoration:none ;
 } 
+
+.card {
+height : 300px;
+}
+
 .card-body {
 padding : 10px;
+}
+
+.card-text {
+font-size: 20px;
+margin : 0px;
 }
 
 .card-title{
@@ -44,7 +54,7 @@ padding : 10px;
 }
 
 .card-img-top {
-width: 300px;
+width: 160px;
 
 
 }
@@ -96,8 +106,7 @@ width: 300px;
 
 <div class="col-10">
 		  
-<!-- 배너 : 슬라이드 -->
-<!-- 배너 링크 고정이 아닌 이벤트 페이지 번호로 이동할 수 있게끔 수정할 것 -->		
+<!-- 배너 : 슬라이드 -->	
 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-interval="3000">
@@ -119,7 +128,7 @@ width: 300px;
 	
 	
 <!-- 키워드 -->
-<div>
+<div class="keyword">
 <ul class="nav">
   <li class="nav-item">
     <a class="nav-link active" href="#">#침실</a>
@@ -147,28 +156,23 @@ width: 300px;
 	
 		
 <!-- 상품 목록 -->	
+<div class="productlist">
 <h4>오늘의 상품 추천 </h4>
-
-
-<a class="btn  btn-info" href="${appRoot }/store/register"><i class="fas fa-pen"></i>글쓰기 </a>
-	 
-
-
 
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
-<c:forEach items="${list }" var="store">
- <c:url value="/store/detail" var="getUrl">
-<c:param name="pno" value="${store.pno }" />
-<c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
-<c:param name="amount" value="${pageMaker.cri.amount }" />
-</c:url>	   
+	<c:forEach items="${list }" var="store">
+		 <c:url value="/store/detail" var="getUrl">
+		<c:param name="pno" value="${store.pno }" />
+		<c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
+		<c:param name="amount" value="${pageMaker.cri.amount }" />
+		</c:url>	   
 
 
 
-<a href="${getUrl}">	
-  <div class="col mb-3">
-    <div class="card">
+		<a href="${getUrl}">	
+	  <div class="col mb-3">
+	    <div class="card">
 
 	    	<img src="${imgRoot}store/${store.pno }/${store.fileName[0]}" class="card-img-top" >
 	     	<div class="card-body">	
@@ -176,7 +180,7 @@ width: 300px;
 	 	     	<div class="card-title" >${store.title }</div>     
 	       	</div>
 
-	       <div class="form-group" id="card-detail">
+	       <div class="form-group  m-0" id="card-detail">
 		        <div class="card-text"><fmt:formatNumber pattern="#,###원" value="${store.price }"/></div>
 		   </div>     
 	      		<hr>
@@ -185,8 +189,8 @@ width: 300px;
 	       </div>  
     </div>
   </div>
- </a> 
- </c:forEach>
+	 	</a> 
+	 </c:forEach>
 </div>
 
 <!--  pagenation -->
@@ -225,14 +229,12 @@ width: 300px;
 </div>
 
 </div>
+</div>	
+</div>
 
-		
-		
-	</div>	
-	
-	<footer>
-			<nb:footer/>
-		</footer>
+<footer>
+	<nb:footer/>
+</footer>
 </div>
 
 </body>
