@@ -46,7 +46,7 @@ public class EBoardServiceImpl implements EBoardService {
 	 
 	public EBoardServiceImpl() {
 		this.bucketName = "choongang-gohome01";
-		this.profileName = "gohome01";
+		this.profileName = "gohome1";
 		
 		/*  
 		 * create
