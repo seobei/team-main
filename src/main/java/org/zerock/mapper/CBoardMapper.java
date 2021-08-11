@@ -18,7 +18,7 @@ public interface CBoardMapper {
 	public CBoardVO readcb(long bno);
 	
 	//게시물 리스트 불러오기 
-	public List <CBoardVO> getcbList();
+	public List <CBoardVO> getcbList(String writer);
 	
 	//게시물 리스트 불러오기 (페이징 )
 	public List <CBoardVO> getcbListWithPaging(CBCriteria cri);

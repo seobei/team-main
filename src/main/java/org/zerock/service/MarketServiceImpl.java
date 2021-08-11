@@ -44,7 +44,7 @@ public class MarketServiceImpl implements MarketService {
 	   
 	   
 	   public MarketServiceImpl() {
-		   this.bucketName = "choongang-gohome01";
+		   this.bucketName = "choongang-gohome";
 		   this.profileName = "gohome1";
 
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
@@ -208,5 +208,11 @@ public class MarketServiceImpl implements MarketService {
 	   public int getTotal(Criteria cri) {
 	      return mapper.getTotalCount(cri); 
 	   }
+	   
+		@Override
+		public List<MarketVO> getmkList(String writer) {
+			return mapper.getmkList(writer);
+
+		}
 
 	}

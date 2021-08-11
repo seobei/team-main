@@ -15,7 +15,7 @@
 <style>
     #td { vertical-align : middle; }
 </style>
-<title>Insert title here</title>
+<title>마이 쪽지 </title>
 <script>
 $(function() {
 	$("#callsec").on("show.bs.modal", function() {
@@ -242,6 +242,8 @@ $(function() {
 	})
 </script>
 </c:if>
-
+		<footer>
+			<nb:footer></nb:footer>
+		</footer> 
 </body>
 </html>

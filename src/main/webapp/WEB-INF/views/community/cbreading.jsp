@@ -66,7 +66,7 @@
 					
 					<div class="form-group">
 						<label for="input2">작성자</label>
-						<input readonly="readonly" id="input2" class="form-control" name="writer" value="${cboard.writer }">
+						<input readonly="readonly" id="input2" class="form-control" name="writer" value="${cboard.writerName  }">
 					</div>		
 					
 					<c:url value="/community/cbmodify" var="modifyUrl">
