@@ -56,10 +56,19 @@ $(function() {
 		         </sec:authorize>
 	         
 		         <sec:authorize access="isAuthenticated()">
-			         <li class="nav-item">
-			       		<a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
-			     	</li>
-		     	</sec:authorize> 
+
+		         <li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
+		         </li>
+		     	</sec:authorize>
+
+		     	<sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+<%-- 		         	<sec:authentication property="principal.user" var="user" /> --%>		         	
+		       		<a class="nav-link" href="${appRoot }/message/mgreceive?writer=${user.userid}">쪽지함 </a>
+		     	 </li>
+		     	</sec:authorize> 	 
+		     		 
 			</ul>
 		</nav>
 </div>
@@ -107,7 +116,7 @@ $(function() {
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
           <li><a class="dropdown-item" href="${appRoot}/community/cbhome">자유게시판  </a></li>
-          <li><a class="dropdown-item" href="#">중고마켓  </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/market/main">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
@@ -118,10 +127,18 @@ $(function() {
         </a>
         
       </li>
-       <li class="nav-item">
-        <a class="nav-link" href="${appRoot }/help/cs"  role="button"  aria-expanded="false">
-          고객센터  
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"  role="button"  aria-expanded="false">
+         고객센터  
         </a>
+       <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+          <li><a class="dropdown-item" href="${appRoot }/cs/notice">공지사항 </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/questionAndAnswer">Q&A</a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/oneToOne">1:1문의</a></li>
+          <li><hr class="dropdown-divider"></li>
+        </ul> 
+        
+        
       </li>
       
     </ul>

@@ -45,7 +45,7 @@ public class CBoardServiceImpl implements CBoardService {
 	//s3 파일 업로드 연동  코드 !
 	 
 	public CBoardServiceImpl() {
-		this.bucketName = "choongang-gohome";
+		this.bucketName = "choongang-gohome01";
 		this.profileName = "gohome1";
 		
 		/*  

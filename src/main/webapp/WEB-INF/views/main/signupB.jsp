@@ -209,7 +209,7 @@
 	
 		<div class="text-center p-3">
                <a href="${appRoot }/main/home">
-              <img alt="gohome" width="150" src="${appRoot }/resources/img/gohomelogo.png"></a>
+              <img alt="gohome" width="150" src="${appRoot }/resources/img/gohomelogo22.png"></a>
         </div>
         
 		<div class="jumbotron" >

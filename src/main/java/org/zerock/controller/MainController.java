@@ -120,9 +120,6 @@ public class MainController {
 		}
 	}
 	
-	
-	
-	
     //아이디 찾기 페이지 이동
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
 	public String findIdView() {
