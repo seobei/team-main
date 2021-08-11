@@ -48,15 +48,16 @@ public class MainController {
 	public void main() {
 		log.info("home method");
 		
-//		return "/main/home";
 	}
-
+	
+	
 	//로그인 
 	@RequestMapping("/login")
 	public void login() {
 		log.info("login method");
 	}
-
+	
+	
 	//약관동의  
 	@RequestMapping("/tos")
 	public void tos() {
@@ -119,132 +120,6 @@ public class MainController {
 			return "redirect:/main/signupB?error";
 		}
 	}
-	
-	
-	
-	//마이페이지 
-	@RequestMapping("/mypage")
-	public void mypage() {
-		log.info(" mypage method");
-	}
-
-	//수정후 정보페이지 로딩  
-	//경로이동하는건 get방식 
-	
-	@GetMapping("/myinfos")
-	@PreAuthorize("isAuthenticated()")
-	public void info(Principal principal, Model model) {
-		log.info(principal.getName());
-		
-		UserVO uservo = service.read(principal.getName());
-		model.addAttribute("uservo", uservo);
-		
-	}
-
-	//비밀번호확인 후 정보페이지로 이동 
-	@PostMapping("/myinfos")
-	@PreAuthorize("isAuthenticated()")
-	public String checkpwMethod(Principal principal,Model model, String userpwck) {
-		
-		log.info(principal.getName());
-		
-		UserVO uservo = service.read(principal.getName());
-		model.addAttribute("uservo", uservo);
-		
-		String Encoderpw =uservo.getUserpw();
-		
-		BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-		
-		String resultshow ="";
-		
-		if(encoder.matches(userpwck,Encoderpw)) {
-			
-			log.info("입력한 비밀번호 일치 ");
-			resultshow= "/main/myinfos";
-			
-		}else {
-			log.info("불 일치 ");
-			resultshow ="redirect:/main/mypage?error";
-		
-		}
-		
-		return resultshow;
-	}
-		
-	
-	//정보불러서 수정하기 
-	@PostMapping("/modify")
-	
-	@PreAuthorize("isAuthenticated()")
-	public String modify(UserVO vo, RedirectAttributes rttr, Authentication auth) {
-		
-		boolean ok = service.modify(vo);
-		
-		if(ok) {
-			rttr.addAttribute("status","success");
-			// session의 authentication 을 수정
-			CustomUser user = (CustomUser) auth.getPrincipal();
-			user.setUser(vo);
-		}else {
-			rttr.addAttribute("status","error");
-		}
-		
-		return "redirect:/main/myinfos";
-		
-	}
-	
-	//비밀번호 수정하기 
-	@PostMapping("/modifypassword")
-	@PreAuthorize("isAuthenticated()")
-	public String modifyPassword(UserVO vo,Principal principal, RedirectAttributes rttr, Authentication auth) {
-		
-		vo.setUserid(principal.getName());
-		
-		boolean ok =service.modifyPassword(vo);
-		if(ok) {
-			// session의 authentication 을 수정
-			CustomUser user = (CustomUser) auth.getPrincipal();
-			user.setUser(service.read(principal.getName()));
-			rttr.addFlashAttribute("qweasd", "비밀번호을 수정했습니다 :) ");
-			log.info("비밀번호 수정성공 ! ");
-		}else {
-			log.info("비밀번호 수정실패 ! ");
-		}
-		
-		
-		return "redirect:/main/home";
-		
-	}
-	
-	
-	
-	
-	//회원탈퇴 
-	@PostMapping("/removeuser")
-	@PreAuthorize("isAuthenticated()")
-	public String remove(UserVO vo, HttpServletRequest req, String inputPassword, Principal principal) throws ServletException{
-		vo.setUserid(principal.getName());
-		
-		log.info(vo);
-		log.info(inputPassword);
-		boolean ok = service.remove(vo,inputPassword);
-		
-		if(ok) {
-			log.info("탈퇴성공  ");
-			req.logout();
-			return "redirect:/main/home";
-		}else {
-			log.info("탈퇴실패 ");
-			return "redirect:/main/mypage";
-		}
-		
-		
-	}
-	
-	
-	
-	
-	
 	
     //아이디 찾기 페이지 이동
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)

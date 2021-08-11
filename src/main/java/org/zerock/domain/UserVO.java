@@ -20,8 +20,6 @@ public class UserVO {
 	private boolean enabled;
 	
 	
-	//private String userpwck;
-	
 	//유저에있는권한들 
 	private List<AuthVO> authList;
 	
