@@ -47,8 +47,8 @@ public class UserTests {
 		vo1.setUserid("member");
 		vo1.setUserpw(encoder.encode("member")); // encode
 		vo1.setUserName("멤");
-		vo1.setUserphone("01034567892");
-		vo1.setUserem("so122@abc.com");
+		vo1.setUserPhone("01034567892");
+		vo1.setUserEmail("so122@abc.com");
 		
 		mapper.insert(vo1);
 	}
