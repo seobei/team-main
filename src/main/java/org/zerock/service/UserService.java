@@ -15,7 +15,7 @@ public interface UserService {
 	//데이터 수정 
 	boolean modify(UserVO vo);
 	boolean modifyPassword(UserVO vo, String oldPassword);
-	boolean modifyPassword(UserVO vo);
+	boolean modifyPw(UserVO vo);
 	
 	//데이터 삭제 
 	boolean remove(UserVO vo);

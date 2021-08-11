@@ -82,12 +82,12 @@
 					
 					<div class="form-group">
 						<label for="input1">제목</label>
-						<input readonly="readonly" id="input1" class="form-control" name="title" value="${cboard.title }">
+						<input id="input1" class="form-control" name="title" value="${cboard.title }">
 					</div>
 					
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea readonly="readonly" id="textarea1" class="form-control" 
+						<textarea id="textarea1" class="form-control" 
 						name="content" rows="10"><c:out value="${cboard.content }" /></textarea>
 					</div>
 					
