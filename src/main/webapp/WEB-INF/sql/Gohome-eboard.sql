@@ -24,3 +24,18 @@ CREATE TABLE E_board_file (
 
 SELECT * FROM E_board;
 SELECT * FROM E_board_file;
+
+
+-- 업체 예약 																						
+CREATE TABLE E_rezmsg (
+	rno INT PRIMARY KEY AUTO_INCREMENT,
+    eno INT REFERENCES E_board(eno),
+    reader varchar(50),
+    rezdate varchar(50),
+    reztime varchar(50),
+	writer varchar(50),																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+    content varchar(256) ,
+    regdate TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (eno) REFERENCES E_board(eno),
+    FOREIGN KEY (writer) REFERENCES GH_User(userid) ON DELETE CASCADE
+);
