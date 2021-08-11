@@ -80,7 +80,7 @@
 	<div class="jumbotron" style="background-color:#fff;">
 		<div class="text-center p-5">
             <a href="${appRoot }/main/home">
-             <img alt="gohome" width="150" src="${appRoot }/resources/img/gohomelogo.png"></a>
+             <img alt="gohome" width="150" src="${appRoot }/resources/img/gohomelogo22.png"></a>
         </div>
 	
 			 <!-- 아이디 찾기 -->

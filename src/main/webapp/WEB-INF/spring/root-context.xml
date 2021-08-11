@@ -16,7 +16,7 @@
 	 -->
 	 	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 
-		<property name="jdbcUrl" value="jdbc:log4jdbc:mariadb://54.180.138.71/Gohome"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mariadb://52.79.195.216/Gohome"></property>
 
 		<property name="username" value="root"></property>
 		<property name="password" value="wnddkdwjdqhcjfl1"></property>
@@ -45,6 +45,23 @@
 	
 	<!-- transaction -->
 	<tx:annotation-driven/>
+	
+	<!--  email -->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"></property>
+		<property name="port" value="587"></property>
+		<property name="username" value="sooemtest@gmail.com"></property>
+		<property name="password" value="qweasd123@"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+		
+	</bean>
 </beans>
 
 
