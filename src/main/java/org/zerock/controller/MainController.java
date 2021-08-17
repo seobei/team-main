@@ -138,13 +138,12 @@ public class MainController {
 	//경로이동하는건 get방식 
 	
 	@GetMapping("/myinfos")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()") //로그인 인증됨
 	public void info(Principal principal, Model model) {
-		log.info(principal.getName());
+		log.info(principal.getName()); //실제 구현 클래스의 최상위 인터페이스가 principal
 		
 		UserVO uservo = service.read(principal.getName());
-		model.addAttribute("uservo", uservo);
-		
+		model.addAttribute("uservo", uservo);	
 	}
 	
 	

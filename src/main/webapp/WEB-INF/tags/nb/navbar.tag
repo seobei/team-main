@@ -124,9 +124,9 @@ $(function() {
           고객센터  
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="${appRoot }/help/notice">공지사항 </a></li>
-          <li><a class="dropdown-item" href="${appRoot }/help/questionAndAnswer">Q&A</a></li>
-          <li><a class="dropdown-item" href="${appRoot }/help/oneToOne">1:1문의</a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/notice">공지사항 </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/questionAndAnswer">Q&A</a></li>
+          <li><a class="dropdown-item" href="${appRoot }/cs/oneToOne">1:1문의</a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
