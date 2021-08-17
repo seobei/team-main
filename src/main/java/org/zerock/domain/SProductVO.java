@@ -1,0 +1,23 @@
+package org.zerock.domain;
+
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
+public class SProductVO {
+
+   
+   private long pno;
+   private String category;
+   private String userid;
+   private String title;
+   private long price;
+   private long stock;
+   private String delivery;
+   private String detail;
+   private String keyword;
+   private Date regdate;
+   private Date updatedate;
+
+}

@@ -44,7 +44,7 @@ public class MarketServiceImpl implements MarketService {
 	   
 	   
 	   public MarketServiceImpl() {
-		   this.bucketName = "choongang-gohome";
+		   this.bucketName = "choongang-gohome01";
 		   this.profileName = "gohome1";
 
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
