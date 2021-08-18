@@ -44,7 +44,7 @@ public class StoreController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userservice;
 	
-        @GetMapping("/main")
+        @GetMapping("/home")
         public void store(@ModelAttribute("cri") Criteria cri, Model model) {
             log.info("store method");
        		int total = service.getTotal(cri);    
@@ -56,7 +56,7 @@ public class StoreController {
     		
         }     
         
-        @GetMapping("/main2")
+        @GetMapping("/home2")
         public void category1(@ModelAttribute("cri") Criteria cri, Model model) {
             log.info("store category method");
       		int total = service.getTotal(cri);    
@@ -203,7 +203,7 @@ public class StoreController {
         public String register(SProductVO svo, @RequestParam("store_file") MultipartFile[] store_file , RedirectAttributes rttr) {
         	service.register(svo, store_file);
         	rttr.addFlashAttribute("result", svo.getPno());
-        	return "redirect:/store/main"; 
+        	return "redirect:/store/home"; 
     		} 		
         
 
@@ -233,7 +233,7 @@ public class StoreController {
 				rttr.addAttribute("amount", cri.getAmount());
 
 				
-				return "redirect:/store/main";
+				return "redirect:/store/home";
 			}
 		  
 		  
@@ -256,7 +256,7 @@ public class StoreController {
 
 				
 				// forward or redirect
-				return "redirect:/store/main";
+				return "redirect:/store/home";
 				
 			}
 			

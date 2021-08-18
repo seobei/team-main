@@ -39,7 +39,7 @@ public class MarketController {
 	private UserService userservice;	
 	
 	
-        @GetMapping("/main")
+        @GetMapping("/home")
         public void market(@ModelAttribute("cri") Criteria cri, Model model) {
             log.info("market method");
        		int total = service.getTotal(cri);    
@@ -66,7 +66,7 @@ public class MarketController {
         	rttr.addFlashAttribute("result", mvo.getMno());
 
 
-        	return "redirect:/market/main"; 
+        	return "redirect:/market/home"; 
     		} 		
     	
         
@@ -101,7 +101,7 @@ public class MarketController {
 //			rttr.addAttribute("type", cri.getType());
 //			rttr.addAttribute("keyword", cri.getKeyword());
 			
-			return "redirect:/market/main";
+			return "redirect:/market/home";
 		}
 		
 		
@@ -124,7 +124,7 @@ public class MarketController {
 
 			
 			// forward or redirect
-			return "redirect:/market/main";
+			return "redirect:/market/home";
 			
 		}
 		

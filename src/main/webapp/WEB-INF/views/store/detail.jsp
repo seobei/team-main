@@ -11,7 +11,10 @@
 <html>
 <head>
 
-<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
+
+
+
 <style type = "text/css">
 .part-img img {
 	max-width :100%;

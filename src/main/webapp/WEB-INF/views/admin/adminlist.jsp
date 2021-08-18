@@ -10,7 +10,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
+
 
 
 <title>고집 관리자페이지</title>
