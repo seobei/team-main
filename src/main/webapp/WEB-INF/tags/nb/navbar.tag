@@ -62,7 +62,8 @@ $(function() {
 
 		         <li class="nav-item">
 		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
-		     	</li>
+		     		 </li>
+             
 		     	</sec:authorize> 
 		     	<sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
