@@ -81,10 +81,10 @@ width: 160px;
 		  <div class="col-2">
 		    <ul class="nav flex-column">
   <li class="nav-item">
-    <a class="nav-link btn-light active" href="${appRoot }/store/main">카테고리</a>
+    <a class="nav-link btn-light active" href="${appRoot }/store/home">카테고리</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link btn-outline-secondary" href="${appRoot }/store/main2">가구</a>
+    <a class="nav-link btn-outline-secondary" href="${appRoot }/store/home2">가구</a>
   </li>
   <li class="nav-item">
     <a class="nav-link btn-outline-secondary" href="#">수납</a>
@@ -219,7 +219,7 @@ width: 160px;
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/store/main" method="get">
+	<form id="actionForm" action="${appRoot }/store/home" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
