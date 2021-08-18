@@ -21,14 +21,14 @@
     	}
     
 </style>
-t>
+
 <script type="text/javascript">
 
 	$(document).ready(function(){
 		
 		var modifyUrl = "${appRoot }/experts/emodify";
 		var removeUrl = "${appRoot }/experts/eremove";
-		$("#board-removebtn").click(function() {
+		$("#removebtn").click(function() {
 			if (confirm("삭제 하시겠습니까?")) {
 				$("#modify-form").attr("action", removeUrl);
 				$("#modify-form").submit();
@@ -87,7 +87,7 @@ t>
 						<textarea  id="textarea1" class="form-control" 
 						name="content" rows="10"><c:out value="${eboard.content }" /></textarea>
 					</div>
-					<div class="form-group">
+					<div class="form-group" >
 						<p>지역 </p> 
 					    <select  id="addRegion" >
 					    	<option>${eboard.addRegion }</option>
