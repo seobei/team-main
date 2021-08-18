@@ -108,6 +108,8 @@ $(function() {
 <div class="navbar row justify-content-center p-0">
 	<nav class="navbar navbar-expand-sm navbar-light">
     <ul class="navbar-nav mr-auto text-center">
+    
+    
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           스토어 
@@ -119,35 +121,41 @@ $(function() {
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
+      
+      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           커뮤니티 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
           <li><a class="dropdown-item" href="${appRoot}/community/cbhome">자유게시판  </a></li>
           <li><a class="dropdown-item" href="${appRoot }/market/main">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
       <!-- 업체 서브 빠이빠이  -->
+
       <li class="nav-item dropdown">
       	<a class="nav-link" href="${appRoot }/experts/ehome"  role="button"  aria-expanded="false">
           업체 
         </a>
         
       </li>
+
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"  role="button"  aria-expanded="false">
          고객센터  
         </a>
        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
           <li><a class="dropdown-item" href="${appRoot }/cs/notice">공지사항 </a></li>
           <li><a class="dropdown-item" href="${appRoot }/cs/questionAndAnswer">Q&A</a></li>
           <li><a class="dropdown-item" href="${appRoot }/cs/oneToOne">1:1문의</a></li>
           <li><hr class="dropdown-divider"></li>
+
         </ul> 
-        
-        
+
       </li>
       
     </ul>

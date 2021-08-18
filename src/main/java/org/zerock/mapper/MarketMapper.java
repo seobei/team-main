@@ -14,12 +14,14 @@ public interface MarketMapper {
 	
 	// 데이터 조회
 	public MarketVO read(int mno);
+
 	
 	// 데이터 수정 
 	public int update(MarketVO mvo);
 	
 	// 데이터 삭제
 	public int delete(int mno);	
+
 	
 	// 데이터 리스트
 	public List<MarketVO> getList();
@@ -28,16 +30,10 @@ public interface MarketMapper {
 	public int getTotalCount(Criteria cri);
 	
 	// 페이징 리스트
+
 	public List<MarketVO> getListWithPaging(Criteria cri);
 
 	//마이페이지 리스트 
 	public List<MarketVO> getmkList(String writer);	
 	
 }
-
-// 찜상품 등록
-// public int insertWish(WishlistVO wvo);
-
-//테이터 삭제
-//public int remove(MarketVO vo);
-//public int removeWish(MarketVO vo);

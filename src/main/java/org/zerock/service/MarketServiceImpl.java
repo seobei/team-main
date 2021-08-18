@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,10 +112,6 @@ public class MarketServiceImpl implements MarketService {
 	   	}
 		
 	  
-	   
-			         
-	   // 은비 읽어오기 수정함
-	   //mno값으로 받아온 파일명을 list에 넣어서 불러옴
 	    @Override
 	    public MarketVO read(int mno) {
 	    	
@@ -135,10 +132,10 @@ public class MarketServiceImpl implements MarketService {
 		@Override
 		@Transactional
 		public boolean modify(MarketVO mvo, MultipartFile[] market_file) {
-			// 은비 s3 삭제
+
 			MarketVO oldimage = mapper.read(mvo.getMno());
 			removeFile(oldimage);
-			// 은비 db delete
+
 			fileMapper.deleteByMno(mvo.getMno());
 
 			for (MultipartFile file : market_file) {
@@ -196,9 +193,7 @@ public class MarketServiceImpl implements MarketService {
 		
 		
 		
-	    
-
-	 // 수정해야함
+	   
 	    @Override
 	    public List<MarketVO> getList(Criteria cri) {
 	       return mapper.getListWithPaging(cri);
@@ -216,3 +211,4 @@ public class MarketServiceImpl implements MarketService {
 		}
 
 	}
+

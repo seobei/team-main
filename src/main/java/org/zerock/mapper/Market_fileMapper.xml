@@ -20,8 +20,7 @@
       DELETE FROM market_file
       WHERE mno = #{mno}
    </delete>
-   
-   
+
    <delete id="removeByUserid">
 	DELETE FROM market_file
 	WHERE mno IN (
@@ -29,5 +28,5 @@
 	WHERE mwriter = #{userid}
 	)
 </delete>
-
+  
 </mapper>

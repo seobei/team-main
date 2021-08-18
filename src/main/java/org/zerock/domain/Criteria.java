@@ -25,5 +25,4 @@ public class Criteria {
 		return amount * (pageNum - 1);
 	}
 	
-
 }

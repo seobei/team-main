@@ -9,6 +9,7 @@ import org.zerock.domain.MarketVO;
 public interface MarketService {
 	
 	// 글 쓰기 : 데이터 추가 
+
 	public void write(MarketVO mvo);
 
 	// 글 쓰기 : 파일 데이터 추가 
@@ -35,5 +36,5 @@ public interface MarketService {
 	// 총 페이지
 	public int getTotal(Criteria cri);
 	
-	
+
 }

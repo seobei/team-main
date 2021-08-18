@@ -7,9 +7,12 @@ import lombok.Data;
 @Data
 public class OtoAnswerVO {
 	
-	private int aono;
-	private int qono;
+	//answer의 a사용
+	//question의 q사용
+	private int aono;  
+	private int qono; 
 	private String content;
 	private String userid;
 	private Date regdate;
+
 }
