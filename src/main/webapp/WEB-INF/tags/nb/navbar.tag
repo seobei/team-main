@@ -113,8 +113,9 @@ $(function() {
           스토어 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">서브1 </a></li>
-          <li><a class="dropdown-item" href="#">서브2 </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/store/main">카테고리 </a></li>
+          <li><a class="dropdown-item" href="#">베스트 </a></li>
+          <li><a class="dropdown-item" href="#">기획전 </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>

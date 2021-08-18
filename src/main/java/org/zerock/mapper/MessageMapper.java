@@ -18,7 +18,6 @@ public interface MessageMapper {
     
 	public void mesdelete(MessageVO vo);
 	public List<MessageVO> getSearchMessageList(String receivesearchValue);
-
 	
 	
 

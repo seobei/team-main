@@ -13,7 +13,6 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 <style type = "text/css">
-
 .part-img img {
 	max-width :100%;
 	padding : 20px;
@@ -21,15 +20,9 @@
 .carousel-item img {
 	width :450px;
 }
-
 </style>
 
 
-
-<!-- script -->
-
-<script>
-</script>
 
 <title>상세페이지</title>
 </head>
@@ -47,162 +40,119 @@
 
 					
 			<div class="form-group col-6">
-			<c:if test="${not empty market.fileName }">
+			<c:if test="${not empty store.fileName }">
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			  <div class="carousel-inner">
 			    
-	           <c:forEach items="${market.fileName }" var="market_file">
+	           <c:forEach items="${store.fileName }" var="store_file" varStatus="status">
 	           
-	           <div class="carousel-item active">
-					<img src="${imgRoot}market/${market.mno }/${market_file}">
+	           <div class="carousel-item <c:if test='${status.first }' >active</c:if>"">
+					<img src="${imgRoot}store/${store.pno }/${store_file}">
 				</div>
 			
 				
 	           </c:forEach>
+	          
+	           
+	           
 	           
 	            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a> 
+				    <spa n class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a> 
 	           
 	           </div>
 	           </div>
 		    </c:if> 
 			</div>
+			<!-- <script type="text/javascript">
+			$(function() {
+			 $("#wish1").click(function(){
+              $("form").attr("action", "${appRoot}/store/storewish");
+             })
+             $("#cart1").click(function(){
+              $("form").attr("action", "${appRoot}/store/cart");
+             })
+             $("#buy1").click(function(){
+              $("form").attr("action", "${appRoot}/store/storebuy");
+             })
+			})
+			</script> -->
 			
+		<div class="part-detail col-6">
 			
-			<div class="part-detail col-6">
-		<form >		
 				<div class="form-group">
-					<label for="msold">판매/나눔</label>
-					<input readonly id="msold" class="form-control" name="msold" value="${market.msold }">
-				</div> 			
-				
-				<div class="form-group">
-					<label for="mtitle">상품명</label>
-					<input readonly id="mtitle" class="form-control" name="mtitle" value="${market.mtitle }">
+					<label for="title">상품명</label>
+					<span>${store.title }</span>
 				</div>	
 					
 				<div class="form-group">
-					<label for="mprice">가격</label>
-					<input readonly id="mprice" class="form-control" name="mprice" value="${market.mprice }">
+					<label for="price">판매가</label>
+					<span><fmt:formatNumber value="${store.price}" pattern="#,###원"/></span>
+				</div>	
+
+				<div class="form-group">
+					<label for="stock">재고수량</label>
+					<span>${store.stock }</span>
+				</div>	
+				
+				<div class="form-group">
+					<label for="keyword">키워드</label>
+					<span>${store.keyword }</span>
+				</div>	
 					
-				</div>	
-
 				<div class="form-group">
-					<label for="mstate">상품상태</label>
-					<input readonly id="mstate" class="form-control" name="mstate" value="${market.mstate }">
-				</div>	
-
-				<div class="form-group">
-					<label for="maddress">거래지역</label>
-					<input readonly id="maddress" class="form-control" name="maddress" value="${market.maddress }">
+					<label for="delivery">배송</label>
+					<span>${store.delivery }</span>
 				</div>	
 				
-				<div class="form-group">
-					<label for="mwriter">작성자</label>
-					<input readonly id="mwriter" class="form-control" name="mwriter" value="${market.mwriter }">
-				</div>	
-
-				<div class="form-group">
-					<label for="mregdate">게시 날짜</label>
-					<span readonly class="form-control" id="mregdate" name="mregdate"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
-				</div>
-								
-				<!-- <button type="button" class="btn btncl" id="market_heart"><i class="far fa-heart"></i> 찜하기 </button>
-				<i class="fas fa-heart"></i> 검은하트 -->
-				
-				<button type="button" class="btn btncl" id="market_dm" data-toggle="modal" data-target="#callsec"><i class="far fa-envelope"></i> 쪽지 보내기 </button>
-				
-			</form>		
-		</div>
-<script>
-$(function() {
-	$("#callsec").on("show.bs.modal", function() {
-		$("#contentTh").val("");
-		$("#sendbtnTh").prop("disabled", true);
+				<button type = "submit" class="btn btncl" id = "wish1" ><i class="fas fa-heart"></i> 찜하기 </button>
 		
-		$("#contentTh").keyup(function(){
-			$("#sendbtnTh").prop("disabled", false);	
-		})
-	})
-});
-</script>
+		<form action="${appRoot }/store/cart" method="post">
+				<input type = "hidden" name="pno" value = "${store.pno }">
+				<select name = "cartstock" id = "cartstock">
+					<c:forEach begin="1" end="10" var ="i">
+						<option value="${i }">${i }</option>
+					</c:forEach>
+				</select>		
+				
+				<!-- 장바구니 진행 후 alert으로 성공, 실패 안내 띄우기, 비로그인 상태에서 장바구니 클릭시 로그인 페이지로 이동하는데, alert안내(회원만 사용할 수 있습니다.) 있으면 좋을 거 같음 -->
+				<button type = "submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
+		</form>
+<!-- 첫번째 문제 스크립트 -->
+				<button type = "submit" id ="buy1" class="btn btncl"><i class="far fa-envelope"></i> 구매하기 </button>
 
-			
-	<!-- 쪽지 보내기 모달 -->
-    <div class="modal fade" id="callsec" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">쪽지 전송하기</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="${appRoot }/message/mgsend" method="post">
-						<div class="form-group">
-							<label for="writer" class="col-form-label">보내는 사람</label>
-							<input type="text" readonly class="form-control" id="writerTh" value="${pinfo.user.userid}" name="writer">
-						</div>
-	
-						<div class="form-group">
-							<label for="reader" class="col-form-label">받는 사람</label>
-							<input type="text" readonly class="form-control" id="readerTh" value="${market.mwriter}" name="reader">
-						</div>
-	
-						<div class="form-group">
-							<label for="content" class="col-form-label">내용</label>
-							<textarea class="form-control"  id="contentTh" name="content"></textarea>
-						</div>
-					 
-						<div class="modal-footer">
-							<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-							<button id="sendbtnTh" type="submit" class="btn btn-secondary" >보내기</button>
-						</div>		
-					</form>					
-				</div>
-			</div>
-		</div>
-	</div>								
-			
-			
-		</div>	
-		
-		<form>
+				
 				<hr>
+		</div>
+
+</div>
+</div>
+<div class="container">				
 				<h3>상품 정보</h3>
-				<hr>
-				
-				
 				<div class="form-group">
-					<label for="mdetail">상세 설명</label>
-					<textarea readonly="readonly" id="mdetail" class="form-control" name="mdetail" >${market.mdetail }</textarea>
-				</div>								
-		</form>		
+					<label for="detail">상품 소개</label>
+					<textarea rows="5" cols="50" id="detail" class="form-control" name="detail" readonly>${store.detail }</textarea>
+				</div>	
+			
 		<div>
-			<c:url value="/market/modify" var="modifyUrl">
-							<c:param name="mno" value="${market.mno }" />
-							<c:param name="pageNum" value="${cri.pageNum }" />
-							<c:param name="amount" value="${cri.amount }" />
+			<c:url value="/store/modify" var="modifyUrl">
+				<c:param name="pno" value="${store.pno }" />
+				<c:param name="pageNum" value="${cri.pageNum }" />
+				<c:param name="amount" value="${cri.amount }" />
+			</c:url>
 		
-						</c:url>
-		
-			<c:if test="${pinfo.user.userid eq market.mwriter }" >				
-				<a class="btn btncl" href="${modifyUrl }"><i class="far fa-edit"></i>수정</a>
+			<c:if test="${pinfo.user.userid eq store.userid }" >				
+				<i class="far fa-edit"></i><a class="btn btncl" href="${modifyUrl }">수정</a>
 			</c:if>	
 		</div>
-				
-
-	
+		<i class="fas fa-arrow-left"></i><button onclick="history.back()"class="btn btncl" >취소</button>		
 </div>
-
+	
 
 </body>
 </html>

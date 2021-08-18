@@ -32,6 +32,8 @@ CREATE TABLE GH_auth(
 -- alter table [테이블명] add [컬럼명] [타입] [옵션]; 
 ALTER TABLE GH_User ADD CompanyRegistrationNumber VARCHAR(15);
 -- ALTER TABLE GH_User ADD CompanyRegistrationNumber VARCHAR(15) NUll; 
+ALTER TABLE GH_User ADD userpoint INT DEFAULT 1000000;
+
 
 -- 컬럼명 변경 및 타입 변경
 -- alter table [테이블명] change [컬럼명] [변경할컬럼명] varchar(값);
@@ -46,8 +48,12 @@ DESC GH_User;
 
 SELECT * FROM GH_User;
 
-INSERT INTO GH_User(userid, userpw, username,userphone, userem)
-VALUES ('soo123','qweasd','soo','01022223333','qwe@naver.com');
+INSERT INTO GH_auth(userid, auth)
+VALUES ('test12', 'ROLE_ADMIN');
 
-DELETE FROM GH_auth WHERE userid='cozy';
-DELETE FROM GH_User WHERE userid='cozy';
+INSERT INTO GH_User(userid, userpw, username, userPhone, userEmail)
+VALUES ('admin','qwe123','재경','01012340000','wwwcozytest1@gmail.com');
+
+
+DELETE FROM GH_auth WHERE userid='test12';
+DELETE FROM GH_User WHERE userid='test12';

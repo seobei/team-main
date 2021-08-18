@@ -1,7 +1,8 @@
-SELECT * FROM GH_User;
+
+SELECT * FROM order_detail;
 SELECT * FROM cart;
 SELECT * FROM S_product;
-SELECT * FROM S_product_file;
+
 DESC S_product;
 DELETE FROM S_product;
 DROP TABLE S_product;
@@ -52,7 +53,6 @@ INSERT INTO cart (userid, pno, cartstock)
 VALUES ('test1', '6', '3');
 
 
-
  SELECT 
            s.pno pno,
            s.category category,
@@ -88,7 +88,7 @@ CREATE TABLE userorder_info(
 	  ('test1', '성재경', '12345', '서울시', '101호', '01094557896', '10');
 
 -- 주문 정보 
-CREATE TABLE order_detail(
+CREATE TABLE order_detailsub(
     dno INT PRIMARY KEY AUTO_INCREMENT, -- 주문 상세 고유번호
     orderno INT NOT NULL, -- 주문번호
     pno INT NOT NULL, -- 상품 번호
@@ -100,5 +100,9 @@ CREATE TABLE order_detail(
 
 Select * from order_info;
 DESC order_info;
+
+Drop table order_detail;
+
 Drop table userorder_info;
+
 DELETE FROM order_detail;

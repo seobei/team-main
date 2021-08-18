@@ -17,16 +17,41 @@
 
 <script>
 $(document).ready(function() {
-	var modifyUrl = "${appRoot }/market/modify";
-	var removeUrl = "${appRoot }/market/remove";
-	$("#market-remove-btn1").click(function() {
+	var modifyUrl = "${appRoot }/store/modify";
+	var removeUrl = "${appRoot }/store/remove";
+	$("#store-remove-btn1").click(function() {
 		if (confirm("삭제 하시겠습니까?")) {
-			$("#market-modify").attr("action", removeUrl);
-			$("#market-modify").submit();
+			$("#store-modify").attr("action", removeUrl);
+			$("#store-modify").submit();
 		}
 	});
+
+});
+
+</script>
+
+<script>
+/* 판매가, 재고수량 숫자만 입력 가능한 스크립트 */
+$(document).ready(function(){
+var regExp = /[^0-9]/gi;
+
+$("#price").keyup(function(){ 
+	numCheck($(this)); 
+	});
+
+$("#stock").keyup(function(){ 
+	numCheck($(this)); 
+	});
+
+function numCheck(selector) {
+ var tempVal = selector.val();
+ selector.val(tempVal.replace(regExp, ""));
+}
 });
 </script>
+
+
+
 </head>
 <body>
 <div class="container">
@@ -36,97 +61,112 @@ $(document).ready(function() {
 		<hr> 	
 	<div class="row">
 		<div class="col-12">
-			<form id="market-modify" action="${appRoot }/market/modify" method="post" enctype="multipart/form-data">
-				<input hidden name="mno" value="${market.mno }" />
-				
-			<div class="form-group">
-			<c:if test="${not empty market.fileName }">
-            <c:forEach items="${market.fileName }" var="market_file">
-               <div>
-                  <img class="rounded float-left" src="${imgRoot}${market.mno }/${market_file}">
-               </div>
-            </c:forEach>
-            </c:if>
-			</div>	
-			
-				<div class="form-group">
-					<label for="mdetail">나눔, 판매</label>
 
-					<!-- 중복체크 방지 -->
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="msold" id="msold1"  value="판매" checked>
-						<label class="form-check-label" for="msold1"> 판매 </label>
+		<div class="row">
+			<div class="col-12">
+				
+				<form id="store-modify" action="${appRoot }/store/modify" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="pno" value="${store.pno}"/>
+					<div class="form-group">
+						<c:if test="${not empty store.fileName }">
+			            <c:forEach items="${store.fileName }" var="store_file">
+			               <div>
+			                  <img class="rounded float-left" src="${imgRoot}${store.pno }/${store_file}">
+			               </div>
+			            </c:forEach>
+			            </c:if>
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="msold" id="msold2" value="나눔" >
-						<label class="form-check-label" for="msold2"> 나눔 </label>
-					</div>
-				</div>		
+				
 				
 				<div class="form-group">
-					<label for="mtitle">상품명</label>
-					<input id="mtitle" class="form-control" name="mtitle" value="${market.mtitle }">
-				</div>	
+				<label class="" for="category">카테고리
+					  <select name="category" >
+					      <option value="가구">가구</option>
+					      <option value="수납">수납</option>
+					      <option value="조명">조명</option>
+					      <option value="가전">가전</option>
+					      <option value="장식/소품">장식/소품</option>
+					  </select>
+					</label>
+					</div>		
+							
+					<div class="form-group">
+						<label for="title">상품명</label>
+						<input id="title" class="form-control" name="title" value="${store.title }" required>
+					</div>				
+				
+				
+					<div class="form-group">
+						<label for="price">판매가</label>
+						<input id="price" class="form-control" name="price" value="${store.price }" required>
+					</div>
+
+					<div class="form-group">
+						<label for="delivery">배송</label>
+						<div>
+						<div class="form-check-inline">
+							<input class="form-control-input" type="radio" name="delivery" id="delivery1" value="무료배송" checked>
+							<label class="form-check-label" for="delivery1">무료배송 </label>
+						</div>
+						<div class="form-check-inline">
+							<input class="form-check-input" type="radio" name="delivery" id="delivery2" value="일반배송">
+							<label class="form-check-label" for="delivery2">일반배송 </label>
+						</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="stock">재고수량</label>
+						<input id="stock" class="form-control" name="stock" value="${store.stock }" >
+					</div>
 					
-				<div class="form-group">
-					<label for="mprice">가격</label>
-					<input id="mprice" class="form-control" name="mprice" value="${market.mprice }">
-				</div>	
-
-				<div class="form-group">
-					<label for="mdetail">상품상태</label>
-
-					<!-- 중복체크 방지 -->
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="mstate" id="mstate1" value="새 상품" checked>
-						<label class="form-check-label" for="mstate1"> 새 상품 </label>
+						<div class="form-group">
+							<label for="detail">상품 소개</label>
+							<textarea rows="5" cols="50" id="detail" class="form-control" name="detail" >${store.detail }</textarea>
+						</div>
+						
+					<div class="form-group">
+						<label for="keyword">키워드</label>
+						<input id="keyword" class="form-control" name="keyword" value="${store.keyword}" >
+					</div>	
+						
+						
+					<div class="form-group">
+						<label for="userid">작성자</label>
+						<input id="userid" readonly class="form-control" name="userid" value="${pinfo.user.userid }">
+						
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="mstate" id="mstate2" value="중고 상품">
-						<label class="form-check-label" for="mstate2"> 중고 상품 </label>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="maddress">거래지역</label>
-					<input id="maddress" class="form-control" name="maddress" value="${market.maddress }">
-				</div>	
+						
+ 						<div class="form-group">
+						<label for="market_file">파일</label>
+						<input id="market_file" class="form-control" type="file" name="market_file" multiple="multiple" accept="image/*" onchange="setThumbnail(event);">
+						
+						</div>
 				
 				<div class="form-group">
-					<label for="mwriter">작성자</label>
-					<input readonly id="mwriter" class="form-control" name="mwriter" value="${market.mwriter }">
-				</div>	
-
-				<div class="form-group">
-					<label for="mregdate">게시 날짜</label>
-					<span readonly class="form-control" id="mregdate" name="mregdate"><fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
-				</div>
-														
-				<div class="form-group">
-					<label for="input3">파일</label>
-					<input id="input3" class="form-control" type="file" name="file" multiple="multiple"  accept="image/*">
+					<label for="regdate">게시일자</label>
+					<span readonly class="form-control" id="regdate" name="regdate"><fmt:formatDate pattern="yyyy-MM-dd" value="${store.regdate }"/></span>
 				</div>
 				
-				<input hidden name="pageNum" value="${cri.pageNum }" />
-				<input hidden name="amount" value="${cri.amount }" />		
-				
-				<hr>
-				<h3>상품 정보</h3>
-				<hr>
-				
-				
 				<div class="form-group">
-					<label for="mdetail">상세 설명</label>
-					<textarea id="mdetail" class="form-control" name="mdetail">${market.mdetail }</textarea>
-				</div>	
-
-									
-				<i class="far fa-edit"></i><input class="btn btncl" id="market_detail_modify" type="submit" value="수정" ></input>
-				<i class="far fa-trash-alt"></i><input id="market-remove-btn1" class="btn btncl" type="button" value="삭제" >
+					<label for="updatedate">마지막 수정일</label>
+					<span readonly class="form-control" id="updatedate" name="updatedate"><fmt:formatDate pattern="yyyy-MM-dd" value="${store.updatedate }"/></span>
+				</div>
+				
+				
+						
+				<i class="far fa-edit"></i><input type="submit" class="btn btncl" id="store_detail_modify" value="완료" ></input>
+				<i class="fas fa-arrow-left"></i><button onclick="history.back()"class="btn btncl" >취소</button>
+				<span style="float:right"><i class="far fa-trash-alt"></i><input id="store-remove-btn1" class="btn btncl" type="button" value="삭제" ></span>
+				
 			</form>
 		</div>
 	</div>
 </div>
+
+</div>
+</div>
+
 </body>
 </html>
 

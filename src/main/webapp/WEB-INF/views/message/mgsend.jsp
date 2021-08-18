@@ -251,6 +251,7 @@ $(function() {
 	})
 </script>
 	</c:if>
+
 		<footer>
 			<nb:footer></nb:footer>
 		</footer>	
