@@ -62,9 +62,6 @@ $(document).ready(function() {
 
 </script>
     
-    
-    
-    
 <input name = "cno" type ="hidden" value = "${cart.cno }"/>
         <tr>     	
             <th>${status.count }</th>

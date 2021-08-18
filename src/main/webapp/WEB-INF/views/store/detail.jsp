@@ -119,6 +119,8 @@
 						<option value="${i }">${i }</option>
 					</c:forEach>
 				</select>		
+				
+				<!-- 장바구니 진행 후 alert으로 성공, 실패 안내 띄우기, 비로그인 상태에서 장바구니 클릭시 로그인 페이지로 이동하는데, alert안내(회원만 사용할 수 있습니다.) 있으면 좋을 거 같음 -->
 				<button type = "submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
 		</form>
 <!-- 첫번째 문제 스크립트 -->
