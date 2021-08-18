@@ -45,7 +45,7 @@ public class CBoardServiceImpl implements CBoardService {
 	//s3 파일 업로드 연동  코드 !
 	 
 	public CBoardServiceImpl() {
-		this.bucketName = "choongang-gohome01";
+		this.bucketName = "choongang-gohome";
 		this.profileName = "gohome1";
 		
 		/*  
@@ -133,7 +133,12 @@ public class CBoardServiceImpl implements CBoardService {
 		return mapper.getcbListWithPaging(cri);
 	}
 
-
+	// 게시글 리스트 가져오기 마이페이지
+	@Override
+	public List<CBoardVO> getcbList(String writer) {
+		return mapper.getcbList(writer);
+	}
+	
 
 	@Override
 	public int getcbToal(CBCriteria cri) {

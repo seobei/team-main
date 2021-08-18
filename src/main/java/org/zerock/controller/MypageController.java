@@ -1,6 +1,8 @@
 package org.zerock.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +16,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.CBoardVO;
+import org.zerock.domain.EBrezmsgVO;
+import org.zerock.domain.MarketVO;
 import org.zerock.domain.UserVO;
 import org.zerock.security.domain.CustomUser;
+import org.zerock.service.CBoardService;
+import org.zerock.service.EBrezmsgService;
+import org.zerock.service.MarketService;
 import org.zerock.service.UserService;
 
 import lombok.Setter;
@@ -30,10 +39,33 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
 	
+	@Setter(onMethod_ = @Autowired)
+	private CBoardService CBservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MarketService MKservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private EBrezmsgService rezservice;
+	
 	//마이페이지  홈 
-	@RequestMapping("/home")
-	public void main() {
-		log.info("mypage home method");
+	@GetMapping("/home")
+	@PreAuthorize("isAuthenticated()")
+	public void main(Principal principal, Model model, CBoardVO vo, EBrezmsgVO ebrezvo) {
+		
+		// 내가 작성한 게시글 불러오기 		
+		vo.setWriter(principal.getName());		
+		List<CBoardVO> list = CBservice.getcbList(principal.getName());
+		model.addAttribute("list",list);
+		
+		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
+		model.addAttribute("jlist",jlist);
+		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
 	}
 	
 	
@@ -41,7 +73,7 @@ public class MypageController {
 	//비밀번호확인 후 정보페이지로 이동 
 	@PostMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
-	public String checkpwMethod(Principal principal,Model model, String userpwck) {
+	public String checkpwMethod(Principal principal,Model model, String userpwck,CBoardVO vo, EBrezmsgVO ebrezvo) {
 		
 		log.info(principal.getName());
 		
@@ -68,6 +100,22 @@ public class MypageController {
 		
 		}
 		
+		// 내가 작성한 게시글 불러오기 
+		vo.setWriter(principal.getName());
+		log.info(vo);
+		List<CBoardVO> list = CBservice.getcbList(principal.getName());
+		model.addAttribute("list",list);
+		log.info(list);
+		
+		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
+		model.addAttribute("jlist",jlist);
+		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
+		
 		return resultshow;
 	}
 		
@@ -78,13 +126,29 @@ public class MypageController {
 	
 	@GetMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
-	public void info(Principal principal, Model model) {
+	public void info(Principal principal, Model model,CBoardVO vo) {
 		log.info(principal.getName());
 		
 		UserVO uservo = service.read(principal.getName());
 		
 		model.addAttribute("uservo", uservo);
 		
+		// 내가 작성한 게시글 불러오기 
+		vo.setWriter(principal.getName());
+		log.info(vo);
+		List<CBoardVO> list = CBservice.getcbList(principal.getName());
+		model.addAttribute("list",list);
+		log.info(list);
+		
+		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
+		model.addAttribute("jlist",jlist);
+		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
+
 	}
 	
 	
@@ -161,6 +225,34 @@ public class MypageController {
 		
 	}
 	
+	// 게시판 마켓 상담내역 삭제 
+	@PostMapping("/removeAll")
+	public String removeAll(@RequestParam("removeBno") ArrayList<Long> removeBnoList,RedirectAttributes rttr) {		
+		for (Long bno : removeBnoList) {
+			CBservice.cbremove(bno);
+		}
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
+		
+		return "redirect:/mypage/home";
+	}
+	@PostMapping("/removeAll2")
+	public String removeAll2(@RequestParam("removeMnoList") ArrayList<Integer> removeMnoList,RedirectAttributes rttr) {		
+	
+		for (Integer mno : removeMnoList) {
+			MKservice.remove(mno);
+		}
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
+		return "redirect:/mypage/home";
+	}
+	@PostMapping("/removerezmsgAll")
+	public String removerezmsgAll(@RequestParam("removeRnoList") ArrayList<Long> removeRnoList,RedirectAttributes rttr) {		
+		
+		for (Long rno : removeRnoList ) {
+			rezservice.rezremove(rno);
+		}
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
+		return "redirect:/mypage/home";
+	}
 	
 	
 }

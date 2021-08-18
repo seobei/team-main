@@ -91,7 +91,7 @@
 				    	
 				    	
 				  		<input type="hidden" name="pageNum" value="1">
-				  	  <input type="hidden" name="amount" value="${cri.amount }">
+				  	  	<input type="hidden" name="amount" value="${cri.amount }">
 				    	<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
 				  </form>
 			</div>
@@ -148,11 +148,7 @@
 		</table>
 		
 			
-		<footer>
-			<nb:footer></nb:footer>
-		</footer>
-		
-	</div>
+
 	
 	
 	
@@ -235,6 +231,10 @@
 		
 			
 
-	
+		<footer>
+			<nb:footer></nb:footer>
+		</footer>
+		
+	</div>
 </body>
 </html>

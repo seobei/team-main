@@ -29,7 +29,7 @@
 		});
 	})
 </script>
-<title>Insert title here</title>
+<title>쪽지함</title>
 </head>
 <body>
 	<div class="container">
@@ -171,6 +171,7 @@
 											<label for="content" class="col-form-label">내용</label>
 											<textarea class="form-control" readonly
 												id="content${status.count }" name="content">${message.content}</textarea>
+
 										</div>
 
 										<div class="modal-footer">
@@ -182,6 +183,7 @@
 											<button id="mesdelbtn${status.count }" type="submit"
 												class="btn btn-danger mr-auto">삭제</button>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -340,6 +342,11 @@
 	
 </script>
 		</c:if>
+
+		<footer>
+			<nb:footer></nb:footer>
+		</footer>
+		
 	</div>
 </body>
 </html>

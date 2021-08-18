@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <script>
 
 $(function() {
@@ -11,6 +10,7 @@ $(function() {
         e.preventDefault();
         $("#navbar-logout-form").submit();
     });
+	
 })
 </script>
 
@@ -40,6 +40,9 @@ $(function() {
 				        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
 				      </li>
 			     </sec:authorize>
+			     <sec:authorize access="!isAuthenticated()">
+			     
+			     </sec:authorize>
 		     	
 		     	
 		     		
@@ -59,16 +62,21 @@ $(function() {
 
 		         <li class="nav-item">
 		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
-		         </li>
-		     	</sec:authorize>
-
+		     		 </li>
+             
+		     	</sec:authorize> 
 		     	<sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
-<%-- 		         	<sec:authentication property="principal.user" var="user" /> --%>		         	
-		       		<a class="nav-link" href="${appRoot }/message/mgreceive?writer=${user.userid}">쪽지함 </a>
+<%-- 		         	<sec:authentication property="principal.user" var="user" />
+ --%>		         	
+		       		<a class="nav-link" href="${appRoot }/message/mgreceive">쪽지함 </a>
 		     	 </li>
-		     	</sec:authorize> 	 
-		     		 
+		     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
+					</li>
+		     	 </sec:authorize>
+		     	</sec:authorize> 
 			</ul>
 		</nav>
 </div>

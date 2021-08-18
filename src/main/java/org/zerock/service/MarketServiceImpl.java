@@ -208,5 +208,11 @@ public class MarketServiceImpl implements MarketService {
 	   public int getTotal(Criteria cri) {
 	      return mapper.getTotalCount(cri); 
 	   }
+	   
+		@Override
+		public List<MarketVO> getmkList(String writer) {
+			return mapper.getmkList(writer);
+
+		}
 
 	}

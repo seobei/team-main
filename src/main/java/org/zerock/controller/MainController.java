@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +15,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.MessageVO;
 import org.zerock.domain.UserVO;
 import org.zerock.security.domain.CustomUser;
+import org.zerock.service.MessageService;
 import org.zerock.service.UserService;
 
 
@@ -38,7 +42,6 @@ public class MainController {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
-	
 	
 	//메인 홈 
 	@RequestMapping("/home")
@@ -60,9 +63,7 @@ public class MainController {
 	public void tos() {
 		log.info(" Terms of service method");
 	}
-	
-	
-	
+
 	//회원가입 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public void signup() {
@@ -188,6 +189,6 @@ public class MainController {
 		}
 		return "main/findPw";	
 	}
-	
+
 	
 }

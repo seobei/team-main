@@ -19,6 +19,9 @@ public interface CBoardService {
 	public CBoardVO getcb(Long bno);
 
 	
+	//마이페이지 게시글 리스트 가져오기 
+	public List<CBoardVO> getcbList(String writer);
+	
 	//게시글 리스트 가져오기 
 	public List<CBoardVO> getcbList(CBCriteria cri);
 	

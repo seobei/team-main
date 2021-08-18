@@ -29,6 +29,9 @@ public interface MarketService {
 	// 리스트
 	public List<MarketVO> getList(Criteria cri);
 
+	//마이페이지 글 리스트 
+	public List <MarketVO> getmkList(String writer);
+	
 	// 총 페이지
 	public int getTotal(Criteria cri);
 	

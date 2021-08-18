@@ -28,7 +28,10 @@ public interface MarketMapper {
 	public int getTotalCount(Criteria cri);
 	
 	// 페이징 리스트
-	public List<MarketVO> getListWithPaging(Criteria cri);	
+	public List<MarketVO> getListWithPaging(Criteria cri);
+
+	//마이페이지 리스트 
+	public List<MarketVO> getmkList(String writer);	
 	
 }
 

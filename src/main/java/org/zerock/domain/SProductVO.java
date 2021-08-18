@@ -1,13 +1,11 @@
 package org.zerock.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class SProductVO {
-
 	
 	private long pno;
 	private String category;
@@ -23,3 +21,4 @@ public class SProductVO {
 
 	private List<String> fileName; 
 }
+
