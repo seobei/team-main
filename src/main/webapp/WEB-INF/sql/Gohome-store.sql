@@ -1,4 +1,4 @@
-SELECT * FROM GH_User;
+SELECT * FROM order_detail;
 SELECT * FROM cart;
 SELECT * FROM S_product;
 DESC S_product;
@@ -50,6 +50,24 @@ CREATE TABLE cart(
 INSERT INTO cart (userid, pno, cartstock)
 VALUES ('test1', '6', '3');
 
+-- 주문 정보 
+CREATE TABLE order_detail(
+    ono INT PRIMARY KEY AUTO_INCREMENT, -- 주문번호
+    pno INT NOT NULL, -- 상품번호 (글번호)
+	cno INT, -- 장바구니 번호
+    userid VARCHAR(50) NOT NULL, -- 소비자
+    cartstock INT NOT NULL, -- 주문 수량
+	orderdate TIMESTAMP DEFAULT NOW(), -- 주문 날짜
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 제품에서 바로 할때
+    FOREIGN KEY (cno) REFERENCES cart(cno) ON DELETE CASCADE, -- 장바구니 번호
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
+    );
+
+DESC order_detail;
+
+INSERT INTO order_detail (pno, cartstock, userid)
+VALUES ('10', '1', 'test1');
+
 
 
  SELECT 
@@ -87,7 +105,7 @@ CREATE TABLE userorder_info(
 	  ('test1', '성재경', '12345', '서울시', '101호', '01094557896', '10');
 
 -- 주문 정보 
-CREATE TABLE order_detail(
+CREATE TABLE order_detailsub(
     dno INT PRIMARY KEY AUTO_INCREMENT, -- 주문 상세 고유번호
     orderno INT NOT NULL, -- 주문번호
     pno INT NOT NULL, -- 상품 번호
@@ -99,5 +117,5 @@ CREATE TABLE order_detail(
 
 Select * from order_info;
 DESC order_info;
-Drop table userorder_info;
+Drop table order_detail;
 DELETE FROM order_detail;

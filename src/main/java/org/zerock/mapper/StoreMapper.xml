@@ -5,6 +5,7 @@
   
 <mapper namespace="org.zerock.mapper.StoreMapper">
 
+
 	<!-- 카트담기 -->
 	<insert id="addCart">
 		INSERT INTO cart 
@@ -70,27 +71,12 @@
 	</delete>
 
 
-<!-- 카트 삭제 -->
-<!-- <delete id="deleteCart">
- delete cart
-     where cno = #{cno}
-         and userId = #{userId}
-</delete> -->
-
-	<!-- 주문 정보 -->
-	<insert id="orderInfo">
-	 INSERT INTO userorder_info
-	  (userid, userAddr1, userAddr2, userAddr3, orderphone)
-	 VALUES
-	  (#{userid}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderphone})
-	</insert>
-   
 	<!-- 주문 상세 정보 --> 
-	<insert id="orderDetail">
+<!-- 	<insert id="orderDetail">
 	INSERT INTO order_detail(orderno, pno, cartstock)
 	     SELECT  #{orderno}, pno, cartstock
 	         FROM cart   
-	</insert> 
+	</insert>  -->
 
 
 </mapper>

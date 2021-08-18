@@ -77,6 +77,7 @@
 			m.enabled enabled,
 			m.regdate regdate,
 			m.updateDate updateDate,
+			m.userpoint userpoint,
 			a.auth auth
 		  FROM 
 		    GH_User m LEFT JOIN GH_auth a ON m.userid = a.userid
@@ -121,6 +122,7 @@
 	  	<result property="regdate" column="regdate" />
 	  	<result property="updateDate" column="updateDate" />
 	  	<result property="enabled" column="enabled" />
+	  	<result property="userpoint" column="userpoint" />
 	  	<collection property="authList" resultMap="authMap" />
 	  </resultMap>
 	  <resultMap type="org.zerock.domain.AuthVO" id="authMap">

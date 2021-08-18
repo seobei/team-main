@@ -114,7 +114,7 @@
 		
 		<form action="${appRoot }/store/cart" method="post">
 				<input type = "hidden" name="pno" value = "${store.pno }">
-				<select name = "cartstock" id = "cartstrock">
+				<select name = "cartstock" id = "cartstock">
 					<c:forEach begin="1" end="10" var ="i">
 						<option value="${i }">${i }</option>
 					</c:forEach>

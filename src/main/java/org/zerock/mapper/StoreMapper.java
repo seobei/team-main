@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.CartVO;
 import org.zerock.domain.Order_detailVO;
-import org.zerock.domain.Order_infoVO;
 
 public interface StoreMapper {
 	
@@ -25,7 +24,7 @@ public interface StoreMapper {
 	/* 장바구니에 동일한 상품이 있는지 확인되면 수정 */
 	public void updateCart(CartVO vo);
 	
-	public void orderInfo(Order_infoVO vo);
+
 	
 	public void orderDetail(Order_detailVO vo);
 	

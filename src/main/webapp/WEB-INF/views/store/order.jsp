@@ -14,21 +14,11 @@
 <script>
 $(document).ready(function(){
 	
-	$("input[type=checkbox]").prop("checked", true);
-	
-	/* 맨위 모두클릭버튼기능 */
-	$('#allCheck').click(function () {
-		if ($("input:checkbox[id='allCheck']").prop("checked")) {
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
-	});	
- 	
 	/*포인트모두사용버튼  */
 	$('#useMaxPointBtn').click(function () {
  		var totalP = $('#requireTotalPrice').val();
  		$('#usePoint').val(totalP);
+ 		console.log(totalP);
 	});
 	 /* 남은포인트 */
 	 function reaminP() {
@@ -46,65 +36,7 @@ $(document).ready(function(){
 	$("#useMaxPointBtn").on('click',function(){
 		reaminP();
 	});
-	/* 남은포인트가 */
 	
-
-	/* 체크된것들로 가격총합을 바꿔서 넣어주는 함수 */
-	function updateTotalPrice() {
-		var totalPrice = 0;
-		$('input:checkbox[name="checkbox"]:checked').each(function(){
-			var index = $(this).data("index");
-			var popriceName = "orderVOList["+index+"].order_poprice";
-			var poquantityName = "orderVOList["+index+"].order_quantity";
-			var poprice = $('input[name="'+ popriceName + '"]').val();
-			var poquantity = $('input[name="'+poquantityName+'"]').val();
-			var sectorPrice = poprice * poquantity;
-			totalPrice += sectorPrice;
-		});
-			var deliveryPrice = Number( $('#deliveryPrice').html() );
-			if(totalPrice != 0 ){
-				totalPrice += deliveryPrice;
-			}
-			
-		$('#requireTotalPrice').val(totalPrice);
-		$('.requireTotalPrice').each(function(){
-			$(this).html(totalPrice);
-		});
-	};
-	/* 일단 첫 로딩시 총가격 실행 */
-	updateTotalPrice();
-	/* 체크박스누를때마다 체크박스된것들로 총합 바꾸기 */
-	$('input:checkbox[name="checkbox"]').click(function () {
-		updateTotalPrice();
-	});
-	
-	/*전송버튼 누를때 체크된것들만 보내기  */
- 	$('#submit_btn').click(function (e) {
-		e.preventDefault();
-		
-		/*check안된 input들을 disabled해서 못보내게함  */
-		$('input:checkbox[name="checkbox"]:not(:checked)').each(function(){
-			var className = $(this).val();
-			$('.'+className).attr("disabled", true);
-		});
-		
-		/* 못보내면 name에 리스트번호가 꼬이니 OrderVO안의 list의 인덱스번호를 다시구성 해줘야함*/
-		var num = 0;
-		$('input:checkbox[name="checkbox"]:checked').each(function(){
-			var className = $(this).val();
-			$('.'+className).each(function(){
-				var inputName = $(this).attr("name");
-				var first = inputName.indexOf("[");
-				var last = inputName.indexOf("]");
-				var beforeIndex = inputName.substring(first+1,last);
-				var newInputName = inputName.replace(beforeIndex, num);
-				$(this).attr("name", newInputName);
-				
-				console.log(newInputName);
-			});
-			num++;
-		});
-		
 		/* 보내기전에 총금액과 사용금액이 다르면 안됨*/
 		var authP = $('#requireTotalPrice').val();
 		var useP = $('#usePoint').val();
@@ -155,24 +87,24 @@ $(document).ready(function(){
     </tr>
   </thead>
   <tbody>
-  <%--   <c:forEach var="cart" items="${cart}" varStatus="status">
+   <c:forEach var="order" items="${order}" varStatus="status">
         <tr>
             <th>${ status.count }</th>
-            <th>${cart.title }</th>
-            <td>${cart.detail }</td>
-            <td>${cart.price}</td>
-            <td>${cart.cartstock }</td>
+            <th>${order.title }</th>
+            <td>${order.detail }</td>
+            <td><fmt:formatNumber pattern="#,###원" value="${order.price}" /></td>
+            <td>${order.cartstock }</td>
         </tr>      
-    </c:forEach> --%>
+    </c:forEach> 
   </tbody>
   
    <tfoot>
     <tr>
         <td></td> 
 		<td>주문금액 : </td>		
-		<td> <%-- ${sumMoney} --%></td>
+		<td><fmt:formatNumber pattern="#,###원" value="${sumMoney}" /></td>
 		<td>내 보유 포인트 : </td>
-		<td></td>
+		<td>${user.userpoint} 포인트</td>
     </tr>
   </tfoot>
 </table>
@@ -181,41 +113,16 @@ $(document).ready(function(){
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputid">수령인</label>
-      <input type="text" class="form-control" id="inputid">
+      <input type="text" class="form-control" id="inputid" value="${user.userName }" readonly>
     </div>
   </div>
   <div class="form-group">
     <label for="inputphone">연락처</label>
-    <input type="text" class="form-control" id="inputphone" placeholder="1234 Main St">
+    <input type="text" class="form-control" id="inputphone" value="${user.userPhone }">
   </div>
   <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 3</label>
-    <input type="text" class="form-control" id="inputAddress3" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
+    <label for="inputAddress">주소</label>
+    <input type="text" class="form-control" id="inputAddress" value="${user.useradd }">
   </div>
 </form>
 
@@ -224,32 +131,38 @@ $(document).ready(function(){
 					<hr>
 						<table class="table1">
 							<tbody>
-
+								<tr>
+									<th><label for="requireTotalPrice"> 총 금액</label></th>
+									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sumMoney}"></td>
+								</tr>								
+								
 								<tr>
 									<th><p>보유 포인트</p></th>
 									<td>
-										<p class="text-right">718,100 </p>
-										<input id="authPoint" value="718100" hidden="hidden">
+										<p class="text-right">${user.userpoint}</p>
+										<input id="authPoint" value="${user.userpoint} " hidden="hidden">
 									</td>
 									<td><p>포인트</p></td>
 								</tr>
 								<tr>
 									<th><p>사용 포인트</th>
 									<td>
-										<input class="text-right" id="usePoint" min="0" max="${user.point}" name="usePoint" type="number"/>
+										<input class="text-right" id="usePoint" min="0" max="${user.userpoint}" name="usePoint" type="number"/>
 									</td>
-									<td><button id="useMaxPointBtn" class="btn_add" type="button">포인트 모두 사용</button></td>
+									<td><p>포인트  </p></td>
+									<td><button id="useMaxPointBtn" class="btn_add btn btn-primary" type="button">포인트 모두 사용</button></td>
 								</tr>
 								<tr>
-									<th><p>결제 금액</p></th>
-									<td><p class="text-right"><span class="requireTotalPrice"></span></p></td>
-									<td><p>원</p></td>
+									<th><p>결제 후 포인트</th>
+									<td>
+										<p class="text-right"><span class="remainPoint"></span></p>
+										<input hidden="hidden" class="text-right" id="remainPoint" name="remainPoint" type="number"/>
+									</td>
+									<td><p>포인트</p></td>
 								</tr>
 							</tbody>
 						</table>
-						
-							<button id="submit_btn" class="send_btn">구매하기</button>
-							
+
 							<div class="my-5">
 							</div>
 

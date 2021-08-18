@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.CartVO;
 import org.zerock.domain.Order_detailVO;
-import org.zerock.domain.Order_infoVO;
 import org.zerock.mapper.StoreMapper;
 
 import lombok.Setter;
@@ -64,11 +63,6 @@ public class StoreServiceImpl implements StoreService {
 
 	}
 
-	@Override
-	public void orderInfo(Order_infoVO vo) {
-		mapper.orderInfo(vo);
-		
-	}
 
 	@Override
 	public void orderDetail(Order_detailVO vo) {
