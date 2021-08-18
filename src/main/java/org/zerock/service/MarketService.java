@@ -9,26 +9,32 @@ import org.zerock.domain.MarketVO;
 public interface MarketService {
 	
 	// 글 쓰기 : 데이터 추가 
-		public void write(MarketVO mvo);
 
-		// 글 쓰기 : 파일 데이터 추가 
-		public void write(MarketVO mvo, MultipartFile[] market_file);
+	public void write(MarketVO mvo);
 
-		// 읽어오기 : 데이터 조회
-		public MarketVO read(int mno);
+	// 글 쓰기 : 파일 데이터 추가 
+	public void write(MarketVO mvo, MultipartFile[] market_file);
 
-		// 글 수정 
-		public boolean modify(MarketVO mvo);
-		
-		// 글 수정 & 파일 데이터 수정
-		public boolean modify(MarketVO mvo, MultipartFile[] market_file);
+	// 읽어오기 : 데이터 조회
+	public MarketVO read(int mno);
 
-		// 글 삭제
-		public boolean remove(int mno);
+	// 글 수정 
+	public boolean modify(MarketVO mvo);
+	
+	// 글 수정 & 파일 데이터 수정
+	public boolean modify(MarketVO mvo, MultipartFile[] market_file);
 
-		// 리스트
-		public List<MarketVO> getList(Criteria cri);
+	// 글 삭제
+	public boolean remove(int mno);
 
-		// 총 페이지
-		public int getTotal(Criteria cri);
+	// 리스트
+	public List<MarketVO> getList(Criteria cri);
+
+	//마이페이지 글 리스트 
+	public List <MarketVO> getmkList(String writer);
+	
+	// 총 페이지
+	public int getTotal(Criteria cri);
+	
+
 }

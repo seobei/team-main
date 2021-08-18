@@ -21,12 +21,12 @@
       WHERE mno = #{mno}
    </delete>
 
-	<delete id="removeByUserid">
-		DELETE FROM market_file
-		WHERE mno IN (
-		SELECT mno FROM market
-		WHERE mwriter = #{userid}
-		)
-	</delete>
-
+   <delete id="removeByUserid">
+	DELETE FROM market_file
+	WHERE mno IN (
+	SELECT mno FROM market
+	WHERE mwriter = #{userid}
+	)
+</delete>
+  
 </mapper>

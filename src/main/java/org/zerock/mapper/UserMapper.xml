@@ -52,10 +52,10 @@
    
    
    <!--  권한 지우기  -->
-	<delete id="removeAuth">
+	<!-- <delete id="removeAuth">
 		DELETE FROM  GH_auth
 		WHERE userid = #{userid}
-	</delete>
+	</delete> -->
 	
 	<!-- 회원 탈퇴  -->
 	<delete id="remove">
@@ -65,7 +65,7 @@
 	
 	
 	<!-- 데이터 읽어오기   -->
-	  <select id="read" resultMap="userMap" >
+	<select id="read" resultMap="userMap" >
 		  SELECT 
 			m.userid userid,
 			m.userpw userpw,
@@ -77,6 +77,7 @@
 			m.enabled enabled,
 			m.regdate regdate,
 			m.updateDate updateDate,
+			m.userpoint userpoint,
 			a.auth auth
 		  FROM 
 		    GH_User m LEFT JOIN GH_auth a ON m.userid = a.userid
@@ -86,28 +87,29 @@
      </select>
      
  
-	 <!-- 재경 아이디 찾기 -->
-		 <select id="findId" resultMap="userMap">
+
+ 
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultMap="userMap">
 			SELECT 
 			 *
 			FROM GH_User
 			WHERE username = #{userName} AND userphone = #{userPhone}
-		 </select>
+	</select>
 	
-		 <!-- 재경 비밀번호 찾기 -->
-		 <select id="findPw" resultMap="userMap">
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultMap="userMap">
 			SELECT 
 			 *
 			FROM GH_User
 			WHERE userid = #{userid}
-		 </select>
+	</select>
 	
-		 <!-- 재경 비밀번호 변경 -->
-		 <update id="updatePw" >
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" >
 			UPDATE GH_User SET userpw = #{userpw} where userid = #{userid}
-		 </update>
-		 
-	 
+	</update>
+
 	 
 	<!-- 책 662쪽 -->
 	  <resultMap type="org.zerock.domain.UserVO" id="userMap">
@@ -121,6 +123,7 @@
 	  	<result property="regdate" column="regdate" />
 	  	<result property="updateDate" column="updateDate" />
 	  	<result property="enabled" column="enabled" />
+	  	<result property="userpoint" column="userpoint" />
 	  	<collection property="authList" resultMap="authMap" />
 	  </resultMap>
 	  <resultMap type="org.zerock.domain.AuthVO" id="authMap">
