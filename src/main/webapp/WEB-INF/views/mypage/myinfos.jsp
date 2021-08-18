@@ -228,40 +228,70 @@ $(document).ready(function(){
 		      
 		      <!--  내글  관련 컨텐츠  -->
 		      <script type="text/javascript">
-		     
-					$(document).ready(function(){
+		      
+			      $(document).ready(function(){
 						
 						$("#pills-home-tab").click(function(){
 							
-							$(".sct2").prop("checked", false);
-							$(".selectAll2").prop("checked", false);
+							$(".mksct").prop("checked", false);
+							$(".mkselectAll").prop("checked", false);
 							
-							$(".rezAll").prop("checked", false);
-							$(".sctrez").prop("checked", false);
+							$(".rezselectAll").prop("checked", false);
+							$(".rezsct").prop("checked", false);
 						})
 						
 						$("#pills-profile-tab").click(function(){
 							
-							$(".sct1").prop("checked", false);
-							$(".selectAll1").prop("checked", false);
+							$(".cbsct").prop("checked", false);
+							$(".cbselectAll").prop("checked", false);
 							
-							$(".rezAll").prop("checked", false);
-							$(".sctrez").prop("checked", false);
+							$(".rezselectAll").prop("checked", false);
+							$(".rezsct").prop("checked", false);
 							
 						})
 						
 						$("#pill-experts-tab").click(function(){
 							
-							$(".sct1").prop("checked", false);
-							$(".selectAll1").prop("checked", false);
+							$(".cbsct").prop("checked", false);
+							$(".cbselectAll").prop("checked", false);
 							
-							$(".sct2").prop("checked", false);
-							$(".selectAll2").prop("checked", false);
+							$(".mksct").prop("checked", false);
+							$(".mkselectAll").prop("checked", false);
 							
 						})
 						
+						$("#remove-cb").click(function(e){
+							e.preventDefault();
+							if($(".cbsct:checked").length) {
+								console.log("하나이상 체크됨...");
+								removeAllForm1.submit()
+							} else {
+								alert("삭제 할 항목을 선택해 주세요. ");
+							}
+						})
+						
+						$("#remove-mk").click(function(e){
+							e.preventDefault();
+							if($(".mksct:checked").length) {
+								console.log("하나이상 체크됨...");
+								removeAllForm2.submit();
+							} else {
+								alert("삭제 할 항목을 선택해 주세요. ");
+							}
+						})
+						$("#remove-rez").click(function(e){
+							e.preventDefault();
+							
+							if($(".rezsct:checked").length) {
+								console.log("하나이상 체크됨...");
+								removeAllForm3.submit()
+							} else {
+								alert("삭제 할 항목을 선택해 주세요. ");
+							}
+						})
 					})
 				
+					
 			 </script>
 			 
 			<div class="jumbotron tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
@@ -286,13 +316,13 @@ $(document).ready(function(){
 					<div class="tab-pane fade show active" id="pills-cm" role="tabpanel" aria-labelledby="pills-cm-tab">
 						<div  class="nav justify-content-end m-2" >
 							<form id="removeAllForm1" action="${appRoot }/mypage/removeAll" method="post">
-								<button id="desub" class="btn btn-outline-danger" type="submit" >삭제 </button>
+								<button id="remove-cb" class="btn btn-outline-danger" type="submit" >삭제 </button>
 							</form>
 						</div>
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th><input type="checkbox" class="selectAll1" /> #</th>
+									<th><input type="checkbox" class="cbselectAll"/> #</th>
 									<th>제목</th>
 									<th>작성자</th>
 									<th>작성일</th>
@@ -304,7 +334,7 @@ $(document).ready(function(){
 									<tr>
 										<td>
 											<input type="checkbox" name="removeBno" 
-											value="${cboard.bno }" class="sct1" id="${cboard.bno }"
+											value="${cboard.bno }" class="cbsct" 
 											form="removeAllForm1"/> ${status.count }
 										</td>
 										
@@ -329,44 +359,41 @@ $(document).ready(function(){
 							</tbody>
 						</table>
 					</div>
-					<script>
+					<script type="text/javascript" >
 					
-						var selectAll = document.querySelector(".selectAll1");
+						var selectAll = document.querySelector(".cbselectAll");
 						selectAll.addEventListener('click', function() {
-							var objs = document.querySelectorAll(".sct1");
+							var objs = document.querySelectorAll(".cbsct");
 							for (var i = 0; i < objs.length; i++) {
 								objs[i].checked = selectAll.checked;
-							}
-							;
+							};
 						}, false);
-						var objs = document.querySelectorAll(".sct1");
+						var objs = document.querySelectorAll(".cbsct");
 						for (var i = 0; i < objs.length; i++) {
 							objs[i].addEventListener('click', function() {
-								var selectAll = document
-										.querySelector(".selectAll1");
+								var selectAll = document.querySelector(".cbselectAll");
 								for (var j = 0; j < objs.length; j++) {
 									if (objs[j].checked === false) {
 										selectAll.checked = false;
 										return;
-									}
-									;
-								}
-								;
+									};
+								};
 								selectAll.checked = true;
 							}, false);
 						}
 					</script>	
 							
+							
 					<div class="tab-pane fade show" id="pills-market" role="tabpanel" aria-labelledby="pills-market-tab">
 						<div  class="nav justify-content-end m-2" >
 							<form id="removeAllForm2" action="${appRoot }/mypage/removeAll2" method="post">
-								<button id="desub2" class="btn btn-outline-warning" type="submit" >삭제 </button>
+								<button id="remove-mk" class="btn btn-outline-warning" type="submit" >삭제 </button>
 							</form>
 						</div>
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th><input type="checkbox" class="selectAll2"/> #</th>
+									<th><input type="checkbox" class="mkselectAll" /> #</th>
 									<th>판매</th>
 									<th>제목</th>
 									<th>작성자</th>
@@ -377,8 +404,7 @@ $(document).ready(function(){
 								<c:forEach items="${jlist}" var="jmarket" varStatus="status">
 									<tr>
 										<td>
-											<input type="checkbox" name="removeMnoList" value="${jmarket.mno }" class="sct2" 
-											id="${jmarket.mno }" form="removeAllForm2"/> ${status.count }
+											<input type="checkbox" name="removeMnoList" value="${jmarket.mno }" class="mksct" form="removeAllForm2"/> ${status.count }
 										</td>
 											
 											
@@ -404,29 +430,25 @@ $(document).ready(function(){
 						</table>
 					</div>
 					
-					<script>
-							var selectAll2 = document.querySelector(".selectAll2");
-							selectAll2.addEventListener('click', function() {
-								var objs2 = document.querySelectorAll(".sct2");
+					<script type="text/javascript">
+							var mkselectAll = document.querySelector(".mkselectAll");
+							mkselectAll.addEventListener('click', function() {
+								var objs2 = document.querySelectorAll(".mksct");
 								for (var i = 0; i < objs2.length; i++) {
-									objs2[i].checked = selectAll2.checked;
-								}
-								;
+									objs2[i].checked = mkselectAll.checked;
+								};
 							}, false);
-							var objs2 = document.querySelectorAll(".sct2");
+							var objs2 = document.querySelectorAll(".mksct");
 							for (var i = 0; i < objs2.length; i++) {
 								objs2[i].addEventListener('click', function() {
-									var selectAll2 = document
-											.querySelector(".selectAll2");
+									var mkselectAll = document.querySelector(".mkselectAll");
 									for (var j = 0; j < objs2.length; j++) {
 										if (objs2[j].checked === false) {
-											selectAll2.checked = false;
+											mkselectAll.checked = false;
 											return;
-										}
-										;
-									}
-									;
-									selectAll2.checked = true;
+										};
+									};
+									mkselectAll.checked = true;
 								}, false);
 							}
 					</script>
@@ -443,7 +465,7 @@ $(document).ready(function(){
 							<thead>
 								<tr>
 									<th>
-										<input type="checkbox" class="rezAll" /> #
+										<input type="checkbox" class="rezselectAll" /> #
 									</th>
 									<th>내용 </th>
 									<th>상담 업체</th>
@@ -455,7 +477,7 @@ $(document).ready(function(){
 									<tr>
 										<td>
 											<input type="checkbox" name="removeRnoList" 
-											value="${ebrezvo.rno }" class="sctrez" id="${ebrezvo.rno }"
+											value="${ebrezvo.rno }" class="rezsct" 
 											form="removeAllForm3"/> ${status.count }
 										</td>
 										
@@ -502,9 +524,7 @@ $(document).ready(function(){
 														 	 <hr>
 														 	 <div class="card-body">
 														 	 	 예약 내용
-														 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" >
-														 		 	${ebrezvo.content}
-														 		 </textarea>
+														 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" ><c:out value="${ebrezvo.content}"/></textarea>
 														 	 </div>
 														 	 <div class="card-body">
 																<label for="input2">작성자</label>
@@ -593,9 +613,7 @@ $(document).ready(function(){
 															 	 <hr>
 															 	 <div class="card-body">
 															 	 	 예약 내용
-															 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" >
-															 		 	${ebrezvo.content}
-															 		 </textarea>
+															 		 <textarea id="title-textarea" readonly class="form-control card-text" name="content" rows="4" ><c:out value="${ebrezvo.content}"/></textarea>
 															 	 </div>
 															 	 
 															</div>
@@ -610,30 +628,26 @@ $(document).ready(function(){
 							</table>
 						</sec:authorize>
 					</div>
-					<script>
+					<script type="text/javascript">
 					
-						var rezAll = document.querySelector(".rezAll");
-						rezAll.addEventListener('click', function() {
-							var obrez = document.querySelectorAll(".sctrez");
+						var rezselectAll = document.querySelector(".rezselectAll");
+						rezselectAll.addEventListener('click', function() {
+							var obrez = document.querySelectorAll(".rezsct");
 							for (var i = 0; i < obrez.length; i++) {   
-								obrez[i].checked = rezAll.checked;
-							} 
-							;
+								obrez[i].checked = rezselectAll.checked;
+							};
 						}, false);
-						var obrez = document.querySelectorAll(".sctrez");
+						var obrez = document.querySelectorAll(".rezsct");
 						for (var i = 0; i < obrez.length; i++) {
 							obrez[i].addEventListener('click', function() {
-								var rezAll = document
-										.querySelector(".rezAll");
+								var rezselectAll = document.querySelector(".rezselectAll");
 								for (var j = 0; j < obrez.length; j++) {
 									if (obrez[j].checked === false) {
-										rezAll.checked = false;
+										rezselectAll.checked = false;
 										return;
-									}
-									;
-								}
-								;
-								rezAll.checked = true;
+									};
+								};
+								rezselectAll.checked = true;
 							}, false);
 						}
 					</script>	

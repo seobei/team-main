@@ -88,9 +88,6 @@
 		  	  title = #{title}, 
 		  	  content = #{content},
 		  	  writer = #{writer},
-		  	  addRegion = #{addRegion},
-		  	  addCi = #{addCi},
-		  	  addGu = #{addGu},
 		  	  updateDate = NOW()
 	
 		WHERE

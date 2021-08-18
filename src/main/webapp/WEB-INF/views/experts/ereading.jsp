@@ -120,6 +120,24 @@
 		
 		
 		<!-- 상담신청 모달  -->
+		<script type="text/javascript">
+		
+			$("#rez-btn").click(function() {
+				
+					if($("#rezdate").val()==""){
+						alert("예약날짜을 선택해주세요 .");
+						$("#rezdate").focus();
+						return false;
+					}
+					if($("#reztime").val()==""){
+						alert("예약시간을 선택해주세요 .");
+						$("#reztime").focus();
+						return false;
+					}
+					
+				});
+		</script>
+		
 		<div class="modal fade" id="rez-modal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -150,7 +168,7 @@
 									<input type="date" class="form-control mt-1 mb-1"  name="rezdate" id="rezdate"/>
 						 	 </div>
 						 	 <div class="card-body">
-						 		<label class="mt-1 mb-1" for="rezdate" >시간 </label>
+						 		<label class="mt-1 mb-1" for="reztime" >시간 </label>
 								<input type="time" class="form-control mt-1 mb-1"  name="reztime" id="reztime"/>
 						 	 </div>
 						 	 <hr>
