@@ -19,6 +19,7 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.NoticeVO;
 import org.zerock.domain.OtoAnswerVO;
 import org.zerock.domain.OtoVO;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.CsService;
 
 import lombok.AllArgsConstructor;
@@ -32,15 +33,18 @@ public class CsController {
 
 	private CsService service;
 	
-	//공지사항
+	//공지사항 리스트
 	@RequestMapping("/notice")
 	@PreAuthorize("isAuthenticated()")
-	public String notice(Model model, NoticeVO nvo, Principal principal, RedirectAttributes rttr) {
+	public String notice(@ModelAttribute("cri") Criteria cri, Model model, NoticeVO nvo, Principal principal) {
 		log.info("notice method");
+   		int total = service.getTotalN(cri);    
+
 		
 		nvo.setUserid(principal.getName());
-		List<NoticeVO> list = service.getNoticeList(nvo);
+		List<NoticeVO> list = service.getNoticeList(cri);
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		log.info(principal.getName());
 		return "/cs/notice";
@@ -61,6 +65,8 @@ public class CsController {
 		service.noticeWriting(nvo, notice_file);
 		
 		rttr.addFlashAttribute("result", nvo.getNno());
+		rttr.addFlashAttribute("messageTitle", "작성성공! ");
+		rttr.addFlashAttribute("messageBody", "공지사항이 등록 되었습니다!");
 		
 		return "redirect:/cs/notice";
 	}
@@ -74,7 +80,6 @@ public class CsController {
 	}
 	
 	/* 공지 수정 */
-	
 	@PostMapping("/noticeModify")
 	/* @PreAuthorize("principal.userid == #nvo.userid") */
 	public String  noticeModify(NoticeVO nvo, Criteria cri,
@@ -98,7 +103,7 @@ public class CsController {
 		return "redirect:/cs/notice";
 	}
 	
-	
+	/* 공지삭제 */
 	@PostMapping("/noticeDelete")
 	/* @PreAuthorize("principal.userid == #nvo.userid") */
 	public String noticeDelete(int nno, Criteria cri,RedirectAttributes rttr, String userid) {
@@ -117,29 +122,6 @@ public class CsController {
 		
 	}
 	
-	/* 공지 삭제 
-	@PostMapping("/noticeDelete")
-	public String noticeDelete(@RequestParam(value= "nno") int nno, NoticeVO nvo) {
-		
-		service.noticeDelete(nvo);
-		return "redirect:/cs/notice";
-	}
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//Q&A
 	@RequestMapping("/questionAndAnswer")
 	public void cs() {
@@ -151,12 +133,14 @@ public class CsController {
 	//1:1문의
 	@RequestMapping("/oneToOne")
 	@PreAuthorize("isAuthenticated()")
-	public String oneToOne(Model model, OtoVO vo, Principal principal, RedirectAttributes rttr) {
+	public String oneToOne(@ModelAttribute("cri") Criteria cri, Model model, OtoVO vo, Principal principal) {
 		log.info("oneToOne method");
+		int total = service.getTotalO(cri);
 		
 		vo.setUserid(principal.getName());
-		List<OtoVO> list = service.getotolist(vo);
+		List<OtoVO> list = service.getotolist(cri);
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		log.info(principal.getName()); //실제 구현 클래스의 최상위 인터페이스가 principal
 	 
@@ -178,7 +162,8 @@ public class CsController {
 		service.otowriting(ovo, oto_file);
 		
 		rttr.addFlashAttribute("result", ovo.getQono());
-		
+		rttr.addFlashAttribute("messageTitle", "작성성공! ");
+		rttr.addFlashAttribute("messageBody", ovo.getUserid() + "님  게시물이 등록 되었습니다! ");
 		return "redirect:/cs/oneToOne";
 	}
 	
@@ -194,8 +179,6 @@ public class CsController {
 	}
 	
 	/* 문의 삭제 */
-	
-
 	@PostMapping("/otodelete")
 	public String otodelete(int qono, Criteria cri,RedirectAttributes rttr, String userid) {
 		
@@ -210,18 +193,4 @@ public class CsController {
 		
 		return "redirect:/cs/oneToOne";
 	}
-	
-	/* 문의 파일 
-	@PostMapping("/otowriting")
-    public String write(OtoVO vo, 
-    		@RequestParam("otofile") MultipartFile[] market_file , RedirectAttributes rttr) {
-    	
-    	service.write(vo, otofile);
-		
-    	rttr.addFlashAttribute("result", vo.getno());
-
-
-    	return "redirect:/cs/oneToOne"; 
-		} 
-	*/
 }

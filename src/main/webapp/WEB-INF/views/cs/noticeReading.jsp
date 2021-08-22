@@ -52,8 +52,7 @@
 					
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea readonly="readonly" id="textarea1" class="form-control" 
-						name="ndetail" rows="10"><c:out value="${nvo.ndetail }" /></textarea>
+						<textarea readonly="readonly" id="textarea1" class="form-control" name="ndetail" rows="10"><c:out value="${nvo.ndetail }" /></textarea>
 					</div>
 
 						<div class="form-group">
@@ -80,6 +79,11 @@
 			</div>
 		</div>
 	</div>
+	
+		<footer>
+			<nb:footer></nb:footer>
+		</footer>
+	
 </div>
 </body>
 </html>
