@@ -14,5 +14,5 @@ public class OtoAnswerVO {
 	private String content;
 	private String userid;
 	private Date regdate;
-	
+
 }

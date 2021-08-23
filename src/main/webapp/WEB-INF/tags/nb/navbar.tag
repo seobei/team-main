@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <script>
 
 $(function() {
@@ -11,23 +10,38 @@ $(function() {
         e.preventDefault();
         $("#navbar-logout-form").submit();
     });
+	
 })
 </script>
+
+
+
+
+<!--  검색  -->
+<!-- 회원가입 페이지 ! -->
+<!-- 기업 회원가입 페이지 ! -->
+<!-- 회원정보 페이지 ! -->
+
+
+
 
 <div class="d-flex justify-content-end">
 	<nav class="navbar navbar-expand-sm navbar-light">
 	
 		<ul  class="navbar-nav">
 	  		   <sec:authorize access="!isAuthenticated()">
-				<li class="nav-item">
-	       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
-	     		 </li>
+					<li class="nav-item">
+		       			 <a class="nav-link" href="${appRoot }/main/login">로그인 </a>
+		     		 </li>
 	     		</sec:authorize>
 	     	
 		     	<sec:authorize access="!isAuthenticated()">
-			      <li class="nav-item">
-			        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
-			      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="${appRoot }/main/tos" tabindex="-1" aria-disabled="true">회원가입 </a>
+				      </li>
+			     </sec:authorize>
+			     <sec:authorize access="!isAuthenticated()">
+			     
 			     </sec:authorize>
 		     	
 		     	
@@ -45,9 +59,23 @@ $(function() {
 		         </sec:authorize>
 	         
 		         <sec:authorize access="isAuthenticated()">
+
 		         <li class="nav-item">
-		       			 <a class="nav-link" href="${appRoot }/main/mypage">마이페이지 </a>
+		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
 		     		 </li>
+             
+		     	</sec:authorize> 
+		     	<sec:authorize access="isAuthenticated()">
+		         <li class="nav-item">
+<%-- 		         	<sec:authentication property="principal.user" var="user" />
+ --%>		         	
+		       		<a class="nav-link" href="${appRoot }/message/mgreceive">쪽지함 </a>
+		     	 </li>
+		     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
+					</li>
+		     	 </sec:authorize>
 		     	</sec:authorize> 
 			</ul>
 		</nav>
@@ -59,7 +87,7 @@ $(function() {
 <div class="navbar row justify-content-center p-0">
 		<div class="col-md-3 text-center p-0">
 		  <a class="navbar-brand" href="${appRoot}/main/home"> 
-		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo.png">
+		  	<img alt="gohome-logo" width="150" src="${appRoot }/resources/img/gohomelogo22.png">
 		  </a>
 		</div>
 		
@@ -87,8 +115,9 @@ $(function() {
           스토어 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">서브1 </a></li>
-          <li><a class="dropdown-item" href="#">서브2 </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/store/home">카테고리 </a></li>
+          <li><a class="dropdown-item" href="#">베스트 </a></li>
+          <li><a class="dropdown-item" href="#">기획전 </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
@@ -99,39 +128,37 @@ $(function() {
           커뮤니티 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">자유게시판  </a></li>
-          <!-- 0729 재경 수정 -->
-          <li><a class="dropdown-item" href="${appRoot }/board/market">중고마켓  </a></li>
+
+          <li><a class="dropdown-item" href="${appRoot}/community/cbhome">자유게시판  </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/market/home">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
-      
-      
+      <!-- 업체 서브 빠이빠이  -->
+
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-          업체  
+      	<a class="nav-link" href="${appRoot }/experts/ehome"  role="button"  aria-expanded="false">
+          업체 
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="#">인테리어 </a></li>
-          <li><a class="dropdown-item" href="#">이사  </a></li>
-          <li><hr class="dropdown-divider"></li>
-        </ul>
+        
       </li>
-      
-      
+
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"  role="button"  aria-expanded="false">
-          고객센터  
+         고객센터  
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+       <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
           <li><a class="dropdown-item" href="${appRoot }/cs/notice">공지사항 </a></li>
           <li><a class="dropdown-item" href="${appRoot }/cs/questionAndAnswer">Q&A</a></li>
           <li><a class="dropdown-item" href="${appRoot }/cs/oneToOne">1:1문의</a></li>
           <li><hr class="dropdown-divider"></li>
-        </ul>
+
+        </ul> 
+
       </li>
       
     </ul>
     </nav>
   </div>
-  <hr>
+  <hr class="m-1">
