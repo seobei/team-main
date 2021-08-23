@@ -66,7 +66,7 @@ $(document).ready(function() {
 			<c:param name="nno" value="${board.nno }" />
 			</c:url>
 				<tr>
-					<td>${boardStatus.count }</td>
+					<td>${pageMaker.total - boardStatus.index - (pageMaker.cri.pageNum - 1) * pageMaker.cri.amount }</td>
 					<td><a href="${getUrl}">${board.ntitle }</a></td>
 					<td>관리자</td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.nregdate }"/></td>

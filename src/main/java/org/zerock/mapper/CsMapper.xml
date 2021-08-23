@@ -96,7 +96,8 @@
     		ntitle ntitle,
     		userid userid,
     		ndetail ndetail,
-    		nregdate nregdate    	
+    		nregdate nregdate  
+    	  	
      	FROM notice
     	 
      	ORDER BY nno DESC

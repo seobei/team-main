@@ -35,18 +35,17 @@ public class CsController {
 	
 	//공지사항 리스트
 	@RequestMapping("/notice")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	public String notice(@ModelAttribute("cri") Criteria cri, Model model, NoticeVO nvo, Principal principal) {
 		log.info("notice method");
    		int total = service.getTotalN(cri);    
 
-		
-		nvo.setUserid(principal.getName());
+//		nvo.setUserid(principal.getName());
 		List<NoticeVO> list = service.getNoticeList(cri);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+//		log.info(principal.getName());
 		
-		log.info(principal.getName());
 		return "/cs/notice";
 	}
 	

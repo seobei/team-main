@@ -20,6 +20,7 @@ public class PageDTO {
 
 	public PageDTO(Criteria cri, int total) {
 		this.cri = cri;
+		this.total = total;
 		
 		int current = cri.getPageNum();
 		int numPerPage = cri.getAmount();
