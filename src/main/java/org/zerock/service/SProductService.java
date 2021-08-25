@@ -3,7 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.SPCriteria;
 import org.zerock.domain.SProductVO;
 
 public interface SProductService {
@@ -25,16 +25,12 @@ public interface SProductService {
 
 	// 글 삭제
 	public boolean remove(Long pno);
-
-	// 리스트
-	public List<SProductVO> getList(Criteria cri);
-	
 	
 	// 카테고리 리스트
-	public List<SProductVO> getCategory(Criteria cri);
+	public List<SProductVO> getCateList(SPCriteria cri);
 
 	// 총 페이지
-	public int getTotal(Criteria cri);
+	public int getTotal(SPCriteria cri);
 	
 	
 }

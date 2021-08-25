@@ -33,4 +33,7 @@ public interface UserService {
 	//이메일발송
 	public void sendEmail(UserVO vo, String div) throws Exception;
 
+	public void updatePoint(UserVO vo);
+	
+	public void updateSpendPoint(UserVO vo);
 }

@@ -11,8 +11,7 @@ public interface StoreService {
 	
 	public List<CartVO> listCart(String userid);
 	
-	public void cartdelete(Long cno);
-//	public void deleteCart(CartVO cart);
+	public void cartdelete(CartVO vo);
 	
 	public void modifyCart(CartVO vo);
 
@@ -23,9 +22,8 @@ public interface StoreService {
 
 	/* 장바구니에 동일한 상품이 있는지 확인되면 수정 */
 	public void updateCart(CartVO vo);
-	
-	
-	public void orderDetail(Order_detailVO vo);
-	
+
+	public void deletecartlist(String userid);
+
 	
 }

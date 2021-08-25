@@ -70,6 +70,11 @@
 	 DELETE FROM cart WHERE cno = #{cno}
 	</delete>
 
+	<!-- 주문 후 장바구니 삭제 -->
+ 	<delete id ="deletecartlist">
+	 DELETE FROM cart WHERE userid = #{userid}
+	</delete>
+
 
 	<!-- 주문 상세 정보 --> 
 <!-- 	<insert id="orderDetail">
@@ -78,6 +83,22 @@
 	         FROM cart   
 	</insert>  -->
 
+
+		<!-- 주문 상세 정보 --> 
+<!--  	<insert id="addOrder">
+	INSERT INTO order_detail
+		(pno, cno, userid, cartstock)
+	VALUES  
+		(#{pno}, #{cno}, #{userid}, #{cartstock}) 
+	</insert>  --> 
+
+		<!-- 주문 상세 정보 --> 
+<!--  	<insert id="addDirectOrder">
+	INSERT INTO order_detail
+		(pno, userid, cartstock)
+	VALUES  
+		(#{pno}, #{userid}, #{cartstock}) 
+	</insert>   -->
 
 </mapper>
 

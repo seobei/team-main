@@ -40,4 +40,8 @@ public interface UserMapper {
 	
 	// 메세지
 	public int msgsend(MessageVO vo);
+
+	public void updatePoint(UserVO vo);
+	
+	public void updateSpendPoint(UserVO vo);
 }
