@@ -3,31 +3,27 @@ package org.zerock.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.MessageVO;
+import org.zerock.domain.CBoardVO;
+import org.zerock.domain.MarketVO;
+import org.zerock.domain.NoticeVO;
+import org.zerock.domain.SProductVO;
 import org.zerock.domain.UserVO;
-import org.zerock.security.domain.CustomUser;
-import org.zerock.service.MessageService;
+import org.zerock.service.CBoardService;
+import org.zerock.service.CsService;
+import org.zerock.service.MarketService;
+import org.zerock.service.SProductService;
 import org.zerock.service.UserService;
-
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -43,9 +39,31 @@ public class MainController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
 	
+	@Setter(onMethod_ = @Autowired)
+    private CBoardService cboardservice;	
+	
+	@Setter(onMethod_ = @Autowired)
+	private MarketService marketservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CsService csservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private SProductService sproductservice;
+	
 	//메인 홈 
 	@RequestMapping("/home")
-	public void main() {
+	public void main(Model model) {
+		List<CBoardVO> cboardlist = cboardservice.getCbMainList();
+		List<MarketVO> marketlist = marketservice.getMarketMainList();
+		List<NoticeVO> noticelist = csservice.getNoticeMainList();
+		List<SProductVO> storelist = sproductservice.getsproductMainList(); 
+		
+		model.addAttribute("cboardList", cboardlist);
+		model.addAttribute("marketlist", marketlist);
+		model.addAttribute("noticelist", noticelist);
+		model.addAttribute("storelist", storelist);
+		
 		log.info("home method");
 		
 	}

@@ -30,12 +30,6 @@ public class StoreServiceImpl implements StoreService {
 	public void cartdelete(CartVO vo) {
 		mapper.cartdelete(vo);
 	}
-
-//	@Override
-//	public void deleteCart(CartVO cart) {
-//		mapper.deleteCart(cart);
-//		
-//	}
 	
 	@Override
 	public void modifyCart(CartVO vo) {

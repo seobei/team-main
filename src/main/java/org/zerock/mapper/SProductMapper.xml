@@ -129,7 +129,21 @@
 		WHERE userid = #{userid}
 	</delete> 
 
-
+	<!-- 메인스토어 게시글조회  -->
+	<select id="getsproductMainList" resultType="org.zerock.domain.SProductVO">
+		SELECT pno,
+	       category,
+	       userid,
+	       title,
+	       price,
+	       delivery,
+	       detail,
+	       regdate,
+	       updatedate
+		FROM S_product
+		ORDER BY regdate DESC
+		LIMIT 4;
+	</select>
 
  	  <resultMap type="org.zerock.domain.SProductVO" id="productMap">
           <id property="pno" column="pno" />

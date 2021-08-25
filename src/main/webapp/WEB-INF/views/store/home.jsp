@@ -71,13 +71,6 @@ width: 160px;
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		$(".category-link").click(function(e) {
-			e.preventDefault();
-			var category = $(this).attr("data-category");
-			$("#actionForm [name=category]").val(category);
-			$("#actionForm").submit();
-		});
-		
 		$(".form-select1").change(function(e) {
 			e.preventDefault();
 			var category = $(this).val();
@@ -141,11 +134,6 @@ width: 160px;
 
 </div>
 
-<!-- 		<div class="container">
-
-		</div>
- -->
-
 <div class="col-10">
 		  
 <!-- 배너 : 슬라이드 -->	
@@ -167,35 +155,7 @@ width: 160px;
     <span class="sr-only">Next</span>
   </a>
 </div>	
-	
-	
-<!-- 키워드 -->
-<div class="keyword">
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">#침실</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#서재</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#드레스룸</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#거실</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#주방</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">#욕실</a>
-  </li>   
-  <li class="nav-item">
-    <a class="nav-link" href="#">#테라스</a>
-  </li>       
-</ul>
-</div>
-	
+		
 		
 <!-- 상품 목록 -->	
 <div class="productlist">

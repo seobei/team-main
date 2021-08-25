@@ -125,5 +125,20 @@
 	 SELECT bno FROM C_board WHERE writer = #{userid}
 	 </select>
 	  
+	  
+	 <!-- 메인중고마켓 게시글조회  -->
+    <select id="getCbMainList" resultType="org.zerock.domain.CBoardVO">
+		SELECT bno,
+		     title,
+		      content,
+		      writer,
+		      regdate,
+		      updatedate,
+		      cbcategory
+		FROM C_board
+		ORDER BY regdate DESC
+		LIMIT 5
+	</select>	  
+	  
 </mapper>
 		

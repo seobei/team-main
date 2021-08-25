@@ -39,4 +39,8 @@ public interface CBoardService {
 	
 	//게시글 삭제 
 	public boolean cbremove(Long bno);
+
+	//메인자유게시판 게시글조회
+	public List<CBoardVO> getCbMainList();
+	
 }

@@ -157,6 +157,11 @@
 				</form>
 			</div>
 		</div>
+		
+<footer>
+	<nb:footer/>
+</footer>		
+		
 	</div>
 </body>
 </html>

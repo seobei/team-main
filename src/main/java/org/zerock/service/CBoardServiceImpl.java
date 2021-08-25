@@ -205,6 +205,13 @@ public class CBoardServiceImpl implements CBoardService {
 
 		s3.deleteObject(deleteObjectRequest);
 	}
+
+
+
+	@Override
+	public List<CBoardVO> getCbMainList() {
+		return mapper.getCbMainList();
+	}
 	
-	
+
 }

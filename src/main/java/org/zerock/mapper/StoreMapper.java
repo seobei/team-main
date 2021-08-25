@@ -28,6 +28,4 @@ public interface StoreMapper {
 
 	public void deletecartlist(String userid);
 
-	
-//	public void deleteCart(CartVO cart);
 }

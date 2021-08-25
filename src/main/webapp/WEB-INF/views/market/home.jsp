@@ -26,8 +26,18 @@ a:hover {
 color : black;
 text-decoration:none ;
 } 
+
+.card {
+height : 400px;
+}
+
 .card-body {
 padding : 10px;
+}
+
+.card-text {
+font-size: 20px;
+margin : 0px;
 }
 
 .card-title{
@@ -40,13 +50,13 @@ padding : 10px;
 }
 
 .card-img-top {
-width: 300px;
+width: 240px;
 
 
 }
 
 .card-img-top img{
-width: 300px;
+max-width :100%;
 
 
 }
@@ -110,11 +120,11 @@ $(document).ready(function() {
 <!-- 상품 목록 -->	
 <div class="d-flex justify-content-between p-2 m-3">
 
-	<h4>오늘의 상품 추천 </h4>
+	<h3>오늘의 상품 추천 </h3>
 	
 	<sec:authorize access="isAuthenticated()">
 	  
-	 <a class="btn  btn-info" href="${appRoot }/market/write"><i class="fas fa-pen"></i>글쓰기 </a>
+	 <a class="btn  btn-info" href="${appRoot }/market/write"><i class="fas fa-pen"></i> 글쓰기 </a>
 	 
 	</sec:authorize>	
 </div>
@@ -185,6 +195,11 @@ $(document).ready(function() {
 
 
 </div>
+
+<footer>
+	<nb:footer/>
+</footer>
+
 </div>
 
 </body>

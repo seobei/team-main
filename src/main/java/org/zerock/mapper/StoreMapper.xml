@@ -76,30 +76,6 @@
 	</delete>
 
 
-	<!-- 주문 상세 정보 --> 
-<!-- 	<insert id="orderDetail">
-	INSERT INTO order_detail(orderno, pno, cartstock)
-	     SELECT  #{orderno}, pno, cartstock
-	         FROM cart   
-	</insert>  -->
-
-
-		<!-- 주문 상세 정보 --> 
-<!--  	<insert id="addOrder">
-	INSERT INTO order_detail
-		(pno, cno, userid, cartstock)
-	VALUES  
-		(#{pno}, #{cno}, #{userid}, #{cartstock}) 
-	</insert>  --> 
-
-		<!-- 주문 상세 정보 --> 
-<!--  	<insert id="addDirectOrder">
-	INSERT INTO order_detail
-		(pno, userid, cartstock)
-	VALUES  
-		(#{pno}, #{userid}, #{cartstock}) 
-	</insert>   -->
-
 </mapper>
 
 

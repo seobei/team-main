@@ -109,19 +109,11 @@ $(function() {
 	<nav class="navbar navbar-expand-sm navbar-light">
     <ul class="navbar-nav mr-auto text-center">
     
-    
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+      	<a class="nav-link" href="${appRoot }/store/home"  role="button"  aria-expanded="false">
           스토어 
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="${appRoot }/store/home">카테고리 </a></li>
-          <li><a class="dropdown-item" href="#">베스트 </a></li>
-          <li><a class="dropdown-item" href="#">기획전 </a></li>
-          <li><hr class="dropdown-divider"></li>
-        </ul>
+        </a>       
       </li>
-      
       
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">

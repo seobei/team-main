@@ -32,5 +32,8 @@ public interface SProductService {
 	// 총 페이지
 	public int getTotal(SPCriteria cri);
 	
+	//메인스토어 게시글조회
+	public List<SProductVO> getsproductMainList();
+	
 	
 }

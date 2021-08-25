@@ -38,8 +38,6 @@ public class SProductServiceImpl implements SProductService {
 
 	   @Setter (onMethod_ = @Autowired)
 	   private Store_fileMapper fileMapper;
-
-	   // 댓글 추가 필요함
 	   
 	   
 	   
@@ -205,7 +203,11 @@ public class SProductServiceImpl implements SProductService {
 	      return mapper.getTotalCount(cri); 
 	   }
 
+		@Override
+		public List<SProductVO> getsproductMainList() {
 
+			return mapper.getsproductMainList();
+		}
 
 
 

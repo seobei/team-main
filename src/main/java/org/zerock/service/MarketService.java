@@ -35,6 +35,8 @@ public interface MarketService {
 	
 	// 총 페이지
 	public int getTotal(Criteria cri);
-	
+
+	//메인중고마켓 게시글조회
+	public List<MarketVO> getMarketMainList();
 
 }

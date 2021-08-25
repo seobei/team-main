@@ -31,4 +31,8 @@ public interface SProductMapper {
 	
 	// 카테고리 리스트
 	public List<SProductVO> getCateListWithPaging(SPCriteria cri); 
+	
+	//메인스토어 게시글조회
+	public List<SProductVO> getsproductMainList(); 
+	
 }

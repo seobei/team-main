@@ -1,8 +1,10 @@
 package org.zerock.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.CBCriteria;
+import org.zerock.domain.CBoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MarketVO;
+import org.zerock.domain.Order_detailVO;
 import org.zerock.domain.PageDTO;
+import org.zerock.domain.UserVO;
 import org.zerock.service.MarketService;
 import org.zerock.service.MessageService;
 import org.zerock.service.UserService;
@@ -51,8 +57,9 @@ public class MarketController {
     		
         }     
         
-
+	        
     	@GetMapping("/write")
+        @PreAuthorize("isAuthenticated()")
     	public void write(@ModelAttribute("cri") Criteria cri) {
     		
     	}
@@ -68,8 +75,7 @@ public class MarketController {
 
         	return "redirect:/market/home"; 
     		} 		
-    	
-        
+
               
 		@GetMapping({"/detail", "/modify"})
 		public void get(@RequestParam("mno") int mno, @ModelAttribute("cri") Criteria cri, Model model) {
@@ -82,9 +88,9 @@ public class MarketController {
         }
 		
 		
+		// 질문
 		@PostMapping("/modify")
-//		@PreAuthorize("principal.username == #board.writer") // 720 쪽
-//		@PreAuthorize("authication.name == #board.writer") // spring.io
+		@PreAuthorize("principal.username == #mwriter")
 		public String modify(MarketVO mvo, Criteria cri, 
 				@RequestParam("market_file") MultipartFile[] market_file, RedirectAttributes rttr) {
 
@@ -98,22 +104,18 @@ public class MarketController {
 			
 			rttr.addAttribute("pageNum", cri.getPageNum());
 			rttr.addAttribute("amount", cri.getAmount());
-//			rttr.addAttribute("type", cri.getType());
-//			rttr.addAttribute("keyword", cri.getKeyword());
 			
 			return "redirect:/market/home";
 		}
 		
-		
+		// 질문
 		@PostMapping("/remove")
-//		@PreAuthorize("principal.username == #writer") // 720 쪽
+		@PreAuthorize("principal.username == #mwriter")
 		public String remove(@RequestParam("mno") int mno,
 				Criteria cri, RedirectAttributes rttr, String writer) {
-			// parameter 수집
-			
-			// service 일
+
 			boolean success = service.remove(mno);
-			// 결과 담고
+
 			if (success) {
 				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("messageTitle", "삭제 성공");
@@ -122,33 +124,9 @@ public class MarketController {
 			rttr.addAttribute("pageNum", cri.getPageNum());
 			rttr.addAttribute("amount", cri.getAmount());
 
-			
-			// forward or redirect
 			return "redirect:/market/home";
 			
 		}
 		
-		
-		
-		/*
-		 * @GetMapping("/mgsend") //@PreAuthorize("isAuthenticated()") public void
-		 * listsend(Principal principal, MessageVO vo, Model model) {
-		 * 
-		 * vo.setWriter(principal.getName()); List<MessageVO> list =
-		 * messageservice.getListSend(vo); model.addAttribute("listsend", list);
-		 * 
-		 * UserVO uservo = userservice.read(principal.getName());
-		 * model.addAttribute("uservo", uservo);
-		 * 
-		 * }
-		 * 
-		 * 
-		 * @PostMapping("/mgsend" ) public String listsendPost(MessageVO vo,
-		 * RedirectAttributes rttr) { log.info("listsendPost method"); boolean success =
-		 * messageservice.mesinsert(vo); if (success) {
-		 * rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. "); } else {
-		 * rttr.addFlashAttribute("message", "수신자가 존재하지 않습니다. "); } return
-		 * "redirect:/message/mgsend"; }
-		 */
         
 }
