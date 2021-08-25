@@ -131,9 +131,36 @@
 						<!-- 문의내역 관련 -->
 	
 	<!-- 문의내역 리스트 -->
-	<select id="getOtolist" resultType="org.zerock.domain.OtoVO">
-		SELECT * FROM oto
-	</select>
+	<select id="getOtolist" resultMap="otoMap">
+      SELECT
+         o.qono qono,
+            o.otitle otitle,
+          o.userid userid,
+          o.odetail odetail,
+          o.oregdate oregdate,
+         of.fileName fileName
+         
+      FROM 
+         oto o
+      LEFT JOIN
+         otofile of
+      ON
+         o.qono = of.qono
+      ORDER BY oregdate desc;
+   </select>
+   
+   <resultMap type="org.zerock.domain.OtoVO" id="otoMap">
+        <id property="qono" column="qono" />
+        <result property="otitle" column="otitle" />
+        <result property="userid" column="userid" />
+        <result property="odetail" column="odetail" />
+       <result property="oregdate" column="oregdate" />
+        <collection property="fileName" resultMap="ofileNameMap"></collection>
+    </resultMap>
+    
+    <resultMap type="string" id="ofileNameMap">
+       <result column="fileName" />
+    </resultMap>
 	
 	<!-- 문의내역 답장하기 -->
 	<insert id="Otoanswer">
