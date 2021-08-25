@@ -13,13 +13,13 @@ public class SProductVO {
 	private String userid;
 	private String title;
 	private long price;
-	private long stock;
 	private String delivery;
 	private String detail;
 	private String keyword;
 	private Date regdate;
 	private Date updatedate;
-
+	
+	
 	private List<String> fileName; 
 }
 

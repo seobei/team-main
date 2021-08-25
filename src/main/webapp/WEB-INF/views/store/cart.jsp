@@ -10,30 +10,44 @@
 
 <%@ include  file = "/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-
+<script>
+$(document).ready(function(){
+	
+		$('#orderSubmitBtn').click(function () {
+			
+			if($("#cartlist").val()==null){
+				alert("구매할 상품이 없습니다");
+				return false;
+			}
+			$('#form_order').submit();
+		});	 		
+	});	
+	
+</script>
 
 <title>장바구니</title>
 </head>
 <body>
 <div class= "container">
+<nb:navbar/>
+<nb:scroll />
 
 <!-- jumbotron -->
 <div class="jumbotron">
-    <h1 class="display-4">Index Carts</h1>
-    <p class="lead">views/carts/index.jsp</p>
+    <h1 class="display-4">장바구니</h1>
     <hr class="my-4">
     <p>장바구니 페이지</p>
 </div>
 <h2>장바구니</h2>
 <hr>
 
- <form action="${appRoot }/store/order" method="post">
+ <form id="form_order" action="${appRoot }/store/order" method="post">
 <table class="table">
    
     <thead class="thead-light">
     <tr>
       <th>번호</th>
-      <th>제품명</th>
+      <th>상품명</th>
       <th>상세설명</th>
       <th>가격</th>
       <th>수량</th>
@@ -64,7 +78,7 @@ $(document).ready(function() {
     
 <input name = "cno" type ="hidden" value = "${cart.cno }"/>
         <tr>     	
-            <th>${status.count }</th>
+            <th id="cartlist">${status.count }</th>
             <th>${cart.title }</th>
             <td>${cart.detail }</td>
             <td><fmt:formatNumber pattern="#,###원" value="${cart.price}" /></td>
@@ -87,11 +101,18 @@ $(document).ready(function() {
 		<td><fmt:formatNumber pattern="#,###원" value="${sumMoney}" /></td>
     </tr>
   </tfoot>
-  
-  <%-- 	<input name = "cno" type = "hidden" value = "${cart.cno }"/> --%>
+
 </table>
-<button type="submit" class="btn btn-lg btn-block btn-primary" >주문하기</button>
+<button type="submit" id="orderSubmitBtn" class="btn btn-lg btn-block btn-primary" >주문하기</button>
 	</form>
+	
+<br>	
+<br>	
+	
+	<footer>
+		<nb:footer/>
+	</footer>
+	
 </div>
 </body>
 </html>

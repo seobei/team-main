@@ -11,16 +11,22 @@
 
 <%@ include file = "/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+<%--  <%    
+        int cartstock = Integer.parseInt(request.getParameter("cartstock"));
+
+%>
+ --%>
+
 <script>
 $(document).ready(function(){
 	$("#spendpoint").val("");
 	
-	
 	/*포인트모두사용버튼  */
 	$('#useMaxPointBtn').click(function () {
  		var totalP = $('#requireTotalPrice').val();
- 		$('#spendpoint').val(totalP);
- 		console.log(totalP);
+
+ 	 		$('#spendpoint').val(totalP);	
+
 	});
 	 /* 남은포인트 */
 	 function reaminP() {
@@ -80,6 +86,7 @@ $(document).ready(function(){
 <h3>상품 목록</h3>
 <hr>
 <form id="form_order" action="${appRoot }/store/orderlist" method="post">
+<input type = "hidden" name="pno" value = "${product.pno }">
 <%-- <input type="hidden" name="cno" value = "${cart.cno }">	 --%>	
 <table class="table">
     <thead class="thead-light">
@@ -91,27 +98,28 @@ $(document).ready(function(){
       <th>수량</th>
     </tr>
   </thead>
-  <tbody>
-   <c:forEach var="order" items="${order}" varStatus="status">
-   <input type="hidden" name="cno" value="${order.cno }">
+  <tbody> 
         <tr>
-            <th>${ status.count }</th>
-            <th>${order.title }</th>
-            <td>${order.detail }</td>
-            <td><fmt:formatNumber pattern="#,###원" value="${order.price}" /></td>
-            <td>${order.cartstock }</td>
+            <th>1</th>
+            <th>${product.title }</th>
+            <td>${product.detail }</td>
+            <td id="price"><fmt:formatNumber  pattern="#,###원" value="${product.price}" /></td>
+             <td id="cartstock">${cartstock }</td> 
         </tr>      
-    </c:forEach> 
+
   </tbody>
   
    <tfoot>
+       <c:set var="sum" value="${product.price * cartstock }"/>
     <tr>
         <td></td> 
 		<td>주문금액 : </td>		
-		<td><fmt:formatNumber pattern="#,###원" value="${sumMoney}" /></td>
+		<td id="sum"><fmt:formatNumber pattern="#,###원" value="${sum }" /></td>
 		<td>내 보유 포인트 : </td>
 		<td>${user.userpoint} 포인트</td>
     </tr>
+    
+
   </tfoot>
 </table>
 
@@ -152,7 +160,7 @@ $(document).ready(function(){
 							<tbody>
 								<tr>
 									<th><label for="requireTotalPrice"> 총 금액</label></th>
-									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sumMoney}"></td>
+									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sum}"></td>
 								</tr>								
 								
 								<tr>
@@ -166,7 +174,7 @@ $(document).ready(function(){
 								<tr>
 									<th><p>사용 포인트</th>
 									<td>
-										<input class="text-right" id="spendpoint" min="0" max="${user.userpoint}" name="spendpoint" type="number" value="${user.spendpoint }"/>
+										<input class="text-right" id="spendpoint" min="0" name="spendpoint" type="number" />
 									</td>
 									<td><p>포인트  </p></td>
 									<td><button id="useMaxPointBtn" class="btn_add btn btn-primary" type="button">포인트 모두 사용</button></td>

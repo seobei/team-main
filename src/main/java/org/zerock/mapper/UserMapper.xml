@@ -78,6 +78,7 @@
 			m.regdate regdate,
 			m.updateDate updateDate,
 			m.userpoint userpoint,
+			m.spendpoint spendpoint,
 			a.auth auth
 		  FROM 
 		    GH_User m LEFT JOIN GH_auth a ON m.userid = a.userid
@@ -110,6 +111,19 @@
 			UPDATE GH_User SET userpw = #{userpw} where userid = #{userid}
 	</update>
 
+	<!-- 포인트 업데이트 -->
+	<update id="updatePoint" >
+			UPDATE GH_User 
+			SET userpoint = userpoint - #{spendpoint}
+			WHERE userid = #{userid}
+	</update> 
+	 
+	<update id="updateSpendPoint" >
+			UPDATE GH_User 
+			SET spendpoint = #{spendpoint}
+			WHERE userid = #{userid}
+	</update> 	 
+	 
 	 
 	<!-- 책 662쪽 -->
 	  <resultMap type="org.zerock.domain.UserVO" id="userMap">
@@ -124,6 +138,7 @@
 	  	<result property="updateDate" column="updateDate" />
 	  	<result property="enabled" column="enabled" />
 	  	<result property="userpoint" column="userpoint" />
+	  	<result property="spendpoint" column="spendpoint" />
 	  	<collection property="authList" resultMap="authMap" />
 	  </resultMap>
 	  <resultMap type="org.zerock.domain.AuthVO" id="authMap">

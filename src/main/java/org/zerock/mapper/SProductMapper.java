@@ -2,7 +2,7 @@ package org.zerock.mapper;
 
 import java.util.List;
 
-import org.zerock.domain.Criteria;
+import org.zerock.domain.SPCriteria;
 import org.zerock.domain.SProductVO;
 
 public interface SProductMapper {
@@ -26,19 +26,9 @@ public interface SProductMapper {
 	public List<SProductVO> getList();
 		
 	// 페이징 : 게시글 총 갯수
-	public int getTotalCount(Criteria cri);
-	
-	// 페이징 리스트
-	public List<SProductVO> getListWithPaging(Criteria cri);	
-	
+	public int getTotalCount(SPCriteria cri);
+
 	
 	// 카테고리 리스트
-	public List<SProductVO> getCateWithPaging(Criteria cri); 
+	public List<SProductVO> getCateListWithPaging(SPCriteria cri); 
 }
-
-// 찜상품 등록
-// public int insertWish(WishlistVO wvo);
-
-//테이터 삭제
-//public int remove(MarketVO vo);
-//public int removeWish(MarketVO vo);

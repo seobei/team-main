@@ -68,7 +68,34 @@ width: 160px;
 
 </style> 
  
+<script type="text/javascript">
 
+	$(document).ready(function() {
+		$(".category-link").click(function(e) {
+			e.preventDefault();
+			var category = $(this).attr("data-category");
+			$("#actionForm [name=category]").val(category);
+			$("#actionForm").submit();
+		});
+		
+		$(".form-select1").change(function(e) {
+			e.preventDefault();
+			var category = $(this).val();
+			$("#actionForm [name=category]").val(category);
+			$("#actionForm").submit();
+		});
+		
+		$(".page-link").click(function(e) {
+			e.preventDefault();
+			
+			var pageNum = $(this).attr("href");
+			$("#actionForm [name=pageNum]").val(pageNum);
+			$("#actionForm").submit();
+	
+		})
+	})
+
+</script>
 
 <title>스토어 </title>
 
@@ -79,7 +106,7 @@ width: 160px;
 <nb:scroll />			
 		<div class="row">
 		  <div class="col-2">
-		    <ul class="nav flex-column">
+<%-- 		    <ul class="nav flex-column">
   <li class="nav-item">
     <a class="nav-link btn-light active" href="${appRoot }/store/home">카테고리</a>
   </li>
@@ -98,11 +125,26 @@ width: 160px;
     <li class="nav-item">
     <a class="nav-link btn-outline-secondary"  href="#">장식/소품</a>
   </li>
-</ul>
+</ul> --%>
+
+			<select class="form-select1" aria-label="Default select example">
+					  <option >카테고리 </option>
+					  <option ${cri.category == 'A' ? 'selected' : '' } value="A">가구 </option>
+					  <option ${cri.category == 'B' ? 'selected' : '' } value="B">수납 </option>
+					  <option ${cri.category == 'C' ? 'selected' : '' } value="C">조명 </option>
+					  <option ${cri.category == 'D' ? 'selected' : '' } value="D">가전 </option>
+					  <option ${cri.category == 'E' ? 'selected' : '' } value="E">장식/소품 </option>
+
+			</select>
+
+
+
 </div>
 
+<!-- 		<div class="container">
 
-
+		</div>
+ -->
 
 <div class="col-10">
 		  

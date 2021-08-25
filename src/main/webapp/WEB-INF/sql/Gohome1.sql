@@ -18,6 +18,11 @@ CREATE table GH_User(
     updateDate TIMESTAMP DEFAULT NOW(),
     enabled TINYINT(1) DEFAULT 1
 );
+-- 0819 추가
+ALTER TABLE GH_User ADD userpoint INT DEFAULT 1000000;
+ALTER TABLE GH_User ADD spendpoint INT ;
+
+
 
 -- 권한 테이블 만들기 
 CREATE TABLE GH_auth(
@@ -32,13 +37,13 @@ CREATE TABLE GH_auth(
 -- alter table [테이블명] add [컬럼명] [타입] [옵션]; 
 ALTER TABLE GH_User ADD CompanyRegistrationNumber VARCHAR(15);
 -- ALTER TABLE GH_User ADD CompanyRegistrationNumber VARCHAR(15) NUll; 
-ALTER TABLE GH_User ADD userpoint INT DEFAULT 1000000;
 
 
 -- 컬럼명 변경 및 타입 변경
 -- alter table [테이블명] change [컬럼명] [변경할컬럼명] varchar(값);
 ALTER TABLE GH_User CHANGE userphone userPhone VARCHAR(15);
 ALTER TABLE GH_User CHANGE userem userEmail VARCHAR(254);
+
 
 
 -- 컬럼 타입(값) 수정 
@@ -54,6 +59,7 @@ VALUES ('test12', 'ROLE_ADMIN');
 INSERT INTO GH_User(userid, userpw, username, userPhone, userEmail)
 VALUES ('admin','qwe123','재경','01012340000','wwwcozytest1@gmail.com');
 
+UPDATE GH_User SET userpoint = '1000000' WHERE userid = 'test1';
 
 DELETE FROM GH_auth WHERE userid='test12';
 DELETE FROM GH_User WHERE userid='test12';
