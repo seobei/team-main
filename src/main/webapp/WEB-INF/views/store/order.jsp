@@ -18,7 +18,7 @@ $(document).ready(function(){
 	
 	/*포인트모두사용버튼  */
 	$('#useMaxPointBtn').click(function () {
- 		var totalP = $('#requireTotalPrice').val();
+ 		var totalP = $('#userpoint').val();
  		$('#spendpoint').val(totalP);
  		console.log(totalP);
 	});
@@ -69,12 +69,8 @@ $(document).ready(function(){
 <div class= "container">
 <nb:navbar/>
 <nb:scroll />
-
-<div class="jumbotron">
-    <h1 class="display-4">주문 페이지</h1>
-    <hr class="my-4">
-    <p class="lead">목록에 있는 상품을 구매하는 페이지입니다</p>
-</div>
+<h2>주문 페이지</h2>
+<hr>
 
 <br>
 <h3>상품 목록</h3>
@@ -82,24 +78,25 @@ $(document).ready(function(){
 <form id="form_order" action="${appRoot }/store/orderlist" method="post">
 <%-- <input type="hidden" name="cno" value = "${cart.cno }">	 --%>	
 <table class="table">
-    <thead class="thead-light">
+      <thead class="thead-light">
     <tr>
-      <th>#</th>
-      <th>상품명</th>
-      <th>상세설명</th>
-      <th>가격</th>
-      <th>수량</th>
+      <th style="width:10%; text-align: center;">번호</th>
+      <th style="width:15%; text-align: center;">상품명</th>
+      <th style="width:40%; text-align: left;">상세설명</th>
+      <th style="width:20%; text-align: center;">가격</th>
+      <th style="width:15%; text-align: center;">수량</th>
     </tr>
   </thead>
+
   <tbody>
    <c:forEach var="order" items="${order}" varStatus="status">
    <input type="hidden" name="cno" value="${order.cno }">
         <tr>
-            <th>${ status.count }</th>
-            <th>${order.title }</th>
-            <td>${order.detail }</td>
-            <td><fmt:formatNumber pattern="#,###원" value="${order.price}" /></td>
-            <td>${order.cartstock }</td>
+            <th style="width:10%; text-align: center;">${ status.count }</th>
+            <th style="width:15%; text-align: center;">${order.title }</th>
+            <td style="width:40%; text-align: left;">${order.detail }</td>
+            <td style="width:20%; text-align: center;"><fmt:formatNumber pattern="#,###원" value="${order.price}" /></td>
+            <td style="width:15%; text-align: center;">${order.cartstock }</td>
         </tr>      
     </c:forEach> 
   </tbody>
@@ -152,7 +149,8 @@ $(document).ready(function(){
 							<tbody>
 								<tr>
 									<th><label for="requireTotalPrice"> 총 금액</label></th>
-									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sumMoney}"></td>
+									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sumMoney}" style="text-align:right;"></td>
+									<td><p>원  </p></td>
 								</tr>								
 								
 								<tr>
@@ -166,11 +164,12 @@ $(document).ready(function(){
 								<tr>
 									<th><p>사용 포인트</th>
 									<td>
-										<input class="text-right" id="spendpoint" min="0" max="${user.userpoint}" name="spendpoint" type="number" value="${user.spendpoint }"/>
+										<input class="text-right" id="spendpoint" min="0" name="spendpoint" type="number" style="text-align:right;"/>
 									</td>
 									<td><p>포인트  </p></td>
 									<td><button id="useMaxPointBtn" class="btn_add btn btn-primary" type="button">포인트 모두 사용</button></td>
 								</tr>
+
 								<tr>
 									<th><p>결제 후 포인트</th>
 									<td>

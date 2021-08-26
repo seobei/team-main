@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.CartVO;
-import org.zerock.domain.Order_detailVO;
+import org.zerock.domain.WishVO;
 
 public interface StoreMapper {
 	
@@ -27,5 +27,13 @@ public interface StoreMapper {
 	public void addOrder(List<CartVO> orderlist);
 
 	public void deletecartlist(String userid);
+	
+	// 위시리스트 관련
+	public void addWish(WishVO vo);
+	public List<WishVO> wishlist(String userid);
+	public void wishdelete(Long wno);
+	public int countwish(@Param("pno") long pno, @Param("userid") String userid);
+	public void cwishdelete(@Param("pno") long pno, @Param("userid") String userid);
+
 
 }

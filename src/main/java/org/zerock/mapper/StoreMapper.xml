@@ -76,6 +76,47 @@
 	</delete>
 
 
+	<insert id="addWish">
+	INSERT INTO wish 
+	(userid, pno)
+	VALUES 
+	(#{userid}, #{pno})
+	</insert>
+	
+	<!-- 목록 -->
+	<select id="wishlist" resultType ="org.zerock.domain.WishVO">
+	select 
+	w.wno as wno, 
+	w.userid as userid, 
+	s.pno as pno, 
+	u.userid as userid, 
+	s.title as title, 
+	s.detail as detail, 
+	s.price as price 
+	from GH_User u, S_product s, wish w where u.userid = w.userid and s.pno = w.pno and w.userid = #{userid} 
+	order by w.wno
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id ="wishdelete">
+	 DELETE FROM wish WHERE wno = #{wno}
+	</delete>
+	
+	<delete id ="cwishdelete">
+	 DELETE 
+	 FROM wish
+	 WHERE userid = #{userid}
+	 AND pno = #{pno}
+	</delete>
+	
+	<!-- 장바구니에 동일한 상품이 있는지 확인 -->
+	<select id = "countwish" resultType = "int">
+	SELECT COUNT(*)
+	FROM wish
+	WHERE userid = #{userid}
+	AND pno = #{pno}
+	</select>
+	
 </mapper>
 
 

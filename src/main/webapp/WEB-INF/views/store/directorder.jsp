@@ -23,11 +23,12 @@ $(document).ready(function(){
 	
 	/*포인트모두사용버튼  */
 	$('#useMaxPointBtn').click(function () {
- 		var totalP = $('#requireTotalPrice').val();
-
- 	 		$('#spendpoint').val(totalP);	
-
+ 		var totalP = $('#userpoint').val();
+ 		$('#spendpoint').val(totalP);
+ 		console.log(totalP);
 	});
+	
+	
 	 /* 남은포인트 */
 	 function reaminP() {
 		var useP = $("#spendpoint").val();
@@ -75,12 +76,8 @@ $(document).ready(function(){
 <div class= "container">
 <nb:navbar/>
 <nb:scroll />
-
-<div class="jumbotron">
-    <h1 class="display-4">주문 페이지</h1>
-    <hr class="my-4">
-    <p class="lead">목록에 있는 상품을 구매하는 페이지입니다</p>
-</div>
+<h2>주문 페이지</h2>
+<hr>
 
 <br>
 <h3>상품 목록</h3>
@@ -91,24 +88,24 @@ $(document).ready(function(){
 <table class="table">
     <thead class="thead-light">
     <tr>
-      <th>#</th>
-      <th>상품명</th>
-      <th>상세설명</th>
-      <th>가격</th>
-      <th>수량</th>
+      <th style="width:10%; text-align: center;">번호</th>
+      <th style="width:15%; text-align: center;">상품명</th>
+      <th style="width:40%; text-align: left;">상세설명</th>
+      <th style="width:20%; text-align: center;">가격</th>
+      <th style="width:15%; text-align: center;">수량</th>
     </tr>
   </thead>
   <tbody> 
         <tr>
-            <th>1</th>
-            <th>${product.title }</th>
-            <td>${product.detail }</td>
-            <td id="price"><fmt:formatNumber  pattern="#,###원" value="${product.price}" /></td>
-             <td id="cartstock">${cartstock }</td> 
+            <th style="width:10%; text-align: center;">1</th>
+            <th style="width:15%; text-align: center;">${product.title }</th>
+            <td style="width:40%; text-align: left;">${product.detail }</td>
+            <td id="price" style="width:20%; text-align: center;"><fmt:formatNumber  pattern="#,###원" value="${product.price}" /></td>
+             <td id="cartstock" style="width:15%; text-align: center;">${cartstock }</td> 
         </tr>      
 
   </tbody>
-  
+
    <tfoot>
        <c:set var="sum" value="${product.price * cartstock }"/>
     <tr>
@@ -161,6 +158,7 @@ $(document).ready(function(){
 								<tr>
 									<th><label for="requireTotalPrice"> 총 금액</label></th>
 									<td><input id="requireTotalPrice" name="requireTotalPrice" value="${sum}"></td>
+									<td><p>원  </p></td>
 								</tr>								
 								
 								<tr>

@@ -32,11 +32,9 @@ text-align : center;
 <div class="jumbotron">
 	<h1 class="display-4">주문 완료</h1>
 	<hr class="my-4">
-	<p class="lead">주문시간 :</p>
     <p>${user.userName }님의 주문이 완료되었습니다</p>
     <p>잔여 포인트: ${user.userpoint} 포인트</p>
 <button onclick="location.href='${appRoot}/store/home'" class="btn btn-primary" id="storeBtn">스토어 홈으로 돌아가기</button>
-<%-- <button onclick="location.href='${appRoot}/mypage/home'" class="btn btn-warning">구매내역 확인하기</button> --%>
 
 </div>
 

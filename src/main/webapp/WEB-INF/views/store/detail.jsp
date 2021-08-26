@@ -35,12 +35,29 @@
 
 <script>
 $(document).ready(function() {
+	$("#wish1").click(function() {
+		if (confirm("찜목록에 담아두시겠습니까?")) {
+			$("#orderform").attr("action", "${appRoot }/store/detail");
+			$("#orderform").submit();
+		}
+	});	
+	
+	$("#cart1").click(function() {
+		if (confirm("장바구니에 담으시겠습니까?")) {
+			$("#orderform").attr("action", "${appRoot }/store/cart");
+			$("#orderform").submit();
+		}
+	});
+	
+	
 	$("#buyBtn").click(function() {
 		if (confirm("바로 구매하시겠습니까?")) {
 			$("#orderform").attr("action", "${appRoot }/store/directorder");
 			$("#orderform").submit();
 		}
 	});
+	
+
 
 });
 
@@ -92,20 +109,7 @@ $(document).ready(function() {
 	           </div>
 		    </c:if> 
 			</div>
-			<!-- <script type="text/javascript">
-			$(function() {
-			 $("#wish1").click(function(){
-              $("form").attr("action", "${appRoot}/store/storewish");
-             })
-             $("#cart1").click(function(){
-              $("form").attr("action", "${appRoot}/store/cart");
-             })
-             $("#buy1").click(function(){
-              $("form").attr("action", "${appRoot}/store/storebuy");
-             })
-			})
-			</script> -->
-			
+
 		<div class="part-detail col-6">
 			
 				<div class="form-group">
@@ -118,11 +122,6 @@ $(document).ready(function() {
 					<span><fmt:formatNumber value="${store.price}" pattern="#,###원"/></span>
 				</div>	
 
-			
-				<div class="form-group">
-					<label for="keyword">키워드</label>
-					<span>${store.keyword }</span>
-				</div>	
 					
 				<div class="form-group">
 					<label for="delivery">배송</label>
@@ -142,11 +141,9 @@ $(document).ready(function() {
 				<div class="form-group">
 				<button type="button"  class="btn btncl" id = "wish1" ><i class="fas fa-heart"></i> 찜하기 </button>
 				
-				<!-- 장바구니 진행 후 alert으로 성공, 실패 안내 띄우기, 비로그인 상태에서 장바구니 클릭시 로그인 페이지로 이동하는데, alert안내(회원만 사용할 수 있습니다.) 있으면 좋을 거 같음 -->
-				<button type="submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
-		
+				<button type="button" id ="cart1" class="btn btncl"><i class="fas fa-shopping-cart"></i> 장바구니 </button>
 
-				<button type="button" id ="buyBtn" class="btn btncl"><i class="far fa-envelope"></i> 구매하기 </button>
+				<button type="button" id ="buyBtn" class="btn btncl"><i class="fas fa-credit-card"></i> 구매하기 </button>
 				</div>	
 		
 				<hr>
@@ -154,16 +151,45 @@ $(document).ready(function() {
 
 				<div class="form-group">
 					<label for="detail">상품 소개</label>
-					<textarea rows="5" cols="50" id="detail" class="form-control" name="detail" readonly>${store.detail }</textarea>
+					<textarea rows="10" cols="50" id="detail" class="form-control" name="detail" readonly>${store.detail }</textarea>
 				</div>	
 			
+				<!-- 등록성공시 모달 나오게   -->
+				<c:if test="${not empty result }" >
+					<script>
+					$(document).ready(function() {
+						
+						if (history.state == null) {
+							$("#board-modal1").modal('show');
+							history.replaceState({}, null);
+						}
+						 else {
+								
+								console.log("너 전에 여기 왔었어!!!!");
+							}
+					});
+					</script>
 
+					<div id="board-modal1" class="modal" tabindex="-1">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					         <h5 class="modal-title">${messageTitle } </h5> 
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <p>${messageBody } </p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</c:if>
 
-
-				
-				
-				
-				
 				
 		</div>
 
