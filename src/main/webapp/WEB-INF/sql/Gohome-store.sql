@@ -1,13 +1,22 @@
 
 SELECT * FROM order_detail;
 SELECT * FROM cart;
-SELECT * FROM S_product_file;
+SELECT * FROM S_product;
 
 DESC S_product;
 DELETE FROM S_product;
 DROP TABLE S_product;
 ALTER TABLE S_product DROP keyword;
 
+
+CREATE TABLE wish( 
+    wno INT PRIMARY KEY AUTO_INCREMENT, -- 찜 넘버
+    userid VARCHAR(50) NOT NULL, -- 소비자
+    pno INT NOT NULL, -- 상품번호 (글번호)
+    adddate TIMESTAMP DEFAULT NOW(), -- 찜 담은 날짜
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 상품번호
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
+);
 
 -- 스토어 상품 테이블 
 CREATE TABLE S_product(
