@@ -16,6 +16,14 @@
 <title>고집 관리자페이지</title>
 </head>
 <style>
+	.row2 label {
+		display : flex;
+	}
+	.image_container img {
+		max-width :100%;
+		padding : 20px;
+	}
+
 
 	#adminaddbtn {
 		margin: 10px;
@@ -43,6 +51,31 @@
 	   	});
 
 	});
+	
+	<!-- 파일 미리보기 스크립트 -->
+	function setThumbnailtwo(elem) { 
+		for (var image of event.target.files) { 
+			var reader = new FileReader(); 
+			
+			reader.onload = function(event) { 
+				var newCol = document.createElement("div");
+				newCol.classList.add("col")
+				var img = document.createElement("img"); 
+				
+				img.setAttribute("src", event.target.result); 
+				
+				newCol.appendChild(img);
+				
+				//document.querySelector("div.image_container").appendChild(newCol);
+				$(elem).closest(".modal-body").find(".image_container").append(newCol);
+			}; 
+				
+			
+			console.log(image); 
+			reader.readAsDataURL(image); 		
+		} 
+			
+	} 
 </script>
 <body>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -100,7 +133,7 @@
 		                <th style="width: 5%">#</th>
 		                <th style="width: 40%">상품제목</th>
 		                <th style="width: 15%">상품가격</th>
-		                <th style="width: 10%">상품수량</th>
+		                <th style="width: 10%">배송방법</th>
 		                <th style="width: 10%">카테고리</th>
 		                <th style="width: 20%">상품등록일</th>
 		            </tr>
@@ -119,16 +152,37 @@
 							$(document).ready(function(){
 								
 								$("#call${productstatus.count }").on("show.bs.modal", function(){
-									$("#title${productstatus.count }").val("${product.title }");
-									$("#price${productstatus.count }").val("${product.price }");	
-									$("#stock${productstatus.count }").val("${product.stock }");	
-									$("#detail${productstatus.count }").val("${product.detail }");	
+									
+									if("#categoryselect${productstatus.count }" == "가구"){
+										
+										$("#categoryselect${productstatus.count }").val("가구").prop("selected", true);
+										
+									} else if ("#categoryselect${productstatus.count }" == "수납"){
+										
+										$("#categoryselect${productstatus.count }").val("수납").prop("selected", true);
+										
+									} else if ("#categoryselect${productstatus.count }" == "조명"){
+										
+										$("#categoryselect${productstatus.count }").val("조명").prop("selected", true);
+										
+									} else if ("#categoryselect${productstatus.count }" == "가전"){
+										
+										$("#categoryselect${productstatus.count }").val("가전").prop("selected", true);
+										
+									} else {
+										
+										$("#categoryselect${productstatus.count }").val("장식/소품").prop("selected", true);
+									}
+									
 									
 									if("${product.delivery}" == "일반배송"){
 										$("#deliveryselect${productstatus.count }").val("일반배송").prop("selected", true);
 									} else{
 										$("#deliveryselect${productstatus.count }").val("무료배송").prop("selected", true);
 									}
+									
+									document.querySelector("#product-list-modal").reset();
+									$(".image_container").empty();
 									
 								})
 								
@@ -153,13 +207,13 @@
 								</a>
 		                    </td>
 							<td>${product.price }</td>
-							<td>${product.stock }</td>
+							<td>${product.delivery }</td>
 							<td>${product.category }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.regdate }" /></td>
 						</tr>
 						
 						<div class="modal fade" id="call${productstatus.count }" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-							<div class="modal-dialog">
+							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="staticBackdropLabel">${product.title }</h5>
@@ -168,15 +222,23 @@
 						        		</button>
 						      		</div>
 						      		<div class="modal-body">
-						      			<form method="post" action="${appRoot }/admin/productupdate">
+						      			<form id="product-list-modal" method="post" action="${appRoot }/admin/productupdate" enctype="multipart/form-data">
 						      				<div style="display:none;" class="form-group">
 								      		 	<label class="control-label" for="pno">상품 번호</label>
 							                    <input value="${product.pno }" class="form-control" type="text" id="pno${productstatus.count }" name="pno" />
 							                </div>		  
 								      		<div class="form-group">
-								      		 	<label class="control-label" for="stock">상품 사진</label>
-							                    <img alt="gohome-logo" width="466" src="${appRoot }/resources/img/gohomelogo.png">
-							                </div>
+								      			<label class="control-label" for="image">상품 사진</label>
+												<c:if test="${not empty product.fileName }">
+													<div>
+														<c:forEach items="${product.fileName }" var="store_file">
+															
+																<img class="img-fluid" src="${imgRoot}store/${product.pno }/${store_file}">
+														
+														</c:forEach>
+													</div>
+												</c:if>
+											</div>
 								      		<div class="form-group">
 								      		 	<label class="control-label" for="stock">상품 제목</label>
 							                    <input value="${product.title }" class="form-control" type="text" id="title${productstatus.count }" name="title" />
@@ -185,21 +247,46 @@
 							                 	<label class="control-label" for="stock">상품 가격</label>
 							                    <input value="${product.price }" class="form-control" type="text" id="price${productstatus.count }" name="price" />
 							                </div>
-							                <div class="form-group">
-							                    <label class="control-label" for="stock">남은 수량</label>
-							                    <input value="${product.stock }" class="form-control" type="text"  id="stock${productstatus.count }" name="stock" />
-							                </div>
-							                <div class="form-group">
-							                    <label class="control-label" for="">배송방법</label>
-							                    <select id="deliveryselect${productstatus.count }" name="delivery">
-							                    	<option value="일반배송">일반배송</option>
-							                    	<option value="무료배송">무료배송</option>	
-							                    </select>
+							                <div class="form-group row row-cols-2" >
+							                <%--     <div class="col text-left">
+								                	<label class="control-label" for="category">카테고리</label>
+								                    <input readonly value="${product.category }" class="form-control" type="text" name="category" />
+							                	</div> --%>
+							                	
+							                	<div class="col text-left">
+									     			 <label class="control-label" for="category">카테고리 </label>
+										      		 <select disabled name="category" >
+										      			 <option>${product.category } </option>
+										      		 </select>
+											    </div>
+											    
+										  <!--   </div> -->
+										    	
+							                	<div class="col text-right">
+								                    <label class="control-label" for="adddelivery">배송 방법</label>
+									                <select id="deliveryselect${productstatus.count }" name="delivery">
+							                    		<option value="무료배송">무료배송</option>
+							                    		<option value="일반배송">일반배송</option>
+							                    	</select>
+							                    </div>
 							                </div>
 							                <div class="form-group">
 							                    <label class="control-label" for="detail">상세설명 </label>
 							                    <textarea style="height:200px;" class="form-control" id="detail${productstatus.count }" name="detail">${product.detail }</textarea>
 							                </div>
+							                <div class="form-group">
+												<label for="store_file">파일</label>
+												<input id="store_file${productstatus.count }" class="form-control" type="file" name="store_file" multiple="multiple" accept="image/*" onchange="setThumbnailtwo(this);">
+											</div>
+											<div>파일 미리보기</div>
+												<div class="jumbotron jumbotron-fluid">
+													<div class="container">
+														<div class="row row-cols-2 image_container" >
+															<!-- 이미지 불러오는곳  -->
+												  		</div>
+													</div>
+												</div>
+												
 								      		<div class="modal-footer">
 												<button id="productdelbtn${productstatus.count }" type="submit" class="btn btn-danger mr-auto">삭제</button>
 												<button id="productupdbtn${productstatus.count }" type="submit" class="btn btn-primary">수정</button>
@@ -207,18 +294,43 @@
 									      	</div>
 						                </form>
 						      		</div>
-						    	</div>.
+						    	</div>
 							</div>
 						</div>
 
 					</c:forEach>
 				</tbody>
 			</table>
-		</div>	
+		</div>
+		
+		
+		<script>
+			$(document).ready(function(){
+				
+				$("#productaddModal").on("show.bs.modal", function(){
+					/*
+					$("#addtitle").val("");
+					$("#addprice").val("");	
+					$("#deliveryselect").val("무료배송");
+					$("#categoryselect").val("가구");	
+					$("#adddetail").val("");
+					*/
+					document.querySelector("#product-add-modal-form").reset();
+					$(".image_container").empty();
+
+				})
+				
+				$("#signbtn").click(function(){
+					
+					alert("상품등록이 완료됐습니다.")
+				})
+			});
+		
+		</script>
 						
 		<!-- 상품 추가 버튼 클릭시 나오는 모달 -->
 		<div class="modal fade" id="productaddModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="productaddModaltitle" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog modal-dialog-centered">
+		  <div class="modal-dialog modal-dialog modal-dialog-centered modal-lg">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="productaddModaltitle">상품 추가</h5>
@@ -227,7 +339,11 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <form class="col-12" action="${appRoot }/admin/productlist" method="post">
+		        <form id="product-add-modal-form" class="col-12" action="${appRoot }/admin/productlist" method="post" enctype="multipart/form-data">
+		        	<div class="form-group" style="display:none;">
+	                    <label class="control-label" for="addwriter">작성자</label>
+	                    <input class="form-control" type="text" id="addwriter" name="userid" value="${uservo.userid }"/>
+	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="addtitle">상품 제목</label>
 	                    <input class="form-control" type="text" id="addtitle" name="title" />
@@ -236,25 +352,42 @@
 	                    <label class="control-label" for="addprice">상품 가격</label>
 	                    <input class="form-control" type="text"  id="addprice" name="price"/>
 	                </div>
-	                <div class="form-group">
-	                    <label class="control-label" for="addstock">상품 수량</label>
-	                    <input class="form-control" type="text" id="addstock" name="stock"/>
-	                </div>
-	                <div class="form-group">
-	                	<label class="control-label" for="category">카테고리</label>
-	                	<select id="deliveryselect" name="category">
-	                    	<option value="가구">가구</option>
-	                    	<option value="수납">수납</option>
-	                    	<option value="조명">조명</option>
-	                    	<option value="가전">가전</option>
-	                    	<option value="장식/소품">장식/소품</option>	
-	                    </select>
+	                <div class="form-group row row-cols-2" >
+	                    <div class="col text-left">
+		                	<label class="control-label" for="category">카테고리</label>
+	                		<select id="categoryselect" name="category">
+		                    	<option value="가구">가구</option>
+		                    	<option value="수납">수납</option>
+		                    	<option value="조명">조명</option>
+		                    	<option value="가전">가전</option>
+		                    	<option value="장식/소품">장식/소품</option>	
+		                    </select>
+	                	</div>
+	                	<div class="col text-right">
+		                    <label class="control-label" for="adddelivery">배송 방법</label>
+			                <select id="deliveryselect" name="delivery">
+	                    		<option value="무료배송">무료배송</option>
+	                    		<option value="일반배송">일반배송</option>
+	                    	</select>
+	                    </div>
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="adddetail">상세설명</label>
 	                    <textarea style="height:200px;" class="form-control" id="adddetail" name="detail"></textarea>
 	                </div>
-                 
+ 					<div class="form-group">
+						<label for="store_file">파일</label>
+						<input id="store_file" class="form-control" type="file" name="store_file" multiple="multiple" accept="image/*" onchange="setThumbnailtwo(this);">
+					</div>
+					<div>파일 미리보기</div>
+						<div class="jumbotron jumbotron-fluid">
+							<div class="container">
+								<div class="row row-cols-2 image_container" >
+									<!-- 이미지 불러오는곳  -->
+						  		</div>
+							</div>
+						</div>
+	                 
 			      <div class="modal-footer">
 			        <button type="submit" class="btn btn-primary" id="signbtn">상품 추가</button>
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

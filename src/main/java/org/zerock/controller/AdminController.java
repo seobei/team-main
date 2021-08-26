@@ -1,19 +1,26 @@
 package org.zerock.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.OtoAnswerVO;
 import org.zerock.domain.OtoVO;
 import org.zerock.domain.SProductVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.AdminService;
+import org.zerock.service.SProductService;
+import org.zerock.service.UserService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -25,6 +32,12 @@ public class AdminController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private AdminService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private SProductService SPservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserService Userservice;
 	
 	//관리자페이지 홈
 	
@@ -127,10 +140,13 @@ public class AdminController {
 	
 		//상품목록 리스트
 		@GetMapping("/productlist")
-		public String productlist(Model model, SProductVO vo, RedirectAttributes rttr) {
+		public String productlist(Model model, SProductVO vo, RedirectAttributes rttr, Principal principal) {
 			
 			// 상품목록 조회
 			log.info("상품목록 리스트");
+			vo.setUserid(principal.getName());
+			UserVO uservo = Userservice.read(principal.getName());
+			model.addAttribute("uservo", uservo);
 			
 			List<SProductVO> Productlist = service.getProductlist();
 			model.addAttribute("Productlist", Productlist);
@@ -138,29 +154,29 @@ public class AdminController {
 			return "/admin/productlist";
 		}
 		
-		//관리자회원 회원가입
+		//상품 추가하기
 		@PostMapping("/productlist")
-		public String productlistpost(SProductVO vo, RedirectAttributes rttr) {
+		public String productlistpost(SProductVO vo, @RequestParam("store_file") MultipartFile[] store_file, RedirectAttributes rttr) {
 			log.info("상품 추가");
-
-			boolean ok = service.getProductinsert(vo);
-
-			if (ok) {
-				return "redirect:/admin/productlist";
-			} else {
-				return "redirect:/admin/productlist?error";
-			}
+			SPservice.register(vo, store_file);
+	        rttr.addFlashAttribute("result", vo.getPno());
+	        
+	        return "redirect:/admin/productlist";
 		}
 		
 		//상품 수정하기
 		@PostMapping("/productupdate")
-		public String productupdate(SProductVO vo) {
+		public String productupdate(SProductVO svo,
+		  		@RequestParam("store_file") MultipartFile[] store_file) {
 				
-			service.Productupdate(vo);
+			SPservice.modify(svo, store_file);
 				
 			return "redirect:/admin/productlist";
 		}
 		
+		 
+		  
+		  
 		//상품 삭제
 		@PostMapping("/productdelete")
 		public String productdelete(SProductVO vo) {

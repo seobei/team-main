@@ -71,9 +71,9 @@ width: 160px;
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		$(".form-select1").change(function(e) {
+		$(".category-btn").click(function(e) {
 			e.preventDefault();
-			var category = $(this).val();
+			var category = $(this).attr("href");
 			$("#actionForm [name=category]").val(category);
 			$("#actionForm").submit();
 		});
@@ -99,27 +99,27 @@ width: 160px;
 <nb:scroll />			
 		<div class="row">
 		  <div class="col-2">
-<%-- 		    <ul class="nav flex-column">
+<ul class="nav flex-column">
   <li class="nav-item">
-    <a class="nav-link btn-light active" href="${appRoot }/store/home">카테고리</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link btn-outline-secondary" href="${appRoot }/store/home2">가구</a>
+    <a class="nav-link btn-light" href="${appRoot }/store/home">카테고리</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link btn-outline-secondary" href="#">수납</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="A">가구</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link btn-outline-secondary category-btn" href="B">수납</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary" href="#">조명</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="C">조명</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary" href="#">가전</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="D">가전</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary"  href="#">장식/소품</a>
+    <a class="nav-link btn-outline-secondary category-btn"  href="E">장식/소품</a>
   </li>
-</ul> --%>
-
+</ul>
+<%--
 			<select class="form-select1" aria-label="Default select example">
 					  <option >카테고리 </option>
 					  <option ${cri.category == 'A' ? 'selected' : '' } value="A">가구 </option>
@@ -129,6 +129,7 @@ width: 160px;
 					  <option ${cri.category == 'E' ? 'selected' : '' } value="E">장식/소품 </option>
 
 			</select>
+ --%>
 
 
 
@@ -223,6 +224,7 @@ width: 160px;
 <div style="display: none;">
 	<form id="actionForm" action="${appRoot }/store/home" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
+		<input name="category" value="" />
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
 </div>

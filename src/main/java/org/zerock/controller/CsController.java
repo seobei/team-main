@@ -134,7 +134,7 @@ public class CsController {
 	@PreAuthorize("isAuthenticated()")
 	public String oneToOne(@ModelAttribute("cri") Criteria cri, Model model, OtoVO vo, Principal principal) {
 		log.info("oneToOne method");
-		int total = service.getTotalO(cri);
+		int total = service.getTotalO(vo);
 		
 		vo.setUserid(principal.getName());
 		List<OtoVO> list = service.getotolist(cri,principal.getName());

@@ -18,6 +18,7 @@
      	FROM oto
     	 
    	 	WHERE userid = #{userid}
+
      	ORDER BY qono DESC
      
     	 LIMIT #{cri.from}, #{cri.amount}

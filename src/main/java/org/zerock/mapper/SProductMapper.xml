@@ -18,6 +18,7 @@
 	<!-- 상품등록 -->
 	<insert id="insert">
 		INSERT INTO S_product 
+
 		(category, userid, title, price, delivery, detail)
 		VALUES 
 		(#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail})
@@ -50,7 +51,6 @@
            s.pno = #{pno}
     </select>  
 
-
  	<!-- 데이터 리스트에 담기 -->
  	<select id="getList" resultType="org.zerock.domain.SProductVO">
       <![CDATA[   
@@ -73,7 +73,7 @@
 
 	<!-- 페이징 : 게시글 총 갯수 -->
 	<select id="getTotalCount" resultType="int"> 
-  		SELECT COUNT(*) FROM S_product
+  		SELECT COUNT(*) FROM S_product s
   		<include refid="category"></include>
 	</select>  
 
@@ -104,8 +104,7 @@
 	<!-- 데이터 수정 -->
  	<update id="update">
 	  	UPDATE S_product	  	
-	  	SET
-	  		category = #{category},
+	  	SET	
 	  	    title = #{title}, 
 	  	    price = #{price},
 	  	    delivery = #{delivery},
