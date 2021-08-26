@@ -43,8 +43,8 @@ public class SProductServiceImpl implements SProductService {
 	   
 	   
 	   public SProductServiceImpl() {
-		   this.bucketName = "choongang-gohome01";
-		   this.profileName = "gohome1";
+		   this.bucketName = "choongang-comzjaal";
+		   this.profileName = "spring1";
 
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 		      ProfileFile pf = ProfileFile.builder()

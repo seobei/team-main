@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.OtoAnswerVO;
 import org.zerock.domain.OtoVO;
+import org.zerock.domain.OtofileVO;
 import org.zerock.domain.SProductVO;
+import org.zerock.domain.Store_fileVO;
 import org.zerock.domain.UserVO;
 import org.zerock.mapper.AdminMapper;
 
@@ -116,7 +119,7 @@ public class AdminServiceImpl implements AdminService {
 
 			return cnt == 1;
 		}	
-		
+
 	//상품 수정
 		@Override
 		public void Productupdate(SProductVO vo) {

@@ -16,7 +16,7 @@
     		oregdate oregdate 
     		   	
      	FROM oto
-    	 
+    	WHERE userid = #{userid} 
      	ORDER BY qono DESC
      
     	 LIMIT #{from}, #{amount}
