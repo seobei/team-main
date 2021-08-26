@@ -31,6 +31,6 @@ public interface CsMapper {
 
 	// 페이징 : 게시글 총 갯수
 	public int getTotalCountN(Criteria cri);
-	public int getTotalCountO(Criteria cri);
+	public int getTotalCountO(OtoVO vo);
 	
 }

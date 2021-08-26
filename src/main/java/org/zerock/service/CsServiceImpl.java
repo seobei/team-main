@@ -47,7 +47,7 @@ public class CsServiceImpl implements CsService {
 	private OtofileMapper ofileMapper;
 	
 	public CsServiceImpl() {
-		   this.bucketName = "choongang-ys";
+		   this.bucketName = "choongang-comzjaal";
 		   this.profileName = "spring1";
 		   
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
@@ -71,9 +71,9 @@ public class CsServiceImpl implements CsService {
 	}
 	
 	@Override
-	public int getTotalO(Criteria cri) {
+	public int getTotalO(OtoVO vo) {
 	//게시글 총 갯수 구하는 매퍼  
-	return mapper.getTotalCountO(cri); 
+	return mapper.getTotalCountO(vo); 
 	   }
 	
 	// 은비 수정 8-16

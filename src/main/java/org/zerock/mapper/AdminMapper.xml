@@ -94,16 +94,31 @@
 						<!-- 상품목록 관련 -->
 	
 	<!-- 상품목록 리스트 -->
-	<select id="getProductlist" resultType="org.zerock.domain.SProductVO">
-		SELECT * FROM S_product
+	<select id="getProductlist" resultMap="adminMap">
+		SELECT * FROM S_product p LEFT JOIN S_product_file f ON p.pno = f.pno
 	</select>
+	
+	<resultMap type="org.zerock.domain.SProductVO" id="adminMap">
+		<id column="pno" property="pno"/>
+		<result column="category" property="category"/>
+		<result column="userid" property="userid"/>
+		<result column="title" property="title"/>
+		<result column="price" property="price"/>
+		<result column="delivery" property="delivery"/>
+		<result column="detail" property="detail"/>
+		<result column="keyword" property="keyword"/>
+		<result column="regdate" property="regdate"/>
+		<result column="updatedate" property="updatedate"/>
+		<collection property="fileName" resultMap="ofileNameMap"></collection>
+	</resultMap>
+
 	
 	<!-- 상품 추가 -->
 	<insert id="getProductinsert">
 		INSERT INTO S_product
-		(title, price, stock, category, detail)
+		(title, price, category, detail)
 		VALUES
-		(#{title}, #{price}, #{stock}, #{category}, #{detail})
+		(#{title}, #{price}, #{category}, #{detail})
 	</insert>
 	
 	<!--  상품 정보 수정  -->
@@ -112,7 +127,6 @@
 	  SET 
 	      title = #{title},
 	      price = #{price},
-	      stock = #{stock},
 	      delivery = #{delivery},
 	      detail = #{detail},
 	      updatedate = now()

@@ -12,7 +12,7 @@ public interface CsService {
 	public List<OtoVO> getotolist(Criteria cri);
 	public List<NoticeVO> getNoticeList(Criteria cri);
 	// 총 페이지
-	public int getTotalO(Criteria cri);
+	public int getTotalO(OtoVO vo);
 	public int getTotalN(Criteria cri);
 	
 	

@@ -8,14 +8,14 @@
 	<!-- 상품등록 -->
 	<insert id="insert">
 		INSERT INTO S_product 
-		(category, userid, title, price, stock, delivery, detail, keyword)
+		(category, userid, title, price, delivery, detail, keyword)
 		VALUES 
-		(#{category}, #{userid}, #{title}, #{price}, #{stock}, #{delivery}, #{detail}, #{keyword})
+		(#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail}, #{keyword})
 	</insert>
 
 	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="pno" keyColumn="pno">
-		INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
-		VALUES (#{category}, #{userid}, #{title}, #{price}, #{stock}, #{delivery}, #{detail}, #{keyword})
+		INSERT INTO S_product (category, userid, title, price, delivery, detail, keyword)
+		VALUES (#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail}, #{keyword})
 	</insert>
 
 
@@ -27,7 +27,6 @@
            s.userid userid,
            s.title title,
            s.price price,
-           s.stock stock,
 	       s.delivery delivery,
            s.detail detail,
            s.keyword keyword,
@@ -50,7 +49,6 @@
            s.userid userid,
            s.title title,
            s.price price,
-           s.stock stock,
 	       s.delivery delivery,
            s.detail detail,
            s.keyword keyword,
@@ -71,10 +69,8 @@
  	<update id="update">
 	  	UPDATE S_product	  	
 	  	SET
-	  		category = #{category},
 	  	    title = #{title}, 
 	  	    price = #{price},
-	  	    stock = #{stock},
 	  	    delivery = #{delivery},
 	  	    detail = #{detail},
 	  	    keyword = #{keyword},
@@ -99,7 +95,6 @@
            userid userid,
            title title,
            price price,
-           stock stock,
 	       delivery delivery,
            detail detail,
            keyword keyword,
@@ -126,7 +121,6 @@
            s.userid userid,
            s.title title,
            s.price price,
-           s.stock stock,
 	       s.delivery delivery,
            s.detail detail,
            s.keyword keyword,
@@ -151,7 +145,6 @@
            s.userid userid,
            s.title title,
            s.price price,
-           s.stock stock,
 	       s.delivery delivery,
            s.detail detail,
            s.keyword keyword,
@@ -183,7 +176,6 @@
           <result property="userid" column="userid" />
           <result property="title" column="title" />
           <result property="price" column="price" />
-          <result property="stock" column="stock" />
           <result property="delivery" column="delivery" />
           <result property="detail" column="detail" />
           <result property="keyword" column="keyword" />
