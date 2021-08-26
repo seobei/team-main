@@ -160,6 +160,20 @@
 		WHERE nno= #{nno};
 	</delete>
 
+	  <!-- 메인공지사항 글조회  -->
+	<select id="getNoticeMainList" resultType="org.zerock.domain.NoticeVO">
+		SELECT nno,
+		      ntitle,
+		      userid,
+		      ndetail,
+		      nregdate
+		FROM notice
+		ORDER BY nregdate DESC
+		LIMIT 5;
+	 </select>
+
+
+
 	<!-- 다중 파일 notice_file -->
 	  <resultMap type="org.zerock.domain.NoticeVO" id="noticeMap">
 	  	<id property="nno" column="nno" />

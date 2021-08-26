@@ -27,15 +27,9 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void cartdelete(Long cno) {
-		mapper.cartdelete(cno);
+	public void cartdelete(CartVO vo) {
+		mapper.cartdelete(vo);
 	}
-
-//	@Override
-//	public void deleteCart(CartVO cart) {
-//		mapper.deleteCart(cart);
-//		
-//	}
 	
 	@Override
 	public void modifyCart(CartVO vo) {
@@ -63,13 +57,11 @@ public class StoreServiceImpl implements StoreService {
 
 	}
 
-
 	@Override
-	public void orderDetail(Order_detailVO vo) {
-		mapper.orderDetail(vo);
+	public void deletecartlist(String userid) {
+		mapper.deletecartlist(userid);
 		
 	}
-
 
 		
 	}

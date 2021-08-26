@@ -30,4 +30,7 @@ public interface CsService {
     public boolean noticeModify(NoticeVO nvo, MultipartFile[] notice_file);
 	public boolean noticeDelete(int nno);
 
+	//메인공지사항 글조회
+	public List<NoticeVO> getNoticeMainList();
+	
 }

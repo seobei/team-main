@@ -5,17 +5,28 @@
   
 <mapper namespace="org.zerock.mapper.SProductMapper">
 
+	<!-- 반복문  -->
+	<sql id="category">
+		 <where>
+		 	<if test='category == "A" or category == "B" or category == "C" or category == "D" or category == "E"'>
+		 		s.category = #{category}
+		 	</if>
+	     </where>
+	 </sql>
+
+
 	<!-- 상품등록 -->
 	<insert id="insert">
 		INSERT INTO S_product 
-		(category, userid, title, price, delivery, detail, keyword)
+
+		(category, userid, title, price, delivery, detail)
 		VALUES 
-		(#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail}, #{keyword})
+		(#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail})
 	</insert>
 
 	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="pno" keyColumn="pno">
-		INSERT INTO S_product (category, userid, title, price, delivery, detail, keyword)
-		VALUES (#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail}, #{keyword})
+		INSERT INTO S_product (category, userid, title, price, delivery, detail)
+		VALUES (#{category}, #{userid}, #{title}, #{price}, #{delivery}, #{detail})
 	</insert>
 
 
@@ -29,7 +40,6 @@
            s.price price,
 	       s.delivery delivery,
            s.detail detail,
-           s.keyword keyword,
            s.regdate regdate,
            s.updatedate updatedate,
            sf.fileName fileName,
@@ -40,51 +50,6 @@
          WHERE
            s.pno = #{pno}
     </select>  
-
-	<!-- 카테고리 조회   -->
-  	<select id="readCategory" resultMap="productMap" >
-         SELECT 
-           s.pno pno,
-           s.category category,
-           s.userid userid,
-           s.title title,
-           s.price price,
-	       s.delivery delivery,
-           s.detail detail,
-           s.keyword keyword,
-           s.regdate regdate,
-           s.updatedate updatedate,
-           sf.fileName fileName,
-           a.userid userid
-         FROM 
-           S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno
-            				JOIN GH_User a ON s.userid = a.userid
-         WHERE
-           s.category = #{category}
-    </select>  
-
-
-
-	<!-- 데이터 수정 -->
- 	<update id="update">
-	  	UPDATE S_product	  	
-	  	SET
-	  	    title = #{title}, 
-	  	    price = #{price},
-	  	    delivery = #{delivery},
-	  	    detail = #{detail},
-	  	    keyword = #{keyword},
-	  	    updateDate = NOW()	    
-	  	WHERE
-	  	    pno = #{pno} 
-	</update> 
-
-
-	<!-- 데이터 삭제 -->
- 	<delete id="delete">
-  		DELETE FROM S_product WHERE pno = #{pno}
-	</delete> 
-
 
  	<!-- 데이터 리스트에 담기 -->
  	<select id="getList" resultType="org.zerock.domain.SProductVO">
@@ -97,7 +62,6 @@
            price price,
 	       delivery delivery,
            detail detail,
-           keyword keyword,
            regdate regdate,
            updatedate updatedate
 	
@@ -109,36 +73,14 @@
 
 	<!-- 페이징 : 게시글 총 갯수 -->
 	<select id="getTotalCount" resultType="int"> 
-  		SELECT COUNT(*) FROM S_product
+  		SELECT COUNT(*) FROM S_product s
+  		<include refid="category"></include>
 	</select>  
- 
-	<!-- 페이징 리스트 -->
- 	<select id="getListWithPaging" resultMap="productMap">
-      <![CDATA[    
-	    SELECT 
-           s.pno pno,
-           s.category category,
-           s.userid userid,
-           s.title title,
-           s.price price,
-	       s.delivery delivery,
-           s.detail detail,
-           s.keyword keyword,
-           s.regdate regdate,
-           s.updatedate updatedate,
-           sf.fileName fileName
-	    	
-	     FROM S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno	     
-	     ORDER BY pno DESC
-	     
-	     LIMIT #{from}, #{amount}     
-      ]]>    
-	</select> 
 
 
 		<!-- 가구 카테고리 페이징 리스트 -->
- 	<select id="getCateWithPaging" resultMap="productMap">
-      <![CDATA[    
+ 	<select id="getCateListWithPaging" resultMap="productMap">
+ 
 		 SELECT 
            s.pno pno,
            s.category category,
@@ -147,18 +89,36 @@
            s.price price,
 	       s.delivery delivery,
            s.detail detail,
-           s.keyword keyword,
            s.regdate regdate,
            s.updatedate updatedate,
            sf.fileName fileName
 	    	
 	     FROM S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno
-         WHERE s.category = '가구'
+         <include refid="category"></include>
+         
 	     ORDER BY pno DESC
-	     
 	     LIMIT #{from}, #{amount}     
-      ]]>    
+  
 	</select> 
+
+	<!-- 데이터 수정 -->
+ 	<update id="update">
+	  	UPDATE S_product	  	
+	  	SET	
+	  	    title = #{title}, 
+	  	    price = #{price},
+	  	    delivery = #{delivery},
+	  	    detail = #{detail},
+	  	    updateDate = NOW()	    
+	  	WHERE
+	  	    pno = #{pno} 
+	</update> 
+
+
+	<!-- 데이터 삭제 -->
+ 	<delete id="delete">
+  		DELETE FROM S_product WHERE pno = #{pno}
+	</delete> 
 
 
 
@@ -168,7 +128,21 @@
 		WHERE userid = #{userid}
 	</delete> 
 
-
+	<!-- 메인스토어 게시글조회  -->
+	<select id="getsproductMainList" resultType="org.zerock.domain.SProductVO">
+		SELECT pno,
+	       category,
+	       userid,
+	       title,
+	       price,
+	       delivery,
+	       detail,
+	       regdate,
+	       updatedate
+		FROM S_product
+		ORDER BY regdate DESC
+		LIMIT 4;
+	</select>
 
  	  <resultMap type="org.zerock.domain.SProductVO" id="productMap">
           <id property="pno" column="pno" />
@@ -178,7 +152,6 @@
           <result property="price" column="price" />
           <result property="delivery" column="delivery" />
           <result property="detail" column="detail" />
-          <result property="keyword" column="keyword" />
           <result property="regdate" column="regdate" />
           <result property="updatedate" column="updatedate" />
 		  <collection property="fileName" resultMap="fileNameMap"></collection>

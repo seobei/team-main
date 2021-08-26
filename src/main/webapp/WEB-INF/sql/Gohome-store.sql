@@ -1,11 +1,13 @@
 
 SELECT * FROM order_detail;
 SELECT * FROM cart;
-SELECT * FROM S_product;
+SELECT * FROM S_product_file;
 
 DESC S_product;
 DELETE FROM S_product;
 DROP TABLE S_product;
+ALTER TABLE S_product DROP keyword;
+
 
 -- 스토어 상품 테이블 
 CREATE TABLE S_product(
@@ -14,17 +16,15 @@ CREATE TABLE S_product(
 	userid VARCHAR(50) NOT NULL, -- 작성자
     title VARCHAR(255) NOT NULL, -- 상품제목
 	price INT NOT NULL, -- 상품가격
-	stock INT, -- 상품수량
     delivery varchar(15) NOT NULL, -- 배송
     detail VARCHAR(2000), -- 상세설명
-    keyword VARCHAR(10), -- 상품 키워드
     regdate TIMESTAMP DEFAULT NOW(), -- 상품 등록일
 	updatedate TIMESTAMP DEFAULT NOW(), -- 상품 업데이트일     
     FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE
 );
 
-INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
-VALUES ('조명', 'test1', '전구', '100000', '10', '일반배송', '침대를 팝니다', '#침실');
+INSERT INTO S_product (category, userid, title, price, delivery, detail)
+VALUES ('C', 'test1', '조명', '100000', '무료배송', '침대를 팝니다');
 
 INSERT INTO S_product_file (pno, filename)
 VALUES ('6', '중고01.jpg');
@@ -51,6 +51,20 @@ CREATE TABLE cart(
 
 INSERT INTO cart (userid, pno, cartstock)
 VALUES ('test1', '6', '3');
+
+
+-- 주문 정보 
+CREATE TABLE order_detail(
+    ono INT PRIMARY KEY AUTO_INCREMENT, -- 주문 상세 고유번호
+    pno INT NOT NULL, -- 상품 번호
+    cno INT , -- 장바구니 번호
+    userid VARCHAR(50) NOT NULL, -- 주문자
+    cartstock INT NOT NULL, -- 장바구니 수량
+    orderdate TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 제품에서 바로 할때
+    FOREIGN KEY (cno) REFERENCES cart(cno) ON DELETE CASCADE, -- 장바구니 번호 
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE
+);
 
 
  SELECT 

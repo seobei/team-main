@@ -12,7 +12,7 @@ public interface StoreMapper {
 	
 	public List<CartVO> listCart(String userid);
 
-	public void cartdelete(Long cno);
+	public void cartdelete(CartVO vo);
 
 	public void modifyCart(CartVO vo);
 
@@ -23,10 +23,9 @@ public interface StoreMapper {
 
 	/* 장바구니에 동일한 상품이 있는지 확인되면 수정 */
 	public void updateCart(CartVO vo);
-	
 
-	
-	public void orderDetail(Order_detailVO vo);
-	
-//	public void deleteCart(CartVO cart);
+	public void addOrder(List<CartVO> orderlist);
+
+	public void deletecartlist(String userid);
+
 }

@@ -36,5 +36,8 @@ public interface CBoardMapper {
 	public int cbupdate(CBoardVO cboard);
 
 	public List<Long> listCBoardBno(String userid);
+
+	//메인자유게시판 게시글조회
+	public List<CBoardVO> getCbMainList();
 	
 }

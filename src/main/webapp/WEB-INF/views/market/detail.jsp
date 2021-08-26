@@ -14,15 +14,22 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 <style type = "text/css">
 
-
-.carousel-item img {
-	width :570px;
+.part-img img {
 	max-width :100%;
+	padding : 20px;
+}
+.part-detail{
+	font-size: 
+	
 }
 
+.carousel-item img {
+	width :500px;
+	height: 500px;
+}
+
+
 </style>
-
-
 
 <!-- script -->
 
@@ -197,7 +204,9 @@ $(function() {
 			</c:if>	
 		</div>
 				
-
+<footer>
+	<nb:footer/>
+</footer>
 	
 </div>
 

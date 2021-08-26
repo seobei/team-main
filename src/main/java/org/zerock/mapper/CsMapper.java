@@ -33,4 +33,7 @@ public interface CsMapper {
 	public int getTotalCountN(Criteria cri);
 	public int getTotalCountO(OtoVO vo);
 	
+	//메인공지사항 글조회
+	public List<NoticeVO> getNoticeMainList();
+	
 }

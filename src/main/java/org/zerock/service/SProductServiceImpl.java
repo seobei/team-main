@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.SPCriteria;
 import org.zerock.domain.SProductVO;
 import org.zerock.domain.Store_fileVO;
 import org.zerock.mapper.SProductMapper;
@@ -38,8 +38,6 @@ public class SProductServiceImpl implements SProductService {
 
 	   @Setter (onMethod_ = @Autowired)
 	   private Store_fileMapper fileMapper;
-
-	   // 댓글 추가 필요함
 	   
 	   
 	   
@@ -192,26 +190,24 @@ public class SProductServiceImpl implements SProductService {
 		}
 		}
 		
-		
-		
+
 
 	    @Override
-	    public List<SProductVO> getList(Criteria cri) {
-	       return mapper.getListWithPaging(cri);
-	    }
-
-	    @Override
-	    public List<SProductVO> getCategory(Criteria cri) {
-	       return mapper.getCateWithPaging(cri);
+	    public List<SProductVO> getCateList(SPCriteria cri) {
+	       return mapper.getCateListWithPaging(cri);
 	    }
 	    
 	    
 	   @Override
-	   public int getTotal(Criteria cri) {
+	   public int getTotal(SPCriteria cri) {
 	      return mapper.getTotalCount(cri); 
 	   }
 
+		@Override
+		public List<SProductVO> getsproductMainList() {
 
+			return mapper.getsproductMainList();
+		}
 
 
 

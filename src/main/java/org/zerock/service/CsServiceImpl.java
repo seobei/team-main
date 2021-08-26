@@ -76,13 +76,11 @@ public class CsServiceImpl implements CsService {
 	return mapper.getTotalCountO(vo); 
 	   }
 	
-	// 은비 수정 8-16
 	@Override
 	public void otowriting(OtoVO ovo) {
 		mapper.otowriting(ovo);
 	}
 	
-	// 은비 수정 8-16
 	@Override
 	public void otowriting(OtoVO ovo, MultipartFile[] mfile) {
 		otowriting(ovo);
@@ -120,7 +118,6 @@ public class CsServiceImpl implements CsService {
 
 		   }
 	
-	// 은비 수정 8-16
 	@Override
 	public OtoVO otoreading(int qono) {
 		OtoVO ovo = mapper.otoreading(qono);
@@ -129,7 +126,6 @@ public class CsServiceImpl implements CsService {
 	      return ovo;
 	}
 	
-	 // 은비 8-16  s3 otofile 삭제
 		private void removeOtoFile(OtoVO ovo) {
 			for (String fileName : ovo.getFileName()) {
 				String key = "oto/" + ovo.getQono() + "/" + fileName;
@@ -142,7 +138,7 @@ public class CsServiceImpl implements CsService {
 				s3.deleteObject(deleteObjectRequest);
 			}
 			}
-	// 은비 수정 8-16
+
 	@Override
 	public boolean otodelete(int qono) {
 		
@@ -174,7 +170,6 @@ public class CsServiceImpl implements CsService {
 	}
 
 
-	// 은비 수정 8-16
 	@Override
 	public void noticeWriting(NoticeVO nvo) {
 		mapper.noticeWriting(nvo);
@@ -216,7 +211,7 @@ public class CsServiceImpl implements CsService {
 		      }
 
 		   }
-// 은비 수정 8-16
+
 	@Override
 	public NoticeVO noticeReading(int nno) {
 		NoticeVO nvo = mapper.noticeReading(nno);
@@ -225,23 +220,23 @@ public class CsServiceImpl implements CsService {
 		      return nvo;
 	}
 	
-	// 은비 수정 8-16	
+	
 	@Override
 	public boolean noticeModify(NoticeVO nvo) {
 		return mapper.noticeModify(nvo) == 1;
 		
 	}
 	
-	// 은비 수정 8-16
+
 	@Override
 	@Transactional
 	public boolean noticeModify(NoticeVO nvo, MultipartFile[] notice_file) {
 		
-		// 은비 8-16 수정 s3 삭제
+		// s3 삭제
 		NoticeVO oldimage = mapper.noticeReading(nvo.getNno());
 		removeNoticeFile(oldimage);
 		
-		// 은비 8-16 수정 db delete
+		// db delete
 		fileMapper.deleteByNno(nvo.getNno());
 
 		for (MultipartFile file : notice_file) {
@@ -259,7 +254,7 @@ public class CsServiceImpl implements CsService {
 		}
 		return noticeModify(nvo);
 	}
-   // 은비 8-16  s3 noticeFile 삭제
+   // s3 noticeFile 삭제
 	private void removeNoticeFile(NoticeVO nvo) {
 		for (String fileName : nvo.getFileName()) {
 			String key = "notice/" + nvo.getNno() + "/" + fileName;
@@ -273,7 +268,6 @@ public class CsServiceImpl implements CsService {
 		}
 		}
 	
-	// 은비 수정 8-16
 	@Override
 	public boolean noticeDelete(int nno) {
 
@@ -286,6 +280,12 @@ public class CsServiceImpl implements CsService {
 
 		return cnt == 1;
 	}
+	
+	//메인공지사항 글조회
+	@Override
+	public List<NoticeVO> getNoticeMainList() {
 
+		return mapper.getNoticeMainList();
+	}
 	
 }

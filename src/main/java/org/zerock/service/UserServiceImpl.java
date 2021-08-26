@@ -217,5 +217,18 @@ public class UserServiceImpl implements UserService {
 
 
 	}
+
+
+	@Override
+	public void updatePoint(UserVO vo) {
+		mapper.updatePoint(vo);
+		
+	}
+	
+	@Override
+	public void updateSpendPoint(UserVO vo) {
+		mapper.updateSpendPoint(vo);
+		
+	}
 	
 }
