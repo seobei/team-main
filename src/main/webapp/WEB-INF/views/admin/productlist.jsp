@@ -153,28 +153,6 @@
 								
 								$("#call${productstatus.count }").on("show.bs.modal", function(){
 									
-									if("#categoryselect${productstatus.count }" == "가구"){
-										
-										$("#categoryselect${productstatus.count }").val("가구").prop("selected", true);
-										
-									} else if ("#categoryselect${productstatus.count }" == "수납"){
-										
-										$("#categoryselect${productstatus.count }").val("수납").prop("selected", true);
-										
-									} else if ("#categoryselect${productstatus.count }" == "조명"){
-										
-										$("#categoryselect${productstatus.count }").val("조명").prop("selected", true);
-										
-									} else if ("#categoryselect${productstatus.count }" == "가전"){
-										
-										$("#categoryselect${productstatus.count }").val("가전").prop("selected", true);
-										
-									} else {
-										
-										$("#categoryselect${productstatus.count }").val("장식/소품").prop("selected", true);
-									}
-									
-									
 									if("${product.delivery}" == "일반배송"){
 										$("#deliveryselect${productstatus.count }").val("일반배송").prop("selected", true);
 									} else{

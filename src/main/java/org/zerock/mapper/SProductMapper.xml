@@ -8,7 +8,7 @@
 	<!-- 반복문  -->
 	<sql id="category">
 		 <where>
-		 	<if test='category == "A" or category == "B" or category == "C" or category == "D" or category == "E"'>
+		 	<if test='category == "가구" or category == "수납" or category == "조명" or category == "가전" or category == "장식/소품"'>
 		 		s.category = #{category}
 		 	</if>
 	     </where>

@@ -104,19 +104,19 @@ width: 160px;
     <a class="nav-link btn-light" href="${appRoot }/store/home">카테고리</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link btn-outline-secondary category-btn" href="A">가구</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="가구">가구</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link btn-outline-secondary category-btn" href="B">수납</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="수납">수납</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary category-btn" href="C">조명</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="조명">조명</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary category-btn" href="D">가전</a>
+    <a class="nav-link btn-outline-secondary category-btn" href="가전">가전</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link btn-outline-secondary category-btn"  href="E">장식/소품</a>
+    <a class="nav-link btn-outline-secondary category-btn"  href="장식/소품">장식/소품</a>
   </li>
 </ul>
 <%--
