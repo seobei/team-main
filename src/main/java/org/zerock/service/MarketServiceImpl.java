@@ -45,8 +45,8 @@ public class MarketServiceImpl implements MarketService {
 	   
 	   
 	   public MarketServiceImpl() {
-		   this.bucketName = "choongang-gohome01";
-		   this.profileName = "gohome1";
+			this.bucketName = "choongang-gohome";
+			this.profileName = "gohome1";
 
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 		      ProfileFile pf = ProfileFile.builder()
@@ -133,10 +133,13 @@ public class MarketServiceImpl implements MarketService {
 		@Transactional
 		public boolean modify(MarketVO mvo, MultipartFile[] market_file) {
 
-			MarketVO oldimage = mapper.read(mvo.getMno());
-			removeFile(oldimage);
+			if (market_file.length > 0 && market_file[0].getSize() > 0) {
+				
+				MarketVO oldimage = mapper.read(mvo.getMno());
+				removeFile(oldimage);
+				fileMapper.deleteByMno(mvo.getMno());
+			}
 
-			fileMapper.deleteByMno(mvo.getMno());
 
 			for (MultipartFile file : market_file) {
 				log.info("테스트:" + file.toString());

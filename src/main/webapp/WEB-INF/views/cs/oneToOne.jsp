@@ -53,7 +53,6 @@ $(document).ready(function() {
 				<th>게시글 번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>내용</th>
 				<th>작성일</th>
 			</tr>
 		</thead>
@@ -64,7 +63,6 @@ $(document).ready(function() {
 					<td>${boardStatus.count }</td>
 					<td><a href="${appRoot }/cs/otoreading?qono=${board.qono}">${board.otitle }</a></td>
 					<td>${board.userid }</td>
-					<td>${board.odetail }</td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.oregdate }"/></td>
 				</tr>
 			</c:forEach>			

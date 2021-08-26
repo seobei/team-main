@@ -9,7 +9,7 @@ import org.zerock.domain.OtoAnswerVO;
 import org.zerock.domain.OtoVO;
 
 public interface CsService {
-	public List<OtoVO> getotolist(Criteria cri);
+	public List<OtoVO> getotolist(Criteria cri,String userid);
 	public List<NoticeVO> getNoticeList(Criteria cri);
 	// 총 페이지
 	public int getTotalO(OtoVO vo);

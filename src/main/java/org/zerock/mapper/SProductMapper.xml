@@ -129,17 +129,20 @@
 	</delete> 
 
 	<!-- 메인스토어 게시글조회  -->
-	<select id="getsproductMainList" resultType="org.zerock.domain.SProductVO">
-		SELECT pno,
-	       category,
-	       userid,
-	       title,
-	       price,
-	       delivery,
-	       detail,
-	       regdate,
-	       updatedate
-		FROM S_product
+	<select id="getsproductMainList" resultMap="productMap">
+		SELECT 
+           s.pno pno,
+           s.category category,
+           s.userid userid,
+           s.title title,
+           s.price price,
+	       s.delivery delivery,
+           s.detail detail,
+           s.regdate regdate,
+           s.updatedate updatedate,
+           sf.fileName fileName
+	    	
+	     FROM S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno
 		ORDER BY regdate DESC
 		LIMIT 4;
 	</select>

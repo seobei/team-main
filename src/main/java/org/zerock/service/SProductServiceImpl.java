@@ -43,8 +43,10 @@ public class SProductServiceImpl implements SProductService {
 	   
 	   
 	   public SProductServiceImpl() {
-		   this.bucketName = "choongang-comzjaal";
-		   this.profileName = "spring1";
+       
+			this.bucketName = "choongang-gohome";
+			this.profileName = "gohome1";
+
 
 		   Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 		      ProfileFile pf = ProfileFile.builder()
@@ -131,12 +133,14 @@ public class SProductServiceImpl implements SProductService {
 		@Override
 		@Transactional
 		public boolean modify(SProductVO svo, MultipartFile[] store_file) {
+			
+			if (store_file.length > 0 && store_file[0].getSize() > 0) {
 
-			SProductVO oldimage = mapper.read(svo.getPno());
-			removeFile(oldimage);
-
-			fileMapper.deleteByPno(svo.getPno());
-
+				SProductVO oldimage = mapper.read(svo.getPno());
+				removeFile(oldimage);
+	
+				fileMapper.deleteByPno(svo.getPno());
+			}
 			for (MultipartFile file : store_file) {
 				log.info("테스트:" + file.toString());
 

@@ -115,21 +115,10 @@ function numCheck(selector) {
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="stock">재고수량</label>
-						<input id="stock" class="form-control" name="stock" value="${store.stock }" >
-					</div>
-					
 						<div class="form-group">
 							<label for="detail">상품 소개</label>
 							<textarea rows="5" cols="50" id="detail" class="form-control" name="detail" >${store.detail }</textarea>
 						</div>
-						
-					<div class="form-group">
-						<label for="keyword">키워드</label>
-						<input id="keyword" class="form-control" name="keyword" value="${store.keyword}" >
-					</div>	
-						
 						
 					<div class="form-group">
 						<label for="userid">작성자</label>

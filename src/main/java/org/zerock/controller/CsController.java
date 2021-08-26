@@ -137,7 +137,7 @@ public class CsController {
 		int total = service.getTotalO(vo);
 		
 		vo.setUserid(principal.getName());
-		List<OtoVO> list = service.getotolist(cri);
+		List<OtoVO> list = service.getotolist(cri,principal.getName());
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
@@ -151,7 +151,7 @@ public class CsController {
 	@GetMapping("/otowriting")
 	@PreAuthorize("isAuthenticated()")
 	public void otowriteform(OtoVO vo) {
-	}       /* 재우한테 질문한 부분 */
+	}       
 	
 	/* 문의 하기 */
 	@PostMapping("/otowriting")
