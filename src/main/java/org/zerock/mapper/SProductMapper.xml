@@ -73,7 +73,7 @@
 
 	<!-- 페이징 : 게시글 총 갯수 -->
 	<select id="getTotalCount" resultType="int"> 
-  		SELECT COUNT(*) FROM S_product
+  		SELECT COUNT(*) FROM S_product s
   		<include refid="category"></include>
 	</select>  
 
