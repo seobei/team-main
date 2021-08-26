@@ -108,7 +108,7 @@ $(document).ready(function() {
 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-interval="3000">
-      <a href="${appRoot }/market/main"><img src="${appRoot }/resources/img/market_01.png" class="d-block w-100"  id="carousel-size"></a>
+      <a href="${appRoot }/market/home"><img src="${appRoot }/resources/img/market_01.png" class="d-block w-100"  id="carousel-size"></a>
     </div>
   </div>
 </div>	
@@ -148,7 +148,6 @@ $(document).ready(function() {
 	        
 	       <div class="form-group" id="card-detail">
 		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
-				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
 		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
 		   </div>     
 	      		<hr>

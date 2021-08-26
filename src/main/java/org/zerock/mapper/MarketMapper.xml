@@ -127,16 +127,20 @@
 	</delete>
 
 	<!-- 메인중고마켓 게시글조회  -->
-	<select id="getMarketMainList" resultType="org.zerock.domain.MarketVO">
-		SELECT mno,
-		      mtitle,
-		      mprice,
-		      mdetail,
-		      mstate,
-		      msold,
-		      mregdate,
-		      maddress
-		FROM market
+	<select id="getMarketMainList" resultMap="marketMap">
+		SELECT 
+		m.mno mno,
+	    	m.mwriter mwriter,
+	    	m.mtitle mtitle,
+	    	m.mprice mprice,
+	    	m.mdetail mdetail,
+	    	m.mstate mstate,
+	    	m.msold msold,
+	    	m.mregdate mregdate,
+	    	m.maddress maddress,
+	    	f.fileName fileName
+	    	
+	     FROM market m LEFT JOIN market_file f ON m.mno = f.mno	 
 		ORDER BY mregdate DESC
 		LIMIT 4;
 	 </select>

@@ -66,8 +66,8 @@ public class CsServiceImpl implements CsService {
 	   }
 	
 	@Override
-	public List<OtoVO> getotolist(Criteria cri){
-		return mapper.getotolist(cri);
+	public List<OtoVO> getotolist(Criteria cri,String userid){
+		return mapper.getotolist(cri,userid);
 	}
 	
 	@Override

@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.zerock.domain.OtoAnswerVO;
 import org.zerock.domain.OtoVO;
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MarketVO;
 import org.zerock.domain.NoticeVO;
 
 public interface CsMapper {
-	public List<OtoVO> getotolist(Criteria cri);
+	public List<OtoVO> getotolist(@Param("cri")Criteria cri, @Param("userid")String userid);
 
 	public int otowriting(OtoVO ovo);
 

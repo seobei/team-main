@@ -90,10 +90,9 @@ public class MarketController {
 		
 		// 질문
 		@PostMapping("/modify")
-		@PreAuthorize("principal.username == #mwriter")
+		@PreAuthorize("principal.username == #mvo.mwriter")
 		public String modify(MarketVO mvo, Criteria cri, 
 				@RequestParam("market_file") MultipartFile[] market_file, RedirectAttributes rttr) {
-
 			boolean success = service.modify(mvo, market_file);
 			
 			if (success) {
@@ -110,7 +109,7 @@ public class MarketController {
 		
 		// 질문
 		@PostMapping("/remove")
-		@PreAuthorize("principal.username == #mwriter")
+		@PreAuthorize("principal.username == #writer")
 		public String remove(@RequestParam("mno") int mno,
 				Criteria cri, RedirectAttributes rttr, String writer) {
 
