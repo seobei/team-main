@@ -32,12 +32,6 @@ $(document).ready(function(){
 <nb:navbar/>
 <nb:scroll />
 
-<!-- jumbotron -->
-<div class="jumbotron">
-    <h1 class="display-4">장바구니</h1>
-    <hr class="my-4">
-    <p>장바구니 페이지</p>
-</div>
 <h2>장바구니</h2>
 <hr>
 
@@ -46,13 +40,13 @@ $(document).ready(function(){
    
     <thead class="thead-light">
     <tr>
-      <th>번호</th>
-      <th>상품명</th>
-      <th>상세설명</th>
-      <th>가격</th>
-      <th>수량</th>
-      <th>합계</th>
-      <th>취소</th>
+      <th style="width:5%; text-align: center;">번호</th>
+      <th style="width:15%; text-align: center;">상품명</th>
+      <th style="width:40%; text-align: left;">상세설명</th>
+      <th style="width:10%; text-align: center;">가격</th>
+      <th style="width:10%; text-align: center;">수량</th>
+      <th style="width:10%; text-align: center;">합계</th>
+      <th style="width:10%; text-align: center;">취소</th>
     </tr>
   </thead>
   
@@ -78,15 +72,14 @@ $(document).ready(function() {
     
 <input name = "cno" type ="hidden" value = "${cart.cno }"/>
         <tr>     	
-            <th id="cartlist">${status.count }</th>
-            <th>${cart.title }</th>
-            <td>${cart.detail }</td>
-            <td><fmt:formatNumber pattern="#,###원" value="${cart.price}" /></td>
-
-            <td>${cart.cartstock }</td>
-            <td><fmt:formatNumber pattern="#,###원" value="${cart.money}" /></td>
-            <td>
-				<button type="submit" id="cart-delete-btn${status.count}" class="btn btn-outline-secondary"  >삭제</button>
+            <th id="cartlist" style="width:5%; text-align: center;">${status.count }</th>
+            <th style="width:15%; text-align: center;">${cart.title }</th>
+            <td style="width:40%; text-align: left;">${cart.detail }</td>
+            <td style="width:10%; text-align: center;"><fmt:formatNumber pattern="#,###원" value="${cart.price}" /></td>
+            <td style="width:10%; text-align: center;">${cart.cartstock }</td>
+            <td style="width:10%; text-align: center;"><fmt:formatNumber pattern="#,###원" value="${cart.money}" /></td>
+            <td style="width:10%; text-align: center;">
+			<button type="submit" id="cart-delete-btn${status.count}" class="btn btn-outline-secondary" >삭제</button>
 
             </td>
         </tr>  
@@ -96,15 +89,18 @@ $(document).ready(function() {
   
    <tfoot>
     <tr>
-        <td colspan="5"></td> 
+        <td colspan="4"></td> 
 		<td>주문금액 : </td>		
 		<td><fmt:formatNumber pattern="#,###원" value="${sumMoney}" /></td>
+		<td colspan="1"></td>
     </tr>
   </tfoot>
 
 </table>
 <button type="submit" id="orderSubmitBtn" class="btn btn-lg btn-block btn-primary" >주문하기</button>
-	</form>
+
+<i class="fas fa-arrow-left"></i><button onclick="history.back()"class="btn btncl" >HOME</button>	
+</form>
 	
 <br>	
 <br>	

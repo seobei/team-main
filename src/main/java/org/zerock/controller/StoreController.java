@@ -18,10 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.CartVO;
 import org.zerock.domain.Order_detailVO;
-import org.zerock.domain.SPPageDTO;
 import org.zerock.domain.SPCriteria;
+import org.zerock.domain.SPPageDTO;
 import org.zerock.domain.SProductVO;
 import org.zerock.domain.UserVO;
+import org.zerock.domain.WishVO;
 import org.zerock.service.SProductService;
 import org.zerock.service.StoreService;
 import org.zerock.service.UserService;
@@ -45,6 +46,7 @@ public class StoreController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userservice;
 	
+		// 메인 홈
         @GetMapping("/home")
         public void store(@ModelAttribute("cri") SPCriteria cri, Model model) {
             log.info("store method");
@@ -57,6 +59,96 @@ public class StoreController {
     		
         }     
         
+    	//찜 목록
+    	@GetMapping("/wish")
+    	@PreAuthorize("isAuthenticated()")
+    	public void wish(WishVO vo, Principal principal, Model model) {
+    		log.info(principal.getName());
+    		vo.setUserid(principal.getName());
+    		List<WishVO> wishlist = stservice.wishlist(principal.getName());
+    		model.addAttribute("wishlist", wishlist);
+    		log.info("확인되었습니다.");
+    	}
+    	//찜 담기
+    	@PostMapping("/detail")
+    	@PreAuthorize("isAuthenticated()")
+    	public String pwish(WishVO vo, Principal principal, Model model, SProductVO svo, RedirectAttributes rttr, String pageNum, String amount){
+    		log.info(principal.getName());
+    		vo.setUserid(principal.getName());		
+    		log.info("추가되었습니다.");
+    		long count = stservice.countwish(vo.getPno(), principal.getName());
+    		log.info(count);
+    		if (count == 0) {
+    			stservice.addWish(vo);
+    			rttr.addFlashAttribute("result", "success");
+    			rttr.addFlashAttribute("messageTitle", "저장");
+    			rttr.addFlashAttribute("messageBody", "찜목록에 저장되었습니다.");
+    			
+    			rttr.addAttribute("pno", vo.getPno());
+    			rttr.addAttribute("pageNum", pageNum);
+    			rttr.addAttribute("amount", amount);
+    			return "redirect:/store/detail";
+    		} else {
+    			stservice.cwishdelete(vo.getPno(), principal.getName());;
+    			rttr.addFlashAttribute("result", "success");
+    			rttr.addFlashAttribute("messageTitle", "삭제");
+    			rttr.addFlashAttribute("messageBody", "찜목록에서 삭제하였습니다.");
+    			
+    			rttr.addAttribute("pno", vo.getPno());
+    			rttr.addAttribute("pageNum", pageNum);
+    			rttr.addAttribute("amount", amount);
+    			return "redirect:/store/detail";
+    		}
+    	}
+    	
+    	// 찜 관련 삭제
+    	@PostMapping("/wishdelete")
+    	public String wishdelete(@RequestParam("wno") Long wno) {
+    		stservice.wishdelete(wno);
+    		return "redirect:/store/wish";
+    	}
+        
+        
+        // 장바구니 담기        
+        @PostMapping("/cart")
+        @PreAuthorize("isAuthenticated()")
+        public String cart(CartVO vo, Principal principal, Model model, RedirectAttributes rttr) {         
+	        log.info(principal.getName());
+	        
+	        vo.setUserid(principal.getName());
+	        
+	        long count = stservice.countCart(vo.getPno(), principal.getName());
+	        if(count == 0) {
+	        	stservice.addCart(vo);  
+	        }else {
+	        	stservice.updateCart(vo);
+
+	        }
+	          return "redirect:/store/cart";
+        }
+
+        // 장바구니 담은 내역
+        @GetMapping("/cart")
+        @PreAuthorize("isAuthenticated()")
+        public void getcart(CartVO vo, Principal principal, Model model) {         
+	        log.info(principal.getName());
+	        
+	        vo.setUserid(principal.getName());  
+	        List<CartVO> cartlist = stservice.listCart(principal.getName());
+	        model.addAttribute("cart", cartlist);
+	        
+	        long sumMoney = stservice.sumMoney(principal.getName());
+	        log.info(sumMoney);
+	        vo.setSumMoney(sumMoney);
+	        model.addAttribute("sumMoney", sumMoney);
+        }
+
+       // 장바구니 삭제
+        @PostMapping("/cartdelete")
+        public String cartdelete(CartVO vo) {
+        	stservice.cartdelete(vo);
+        	return "redirect:/store/cart";
+        }   
         
         // 구매하기 (장바구니)
         @GetMapping("/order")
@@ -96,11 +188,18 @@ public class StoreController {
 	        long sumMoney = stservice.sumMoney(principal.getName());
 	        log.info(sumMoney);
 	        detail.setSumMoney(sumMoney);
-	        model.addAttribute("sumMoney", sumMoney);
+	        model.addAttribute("sumMoney", sumMoney);	        
 	        
-	        
-        }              
-        
+        }         
+        // 바로구매
+        @GetMapping("/directorder")
+        @PreAuthorize("isAuthenticated()")
+    	public void directorder(CartVO vo, Principal principal, Model model) {
+
+        	vo.setUserid(principal.getName());  
+
+    	}        
+                
         
         // 바로구매
         @PostMapping("/directorder")
@@ -117,71 +216,47 @@ public class StoreController {
     		
     		String cartstock = req.getParameter("cartstock");
     		model.addAttribute("cartstock", cartstock);
-//
-//	        long sumMoney = stservice.sumMoney(principal.getName());
-//	        log.info(sumMoney);
-//	        vo.setSumMoney(sumMoney);
-//	        model.addAttribute("sumMoney", sumMoney);
-//	        
-
-    	}
-        
-        
-        // 바로구매
-        @GetMapping("/directorder")
-        @PreAuthorize("isAuthenticated()")
-    	public void directorder(CartVO vo, Principal principal, Model model) {
-
-        	vo.setUserid(principal.getName());  
-
-//	        	stservice.addCart(vo);        	
-
 
     	}        
         
-        
-        // 장바구니 담기        
-        @PostMapping("/cart")
+        // 구매완료
+        @GetMapping("/orderlist")
         @PreAuthorize("isAuthenticated()")
-        public String cart(CartVO vo, Principal principal, Model model) {         
+        public void getorderlist(UserVO vo, Principal principal, Model model) {         
 	        log.info(principal.getName());
-	        
-	        vo.setUserid(principal.getName());
-	        
-	        long count = stservice.countCart(vo.getPno(), principal.getName());
-	        if(count == 0) {
-	        	stservice.addCart(vo);        	
-	        }else {
-	        	stservice.updateCart(vo);
-	        }
-	          return "redirect:/store/cart";
-        }
-
-        // 장바구니 담은 내역
-        @GetMapping("/cart")
-        @PreAuthorize("isAuthenticated()")
-        public void getcart(CartVO vo, Principal principal, Model model) {         
-	        log.info(principal.getName());
-	        
+	       
 	        vo.setUserid(principal.getName());  
-	        List<CartVO> cartlist = stservice.listCart(principal.getName());
-	        model.addAttribute("cart", cartlist);
-	        
-	        long sumMoney = stservice.sumMoney(principal.getName());
-	        log.info(sumMoney);
-	        vo.setSumMoney(sumMoney);
-	        model.addAttribute("sumMoney", sumMoney);
-        }
-        
-       
+	        UserVO uservo = userservice.read(principal.getName());
+	        model.addAttribute("user", uservo);
 
-     // 장바구니 삭제
-        @PostMapping("/cartdelete")
-        public String cartdelete(CartVO vo) {
-        	stservice.cartdelete(vo);
-        	return "redirect:/store/cart";
         }
+
+        // 구매완료
+        @PostMapping("/orderlist")
+        @PreAuthorize("isAuthenticated()")
+        public String orderlist(UserVO vo, Principal principal, Model model, RedirectAttributes rttr) {         
+	        log.info(principal.getName());
+	        
+	        vo.setUserid(principal.getName());		        
+	        UserVO uservo = userservice.read(principal.getName());
+	        model.addAttribute("user", uservo);
+	        
+	        userservice.updateSpendPoint(vo);
+	        userservice.updatePoint(vo);
+
+	        stservice.deletecartlist(principal.getName());
+
+	        return "redirect:/store/orderlist"; 
+
+        } 
         
+        
+        
+        
+        
+        
+        
+        // 관리자 페이지 참고용 자료 (권한X)
         // 상품 등록 페이지
     	@GetMapping("/register")
     	public void register(@ModelAttribute("cri") SPCriteria cri) {
@@ -207,8 +282,6 @@ public class StoreController {
 		 
 		  // 상세페이지 수정하기
 		  @PostMapping("/modify")
-		  // @PreAuthorize("principal.username == #board.writer")
-		  // @PreAuthorize("authication.name == #board.writer") // spring.io 
 		  public String modify(SProductVO svo, SPCriteria cri,
 				  		@RequestParam("store_file") MultipartFile[] store_file, RedirectAttributes rttr) {
 		  
@@ -229,7 +302,6 @@ public class StoreController {
 		  
 		  // 상세페이지 삭제
 		  @PostMapping("/remove")
-//			@PreAuthorize("principal.username == #writer") // 720 쪽
 			public String remove(@RequestParam("pno") Long pno,
 					SPCriteria cri, RedirectAttributes rttr, String writer) {
 
@@ -246,40 +318,5 @@ public class StoreController {
 				return "redirect:/store/home";
 				
 			}
-			
-	        // 구매완료
-	        @GetMapping("/orderlist")
-	        @PreAuthorize("isAuthenticated()")
-	        public void getorderlist(UserVO vo, Principal principal, Model model) {         
-		        log.info(principal.getName());
-		       
-		        vo.setUserid(principal.getName());  
-		        UserVO uservo = userservice.read(principal.getName());
-		        model.addAttribute("user", uservo);
-
-		        
-	        }
-
-	        // 구매완료
-	        @PostMapping("/orderlist")
-	        @PreAuthorize("isAuthenticated()")
-	        public String orderlist(UserVO vo, Principal principal, Model model, RedirectAttributes rttr) {         
-		        log.info(principal.getName());
-		        
-		        vo.setUserid(principal.getName());		        
-		        UserVO uservo = userservice.read(principal.getName());
-		        model.addAttribute("user", uservo);
-		        
-		        userservice.updateSpendPoint(vo);
-		        userservice.updatePoint(vo);
-	
-		        stservice.deletecartlist(principal.getName());
-		        
-		        
-		        
-		        return "redirect:/store/orderlist"; 
-		        
-		        
-	        }    	
-	        
+			 
 	}

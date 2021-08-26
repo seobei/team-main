@@ -63,20 +63,34 @@ $(function() {
 		         <li class="nav-item">
 		       			 <a class="nav-link" href="${appRoot }/mypage/home">마이페이지 </a>
 		     		 </li>
-             
 		     	</sec:authorize> 
+		     	
+		     	
 		     	<sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
 <%-- 		         	<sec:authentication property="principal.user" var="user" />
  --%>		         	
 		       		<a class="nav-link" href="${appRoot }/message/mgreceive">쪽지함 </a>
 		     	 </li>
+		     	 </sec:authorize>
+		     	 
+				<sec:authorize access="isAuthenticated()">
+		         <li class="nav-item dropdown">
+			      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></a>
+			      <div class="dropdown-menu">
+			        <a class="dropdown-item" href="${appRoot }/store/cart"><i class="fas fa-shopping-cart"></i> 장바구니</a>
+			        <a class="dropdown-item" href="${appRoot }/store/wish"><i class="fas fa-heart"></i> 위시리스트</a>
+			      </div>
+			    </li>
+		     	 </sec:authorize>
+		     	 
+		     	 
 		     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="nav-item">
 						<a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
 					</li>
 		     	 </sec:authorize>
-		     	</sec:authorize> 
+		     	 
 			</ul>
 		</nav>
 </div>

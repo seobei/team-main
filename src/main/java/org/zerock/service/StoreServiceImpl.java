@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.CartVO;
-import org.zerock.domain.Order_detailVO;
+import org.zerock.domain.WishVO;
 import org.zerock.mapper.StoreMapper;
 
 import lombok.Setter;
@@ -61,6 +61,34 @@ public class StoreServiceImpl implements StoreService {
 	public void deletecartlist(String userid) {
 		mapper.deletecartlist(userid);
 		
+	}
+
+	// 위시리스트 관련
+	@Override
+	public void addWish(WishVO vo) {
+		mapper.addWish(vo);
+	}
+
+	@Override
+	public List<WishVO> wishlist(String userid) {
+		return mapper.wishlist(userid);
+	}
+
+	@Override
+	public void wishdelete(Long wno) {
+		mapper.wishdelete(wno);
+
+	}
+
+	@Override
+	public int countwish(long pno, String userid) {
+		return mapper.countwish(pno, userid);
+	}
+
+	@Override
+	public void cwishdelete(long pno, String userid) {
+		mapper.cwishdelete(pno, userid);
+
 	}
 
 		

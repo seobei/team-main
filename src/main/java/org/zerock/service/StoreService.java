@@ -3,7 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.zerock.domain.CartVO;
-import org.zerock.domain.Order_detailVO;
+import org.zerock.domain.WishVO;
 
 
 public interface StoreService {
@@ -25,5 +25,11 @@ public interface StoreService {
 
 	public void deletecartlist(String userid);
 
+	// 위시리스트 관련
+	public void addWish(WishVO vo);
+	public List<WishVO> wishlist(String userid);
+	public void wishdelete(Long wno);	
+	public int countwish(long pno, String userid);
+	public void cwishdelete(long pno, String userid);
 	
 }
