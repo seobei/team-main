@@ -45,8 +45,8 @@ public class EBoardServiceImpl implements EBoardService {
 	//s3 파일 업로드 연동  코드 !
 	 
 	public EBoardServiceImpl() {
-		this.bucketName = "choongang-gohome";
-		this.profileName = "gohome1";
+		this.bucketName = "choongang-seob";
+		this.profileName = "spring1";
 		
 		/*  
 		 * create
