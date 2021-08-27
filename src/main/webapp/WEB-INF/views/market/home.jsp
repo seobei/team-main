@@ -27,7 +27,7 @@ color : black;
 text-decoration:none ;
 } 
 
-.card {
+./* card {
 height : 400px;
 }
 
@@ -47,9 +47,9 @@ font-size : 22px;
 #card-detail, #card-address{
 padding : 10px;
 
-}
+} */
 
-.card-img-top {
+/* .card-img-top {
 width: 240px;
 
 
@@ -60,8 +60,17 @@ max-width :100%;
 
 
 }
+ */
 
-
+ #imgtop{
+    	max-width:100%;
+    	height: 250px;
+    	padding:5px;
+    }
+    .imgview{
+    	width: 100%;
+    	height: 250px;
+    }
 
 </style> 
 
@@ -137,25 +146,29 @@ $(document).ready(function() {
 <c:param name="amount" value="${pageMaker.cri.amount }" />
 </c:url>	  
 <a href="${getUrl}">	
-  <div class="col mb-4">
-    <div class="card">
+	<div class="col mb-4">
+		<div class="card text-center" >
+		
+			<div id="imgtop" >
+ 				<img class="imgview" src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
+			</div>
+			
+			<div class="card-body" style="text-align: center">
+				<input type="hidden" class="card-text" value="${market.mno }" />
+				<div class="card-title">상품명 : ${market.mtitle }</div>
+			</div>
 
-	    	<img src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
-	     	<div class="card-body">	
-	     		<input type="hidden" class="card-text" value="${market.mno }"/>
-	 	     	<div class="card-title" >${market.mtitle }</div>     
-	       	</div>
-	        
-	       <div class="form-group" id="card-detail">
-		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
-		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
-		   </div>     
-	      		<hr>
-	       <div id="card-address">
-	       		<div class="card-add">${market.maddress }</div>
-	       </div>  
-    </div>
-  </div>
+			<div class="form-group" id="card-detail"
+				style="text-align: center">
+				<span class="card-text">가격 :
+				 <fmt:formatNumber pattern="#,###원" value="${market.mprice }" />
+				</span> 
+			</div>
+			<p class="card-time-before" >${market.mregdate.time }</p>
+			<hr class="m-0">
+			<div class="card-add text-center p-2" >거래지역 :${market.maddress }</div>
+		</div>
+	</div>
  </a> 
 </c:forEach>	
 </div>

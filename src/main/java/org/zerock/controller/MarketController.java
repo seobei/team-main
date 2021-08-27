@@ -88,7 +88,7 @@ public class MarketController {
         }
 		
 		
-		// 질문
+		
 		@PostMapping("/modify")
 		@PreAuthorize("principal.username == #mvo.mwriter")
 		public String modify(MarketVO mvo, Criteria cri, 
@@ -107,11 +107,11 @@ public class MarketController {
 			return "redirect:/market/home";
 		}
 		
-		// 질문
+		
 		@PostMapping("/remove")
-		@PreAuthorize("principal.username == #writer")
+		@PreAuthorize("principal.username == #mwriter")
 		public String remove(@RequestParam("mno") int mno,
-				Criteria cri, RedirectAttributes rttr, String writer) {
+				Criteria cri, RedirectAttributes rttr, String mwriter) {
 
 			boolean success = service.remove(mno);
 
