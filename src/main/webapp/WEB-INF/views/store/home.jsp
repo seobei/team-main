@@ -31,7 +31,7 @@ color : black;
 text-decoration:none ;
 } 
 
-.card {
+/* .card {
 height : 300px;
 }
 
@@ -63,8 +63,22 @@ width: 160px;
 	max-width :100%;
 
 }
+ */
 
-
+	#imgsize{
+    	max-width:100%;
+    	height: 250px;
+    	padding:5px;
+    }
+    #imgtop{
+    	max-width:100%;
+    	height: 250px;
+    	padding:5px;
+    }
+    .imgview{
+    	width: 100%;
+    	height: 250px;
+    }
 
 </style> 
  
@@ -174,24 +188,27 @@ width: 160px;
 
 
 		<a href="${getUrl}">	
-	  <div class="col mb-3">
-	    <div class="card">
-
-	    	<img src="${imgRoot}store/${store.pno }/${store.fileName[0]}" class="card-img-top" >
-	     	<div class="card-body">	
-	     		<input type="hidden" class="card-text" value="${store.pno }"/>
-	 	     	<div class="card-title" >${store.title }</div>     
-	       	</div>
-
-	       <div class="form-group  m-0" id="card-detail">
-		        <div class="card-text"><fmt:formatNumber pattern="#,###원" value="${store.price }"/></div>
-		   </div>     
-	      		<hr>
-	       <div id="card-address">
-	       		<div class="card-add">${store.delivery }</div>
-	       </div>  
-    </div>
-  </div>
+			<div class="col mb-3">
+				<div class="card card_s text-center">
+					<div id="imgsize" class="text-center" >
+			 			<img class="imgview" src="${imgRoot}store/${store.pno }/${store.fileName[0]}" class="card-img-top" >
+					</div>
+	
+					<div class="card-body text-center">
+						<input type="hidden" class="card-text" value="${store.pno }" />
+						<div class="card-title">상품명 : ${store.title }</div>
+					</div>
+	
+					<div class="form-group " id="card-detail">
+						<div class="card-text" style="text-align: center">
+							가격 :
+							<fmt:formatNumber pattern="#,###원" value="${store.price }" />
+						</div>
+					</div>
+					<hr class="m-0">
+					<div class="card-add text-center p-2" >${store.delivery }</div>
+				</div>
+			</div>
 	 	</a> 
 	 </c:forEach>
 </div>
