@@ -198,7 +198,7 @@ request.setCharacterEncoding("utf-8");
 	    
 	    <br>
 		<div class="text-center">
-		<a class="navbar-brand at" href="${appRoot }/market/main">중고마켓</a>
+		<a class="navbar-brand at" href="${appRoot }/market/home">중고마켓</a>
 		</div>
 		<p class="text-center">버리기 애매한 물건들!  이제 고집 중고마켓으로 오세요 ~ </p>
 		<div class="container">
